@@ -1,0 +1,18 @@
+{
+	"$schema": "https://ui.shadcn.com/schema/registry.json",
+	"name": "widget",
+	"homepage": "https://github.com/lifinance/design-system",
+	"items": [
+		{
+			"name": "tokens",
+			"type": "registry:theme",
+			"title": "LI.FI widget tokens",
+			"description": "Widget token layer. Builds on @core/tokens; widget overrides use the --lifi-widget- namespace.",
+			"registryDependencies": ["@core/tokens"],
+			"cssVars": {
+				"light": {},
+				"dark": {}
+			}
+		}
+	]
+}
