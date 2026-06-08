@@ -77,6 +77,20 @@
 					"sidebar-ring": "oklch(0.556 0 0)"
 				}
 			}
+		},
+		{
+			"name": "input",
+			"type": "registry:ui",
+			"title": "Input",
+			"description": "Single-line text input. Built on Base UI, styled entirely from tokens.",
+			"dependencies": ["@base-ui/react"],
+			"registryDependencies": ["@core/tokens"],
+			"files": [
+				{
+					"path": "registry/core/ui/input.tsx",
+					"type": "registry:ui"
+				}
+			]
 		}
 	]
 }
