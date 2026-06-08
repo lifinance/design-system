@@ -27,3 +27,6 @@ pnpm-debug.log*
 
 *.pem
 *.tsbuildinfo
+
+*storybook.log
+storybook-static
