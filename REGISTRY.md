@@ -175,6 +175,37 @@ Served locally, the catalogs resolve to:
 - `@core`   → `http://localhost:5173/r/registry.json`, items at `/r/<name>.json`
 - `@widget` → `http://localhost:5173/r/widget/registry.json`, items at `/r/widget/<name>.json`
 
+## Hosting & install
+
+CI (`.github/workflows/deploy-registry.yml`) runs `pnpm registry:build` and
+deploys `public/` to **GitHub Pages** on every push to `main`. Build output
+(`public/r`) is generated in CI, not committed. The published origin is:
+
+```
+https://lifinance.github.io/design-system/r/{name}.json
+```
+
+Consumers wire the namespaces they need in their own `components.json`:
+
+```json title="components.json (consumer)"
+{
+  "registries": {
+    "@core": "https://lifinance.github.io/design-system/r/{name}.json",
+    "@widget": "https://lifinance.github.io/design-system/r/widget/{name}.json"
+  }
+}
+```
+
+Then install by namespace — cross-registry deps (`@core/tokens`) resolve through
+the consumer's mapping:
+
+```bash
+pnpm dlx shadcn@latest add @core/input
+```
+
+Versioning: `main` publishes `latest`; tag releases for provenance. Consumers own
+the copied source and pull updates with `shadcn diff` on their own cadence.
+
 ## References
 
 - shadcn registry — getting started: https://ui.shadcn.com/docs/registry/getting-started
