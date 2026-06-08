@@ -100,6 +100,27 @@ per-subtree theme scoping (that would be a consumer-side Tailwind `@custom-varia
 `@theme inline` and `@custom-variant dark` that a consumer gets from their own
 `shadcn init`. It is not distributed.
 
+## Item types
+
+Every manifest entry declares a `type`. The descriptions below are shadcn's own
+(quoted verbatim from the [registry-item schema](https://ui.shadcn.com/docs/registry/registry-item-json));
+the last two columns are how each maps in this repo.
+
+| Type | shadcn description | Installs to | Authored under |
+| ---- | ------------------ | ----------- | -------------- |
+| `registry:ui` | Use for UI components and single-file primitives. | `aliases.ui` (`@/components/ui`) | `registry/<brand>/ui/` |
+| `registry:component` | Use for simple components. | `aliases.components` (`@/components`) | `registry/<brand>/components/` |
+| `registry:block` | Use for complex components with multiple files. | `aliases.components` | `registry/<brand>/blocks/` |
+| `registry:lib` | Use for lib and utils. | `aliases.lib` (`@/lib`) | `registry/<brand>/lib/` |
+| `registry:hook` | Use for hooks. | `aliases.hooks` (`@/hooks`) | `registry/<brand>/hooks/` |
+| `registry:page` | Use for page or file-based routes. | per the file's `target` | — |
+| `registry:file` | Use for miscellaneous files. | per the file's `target` | — |
+| `registry:theme` | Use for themes. | merged as `cssVars` into the consumer's stylesheet | manifest `cssVars`, not files |
+| `registry:style` | Use for registry styles. eg. `new-york`. | — | — |
+
+In this repo today: `@core/input` is a `registry:ui`; `@core/tokens` and
+`@widget/tokens` are `registry:theme`.
+
 ## Repo structure & conventions
 
 ```
@@ -107,10 +128,11 @@ registry.json              # @core manifest + @core/tokens theme (cssVars)
 registry.widget.json       # @widget manifest + @widget/tokens theme (cssVars)
 components.json            # shadcn config (Tailwind v4, new-york, neutral)
 registry/
-├── core/                 # @core component/block sources
-│   ├── components/       #   @core/* components
-│   └── blocks/           #   @core/* blocks (multi-file compositions)
-└── widget/               # @widget component/block sources
+├── core/                 # @core sources
+│   ├── ui/               #   registry:ui — single-file primitives
+│   ├── components/       #   registry:component — simple components
+│   └── blocks/           #   registry:block — complex, multi-file
+└── widget/               # @widget sources
     ├── components/
     └── blocks/
 src/index.css              # preview-app theme harness (base layer + @theme)
