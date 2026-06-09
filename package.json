@@ -12,9 +12,10 @@
 		"lint": "biome lint --write",
 		"check": "biome check --write",
 		"check:ci": "biome ci",
-		"registry:build": "pnpm registry:build:core && pnpm registry:build:widget",
+		"registry:build": "pnpm registry:build:core && pnpm registry:build:widget && pnpm registry:build:perps",
 		"registry:build:core": "shadcn build",
 		"registry:build:widget": "shadcn build registry.widget.json --output public/r/widget",
+		"registry:build:perps": "shadcn build registry.perps.json --output public/r/perps",
 		"storybook": "storybook dev -p 6006",
 		"build-storybook": "storybook build"
 	},

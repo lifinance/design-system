@@ -1,0 +1,18 @@
+{
+	"$schema": "https://ui.shadcn.com/schema/registry.json",
+	"name": "perps",
+	"homepage": "https://github.com/lifinance/design-system",
+	"items": [
+		{
+			"name": "tokens",
+			"type": "registry:theme",
+			"title": "LI.FI perps tokens",
+			"description": "Perps token layer. Builds on @core/tokens; perps overrides use the --lifi-perps- namespace.",
+			"registryDependencies": ["@core/tokens"],
+			"cssVars": {
+				"light": {},
+				"dark": {}
+			}
+		}
+	]
+}
