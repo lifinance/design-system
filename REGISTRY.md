@@ -22,9 +22,10 @@ Each registry is a manifest in this repo, built to a distinct output path, and
 | --------- | ---------------------- | ----------------- |
 | `@core`   | `registry.json`        | `public/r`        |
 | `@widget` | `registry.widget.json` | `public/r/widget` |
+| `@perps`  | `registry.perps.json`  | `public/r/perps`  |
 
-Each further product (e.g. `@perps`) adds a `registry.<product>.json` manifest
-built to `public/r/<product>` the same way.
+Each further product adds a `registry.<product>.json` manifest built to
+`public/r/<product>` the same way.
 
 A consumer wires the namespaces it needs. Because everything is served from one
 host, the namespaces differ only by path:
@@ -126,13 +127,17 @@ In this repo today: `@core/input` is a `registry:ui`; `@core/tokens` and
 ```
 registry.json              # @core manifest + @core/tokens theme (cssVars)
 registry.widget.json       # @widget manifest + @widget/tokens theme (cssVars)
+registry.perps.json        # @perps manifest + @perps/tokens theme (cssVars)
 components.json            # shadcn config (Tailwind v4, new-york, neutral)
 registry/
 ├── core/                 # @core sources
 │   ├── ui/               #   registry:ui — single-file primitives
 │   ├── components/       #   registry:component — simple components
 │   └── blocks/           #   registry:block — complex, multi-file
-└── widget/               # @widget sources
+├── widget/               # @widget sources
+│   ├── components/
+│   └── blocks/
+└── perps/                # @perps sources
     ├── components/
     └── blocks/
 src/index.css              # preview-app theme harness (base layer + @theme)
@@ -186,9 +191,10 @@ prefer separate namespaced registries.
 ## Building the registries
 
 ```bash
-pnpm registry:build          # builds every registry (core + widget)
+pnpm registry:build          # builds every registry (core + widget + perps)
 pnpm registry:build:core     # -> public/r/*.json
 pnpm registry:build:widget   # -> public/r/widget/*.json
+pnpm registry:build:perps    # -> public/r/perps/*.json
 pnpm dev                     # serve locally
 ```
 
@@ -196,6 +202,7 @@ Served locally, the catalogs resolve to:
 
 - `@core`   → `http://localhost:5173/r/registry.json`, items at `/r/<name>.json`
 - `@widget` → `http://localhost:5173/r/widget/registry.json`, items at `/r/widget/<name>.json`
+- `@perps`  → `http://localhost:5173/r/perps/registry.json`, items at `/r/perps/<name>.json`
 
 ## Hosting & install
 
@@ -213,7 +220,8 @@ Consumers wire the namespaces they need in their own `components.json`:
 {
   "registries": {
     "@core": "https://lifinance.github.io/design-system/r/{name}.json",
-    "@widget": "https://lifinance.github.io/design-system/r/widget/{name}.json"
+    "@widget": "https://lifinance.github.io/design-system/r/widget/{name}.json",
+    "@perps": "https://lifinance.github.io/design-system/r/perps/{name}.json"
   }
 }
 ```
