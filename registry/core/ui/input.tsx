@@ -1,4 +1,4 @@
-import { Input as BaseInput } from "@base-ui/react/input";
+import { Input as InputPrimitive } from "@base-ui/react/input";
 import type * as React from "react";
 
 import { cn } from "@/lib/utils";
@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
 // through the role tokens: --input, --muted-foreground, --ring, --destructive).
 function Input({ className, type, ...props }: React.ComponentProps<"input">) {
 	return (
-		<BaseInput
+		<InputPrimitive
 			type={type}
 			data-slot="input"
 			className={cn(
