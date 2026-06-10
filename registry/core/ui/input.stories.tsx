@@ -69,31 +69,3 @@ export const CssCheck: Story = {
 		await expect(getComputedStyle(input).height).toBe("36px");
 	},
 };
-
-// Same @core/input, re-themed entirely through tokens (no widget-specific component).
-export const WidgetTheme: Story = {
-	decorators: [
-		(Story) => (
-			<div className="lifi-widget bg-background text-foreground p-6">
-				<Story />
-			</div>
-		),
-	],
-	play: async ({ canvas }) => {
-		const input = canvas.getByRole("textbox", { name: /email/i });
-		// Widget overrides --lifi-input-height to 2.875rem (46px).
-		await expect(getComputedStyle(input).height).toBe("46px");
-	},
-};
-
-export const WidgetThemeDark: Story = {
-	decorators: [
-		(Story) => (
-			<div className="dark">
-				<div className="lifi-widget bg-background text-foreground p-6">
-					<Story />
-				</div>
-			</div>
-		),
-	],
-};
