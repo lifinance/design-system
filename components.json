@@ -5,7 +5,7 @@
 	"tsx": true,
 	"tailwind": {
 		"config": "",
-		"css": "src/index.css",
+		"css": ".storybook/index.css",
 		"baseColor": "neutral",
 		"cssVariables": true,
 		"prefix": ""
@@ -13,11 +13,11 @@
 	"iconLibrary": "lucide",
 	"rtl": false,
 	"aliases": {
-		"components": "@/components",
-		"utils": "@/lib/utils",
-		"ui": "@/components/ui",
-		"lib": "@/lib",
-		"hooks": "@/hooks"
+		"components": "@/registry/core",
+		"utils": "@/registry/core/lib/utils",
+		"ui": "@/registry/core/ui",
+		"lib": "@/registry/core/lib",
+		"hooks": "@/registry/core/hooks"
 	},
 	"menuColor": "default",
 	"menuAccent": "subtle"
