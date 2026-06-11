@@ -27,10 +27,11 @@ jobs:
           version: 9
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version-file: .nvmrc
           cache: pnpm
       - run: pnpm install --frozen-lockfile
-      - run: pnpm registry:build
+      - run: pnpm exec playwright install --with-deps chromium
+      - run: pnpm registry:build # runs the storybook a11y and story tests first, then builds
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
