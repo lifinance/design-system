@@ -1,10 +1,19 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect } from "storybook/test";
+import { snapshot } from "@/.storybook/modes";
 import { Input } from "./input";
 
 const meta = {
 	component: Input,
 	tags: ["ai-generated"],
+	parameters: {
+		docs: {
+			description: {
+				component:
+					"A single-line text input. Install with `pnpm dlx shadcn@latest add @core/input`.",
+			},
+		},
+	},
 	args: {
 		"aria-label": "Email",
 		placeholder: "Email",
@@ -52,20 +61,24 @@ export const File: Story = {
 	args: { type: "file", "aria-label": "Upload file", placeholder: undefined },
 };
 
-export const Dark: Story = {
-	decorators: [
-		(Story) => (
-			<div className="dark bg-background text-foreground p-6">
-				<Story />
-			</div>
-		),
-	],
-};
-
-export const CssCheck: Story = {
-	play: async ({ canvas }) => {
-		const input = canvas.getByRole("textbox", { name: /email/i });
-		// Default --lifi-input-height is 2.25rem (36px); fails if CSS did not load.
-		await expect(getComputedStyle(input).height).toBe("36px");
-	},
+export const Overview: Story = {
+	parameters: { chromatic: snapshot },
+	render: () => (
+		<div className="flex w-80 flex-col gap-3">
+			<Input aria-label="Empty" placeholder="Email" />
+			<Input aria-label="Filled" defaultValue="vitalik@example.com" />
+			<Input
+				aria-label="Disabled"
+				disabled
+				defaultValue="vitalik@example.com"
+			/>
+			<Input
+				aria-label="Read only"
+				readOnly
+				defaultValue="vitalik@example.com"
+			/>
+			<Input aria-label="Invalid" aria-invalid defaultValue="not-an-email" />
+			<Input aria-label="Upload file" type="file" />
+		</div>
+	),
 };
