@@ -1,0 +1,82 @@
+{
+	"$schema": "https://ui.shadcn.com/schema/registry.json",
+	"name": "jumper",
+	"homepage": "https://jumper.exchange",
+	"items": [
+		{
+			"name": "tokens",
+			"type": "registry:theme",
+			"title": "Jumper tokens",
+			"description": "The jumper.exchange brand theme. Re-skins core components with the jumper palette, radius, and font. Builds on @core/tokens.",
+			"registryDependencies": ["@core/tokens"],
+			"cssVars": {
+				"light": {
+					"background": "oklch(0.9761 0.0139 304.14)",
+					"foreground": "oklch(0 0 0)",
+					"card-foreground": "oklch(0 0 0)",
+					"popover-foreground": "oklch(0 0 0)",
+					"primary": "oklch(0.2957 0.1699 287.56)",
+					"primary-foreground": "oklch(1 0 0)",
+					"secondary": "oklch(0.4741 0.2369 312.24)",
+					"secondary-foreground": "oklch(1 0 0)",
+					"muted": "oklch(0.9423 0.0068 295.45)",
+					"muted-foreground": "oklch(0.521 0.0061 297.65)",
+					"accent": "oklch(0.9423 0.0068 295.45)",
+					"accent-foreground": "oklch(0 0 0)",
+					"destructive": "oklch(0.531 0.2002 31.03)",
+					"border": "oklch(0.9158 0.0141 304.12)",
+					"input": "oklch(0.9158 0.0141 304.12)",
+					"ring": "oklch(0.2957 0.1699 287.56)",
+					"radius": "0.75rem",
+					"lifi-button-radius": "calc(infinity * 1px)",
+					"font-sans": "Inter, sans-serif"
+				},
+				"dark": {
+					"background": "oklch(0.2634 0.0533 288.51)",
+					"foreground": "oklch(1 0 0)",
+					"card": "oklch(0.3147 0.0684 287.68)",
+					"card-foreground": "oklch(1 0 0)",
+					"popover": "oklch(0.3147 0.0684 287.68)",
+					"popover-foreground": "oklch(1 0 0)",
+					"primary": "oklch(0.6985 0.1607 298.4)",
+					"primary-foreground": "oklch(0 0 0)",
+					"secondary": "oklch(0.6903 0.2443 315.63)",
+					"secondary-foreground": "oklch(0 0 0)",
+					"muted": "oklch(0.3594 0.0632 289)",
+					"muted-foreground": "oklch(0.82 0.0311 294.27)",
+					"accent": "oklch(0.3594 0.0632 289)",
+					"accent-foreground": "oklch(1 0 0)",
+					"destructive": "oklch(0.7475 0.1502 31.03)",
+					"border": "oklch(0.3594 0.0632 289)",
+					"input": "oklch(0.3594 0.0632 289)",
+					"ring": "oklch(0.6985 0.1607 298.4)"
+				}
+			}
+		},
+		{
+			"name": "achievement-card",
+			"type": "registry:component",
+			"title": "Achievement card",
+			"description": "An achievement card showing artwork, a title, a description, and a badge.",
+			"registryDependencies": ["@jumper/tokens", "@core/card", "@core/badge"],
+			"files": [
+				{
+					"path": "registry/jumper/components/achievement-card.tsx",
+					"type": "registry:component"
+				}
+			]
+		},
+		{
+			"name": "style",
+			"type": "registry:style",
+			"title": "Jumper",
+			"description": "The jumper.exchange design system: the core set themed for jumper, plus jumper components.",
+			"extends": "none",
+			"registryDependencies": [
+				"@core/base",
+				"@jumper/tokens",
+				"@jumper/achievement-card"
+			]
+		}
+	]
+}
