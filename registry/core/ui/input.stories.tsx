@@ -13,6 +13,10 @@ const meta = {
 					"A single-line text input. Install with `pnpm dlx shadcn@latest add @core/input`.",
 			},
 		},
+		design: {
+			type: "figma",
+			url: "https://www.figma.com/design/RxWVNX8BNpsaE0Qn51vpwx/Shadcn-Craft---Library-?node-id=2732-15509",
+		},
 	},
 	args: {
 		"aria-label": "Email",

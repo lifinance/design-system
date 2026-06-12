@@ -14,6 +14,10 @@ const meta = {
 					"A button with multiple variants and sizes. Install with `pnpm dlx shadcn@latest add @core/button`.",
 			},
 		},
+		design: {
+			type: "figma",
+			url: "https://www.figma.com/design/RxWVNX8BNpsaE0Qn51vpwx/Shadcn-Craft---Library-?node-id=6716-46634",
+		},
 	},
 	argTypes: {
 		variant: {

@@ -21,6 +21,10 @@ const meta = {
 					"A surface that groups related content, with optional header, content, and footer regions. Install with `pnpm dlx shadcn@latest add @core/card`.",
 			},
 		},
+		design: {
+			type: "figma",
+			url: "https://www.figma.com/design/RxWVNX8BNpsaE0Qn51vpwx/Shadcn-Craft---Library-?node-id=149-2500",
+		},
 	},
 	decorators: [
 		(Story) => (

@@ -12,6 +12,10 @@ const meta = {
 					"A small label for status, counts, and metadata. Install with `pnpm dlx shadcn@latest add @core/badge`.",
 			},
 		},
+		design: {
+			type: "figma",
+			url: "https://www.figma.com/design/RxWVNX8BNpsaE0Qn51vpwx/Shadcn-Craft---Library-?node-id=136-1178",
+		},
 	},
 	argTypes: {
 		variant: {
