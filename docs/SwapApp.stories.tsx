@@ -367,7 +367,7 @@ function PortfolioCard() {
 		<Card className="w-96">
 			<CardHeader>
 				<CardDescription>Total balance</CardDescription>
-				<CardTitle className="flex items-center gap-2 text-3xl">
+				<CardTitle className="flex flex-wrap items-center gap-2 text-2xl">
 					$6,550.46
 					<Badge variant="secondary">
 						<TrendingUpIcon />
@@ -524,6 +524,16 @@ export const SelectToken: Story = {
 
 export const Portfolio: Story = {
 	render: () => <PortfolioCard />,
+	play: async ({ canvasElement }) => {
+		const card = canvasElement.querySelector('[data-slot="card"]');
+		const wallet = canvasElement.querySelector('[data-slot="card-action"]');
+		if (!card || !wallet) {
+			throw new Error("missing card or wallet chip");
+		}
+		await expect(wallet.getBoundingClientRect().right).toBeLessThanOrEqual(
+			card.getBoundingClientRect().right,
+		);
+	},
 };
 
 export const Activity: Story = {
