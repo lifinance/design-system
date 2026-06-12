@@ -35,7 +35,7 @@
 					"secondary": "oklch(0.97 0 0)",
 					"secondary-foreground": "oklch(0.205 0 0)",
 					"muted": "oklch(0.97 0 0)",
-					"muted-foreground": "oklch(0.556 0 0)",
+					"muted-foreground": "oklch(0.54 0 0)",
 					"accent": "oklch(0.97 0 0)",
 					"accent-foreground": "oklch(0.205 0 0)",
 					"destructive": "oklch(0.532 0.245 27.325)",
@@ -206,6 +206,20 @@
 			]
 		},
 		{
+			"name": "avatar",
+			"type": "registry:ui",
+			"title": "Avatar",
+			"description": "A picture or initials that represents a user, with optional status badge and stacked groups.",
+			"dependencies": ["@base-ui/react"],
+			"registryDependencies": ["@core/tokens"],
+			"files": [
+				{
+					"path": "registry/core/ui/avatar.tsx",
+					"type": "registry:ui"
+				}
+			]
+		},
+		{
 			"name": "base",
 			"type": "registry:base",
 			"title": "Core base",
@@ -219,7 +233,8 @@
 				"@core/card",
 				"@core/item",
 				"@core/badge",
-				"@core/input-group"
+				"@core/input-group",
+				"@core/avatar"
 			]
 		}
 	]
