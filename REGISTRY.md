@@ -1,34 +1,21 @@
-# LI.FI Design System — registry model
+# Registry model
 
-This repo hosts the LI.FI design system as one or more
-[shadcn registries](https://ui.shadcn.com/docs/registry), distributed as source
-**not** as a runtime package: teams install components with the shadcn CLI and
-own the copied code.
+This repo hosts the LI.FI design system as one or more [shadcn registries](https://ui.shadcn.com/docs/registry), distributed as source, not as a runtime package. Teams install components with the shadcn CLI and own the copied code.
 
-**One repo, multiple brands.** shadcn namespaces are
-[decentralized](https://ui.shadcn.com/docs/registry/namespace), so `core` and
-each product registry (widget, perps, …) are **separate namespaced registries
-that live side by side in this single repo** — each is its own manifest built to
-its own output path. There is no need for a repo per product
-and no global prefix. Product registries build on `core` via cross-registry
-dependencies (see [Composition](#composition)).
+**One repo, multiple brands.** shadcn namespaces are [decentralized](https://ui.shadcn.com/docs/registry/namespace), so `core` and each product registry are separate namespaced registries that live side by side in this repo. Each is its own manifest built to its own output path. There is no repo per product and no global prefix. Product registries build on `core` through cross-registry dependencies (see [Composition](#composition)).
 
 ## Namespaces
 
-Each registry is a manifest in this repo, built to a distinct output path, and
-**aliased locally** in each consumer's `components.json`.
+Each registry is a manifest, built to a distinct output path, and aliased in each consumer's `components.json`.
 
-| Namespace | Manifest               | Build output      |
-| --------- | ---------------------- | ----------------- |
-| `@core`   | `registry.json`        | `public/r`        |
+| Namespace | Manifest | Build output |
+| --- | --- | --- |
+| `@core` | `registry.json` | `public/r` |
 | `@widget` | `registry.widget.json` | `public/r/widget` |
-| `@perps`  | `registry.perps.json`  | `public/r/perps`  |
+| `@jumper` | `registry.jumper.json` | `public/r/jumper` |
+| `@perps` | `registry.perps.json` | `public/r/perps` |
 
-Each further product adds a `registry.<product>.json` manifest built to
-`public/r/<product>` the same way.
-
-A consumer wires the namespaces it needs. Because everything is served from one
-host, the namespaces differ only by path:
+Each further product adds a `registry.<product>.json` manifest the same way. A consumer wires the namespaces it needs; because everything is served from one host, they differ only by path:
 
 ```json title="components.json (consumer)"
 {
@@ -39,206 +26,122 @@ host, the namespaces differ only by path:
 }
 ```
 
-Then installs by namespace:
-
-```bash
-npx shadcn@latest add @core/tokens
-npx shadcn@latest add @widget/tokens
-```
-
-> Each registry only consumes the implicit `@shadcn` registry plus any LI.FI
-> namespaces it composes with, so the producer manifests declare no `registries`
-> block of their own — that wiring lives in the consumer's `components.json`.
+The producer manifests declare no `registries` block of their own. That wiring lives in the consumer's `components.json`.
 
 ## Tokens
 
-### CSS-token prefix is the *only* place `lifi` appears
+`lifi` appears in one place only: CSS token names, where the global CSS cascade and third-party embedding require unique names. Role tokens stay unprefixed (the shadcn base). Component tokens take a per-layer prefix: `--lifi-` for core, `--lifi-widget-` for widget, `--lifi-<product>-` for others. Use shadcn base tokens as-is, and never prefix them.
 
-`lifi` is reserved for **CSS tokens**, where the global cascade and third-party
-embedding make uniqueness real:
-
-| Prefix             | Layer                |
-| ------------------ | -------------------- |
-| `--lifi-`          | core                 |
-| `--lifi-widget-`   | widget               |
-| `--lifi-<product>-`| other products       |
-
-**shadcn base tokens are used as-is and never prefixed.**
-
-### Naming convention
+The token name grammar:
 
 ```
 --[namespace]-[component]-[property]-[modifier]-[state]
 ```
 
-Always check for an existing shadcn token before adding a new one. New tokens
-are proposed via the [new token request](.github/ISSUE_TEMPLATE/new-token-request.md)
-template.
+Check for an existing shadcn token before adding one. New tokens are proposed through the [new token request](.github/ISSUE_TEMPLATE/new-token-request.md) template.
 
-### One theme per namespace
-
-Each namespace ships its tokens as a **`registry:theme`** item whose **`cssVars`**
-(`light` / `dark` / `theme`) the shadcn CLI merges into the consumer's stylesheet
-on `add`. This is the canonical Tailwind v4 carrier — the older `tailwind` field
-is [deprecated in favour of `cssVars`](https://ui.shadcn.com/docs/registry/registry-item-json)
-(`light` → `:root`, `dark` → `.dark`, `theme` → the Tailwind `@theme` namespace).
-
-- `@core/tokens` (in `registry.json`) carries the base layer.
-- `@widget/tokens` (in `registry.widget.json`) declares
-  `registryDependencies: ["@core/tokens"]` and carries only its `--lifi-widget-`
-  overrides. Each further product adds its own item the same way.
-
-A consumer installs the namespaces it needs; on install the CLI **deep-merges**
-`cssVars` across registries (last wins —
-[namespace dependency resolution](https://ui.shadcn.com/docs/registry/namespace#dependency-resolution)),
-so a product's tokens layer on top of core. They coexist because the tokens are
-**namespaced** (`--lifi-`, `--lifi-widget-`); shadcn base tokens are shared. Note
-the merge is **global** to the consumer's `:root`/`.dark` — shadcn has no
-per-subtree theme scoping (that would be a consumer-side Tailwind `@custom-variant`
-+ data-attribute concern, outside the registry).
-
-`src/index.css` is the **preview app's** harness — the base layer plus
-`@theme inline` and `@custom-variant dark` that a consumer gets from their own
-`shadcn init`. It is not distributed.
+**One theme per namespace.** Each namespace ships its tokens as a `registry:theme` item whose `cssVars` (`light`, `dark`, `theme`) the CLI merges into the consumer's stylesheet on `add` (`light` into `:root`, `dark` into `.dark`, `theme` into the Tailwind `@theme` namespace). `@core/tokens` carries the base; a brand's tokens declare `registryDependencies: ["@core/tokens"]` and carry only their overrides. On install the CLI deep-merges `cssVars` across registries (last wins, see [dependency resolution](https://ui.shadcn.com/docs/registry/namespace#dependency-resolution)), so a brand's tokens layer over core. The merge is global to the consumer's `:root` and `.dark`; shadcn has no per-subtree theme scoping. The Storybook preview derives its themes from these manifests (see [Storybook conventions](#storybook-conventions)) and keeps no second copy of the values.
 
 ## Item types
 
-Every manifest entry declares a `type`. The descriptions below are shadcn's own
-(quoted verbatim from the [registry-item schema](https://ui.shadcn.com/docs/registry/registry-item-json));
-the last two columns are how each maps in this repo.
+Every manifest entry declares a `type`. The descriptions are shadcn's own (from the [registry-item schema](https://ui.shadcn.com/docs/registry/registry-item-json)); the last two columns show how each maps here.
 
 | Type | shadcn description | Installs to | Authored under |
-| ---- | ------------------ | ----------- | -------------- |
-| `registry:ui` | Use for UI components and single-file primitives. | `aliases.ui` (`@/components/ui`) | `registry/<brand>/ui/` |
-| `registry:component` | Use for simple components. | `aliases.components` (`@/components`) | `registry/<brand>/components/` |
-| `registry:block` | Use for complex components with multiple files. | `aliases.components` | `registry/<brand>/blocks/` |
-| `registry:lib` | Use for lib and utils. | `aliases.lib` (`@/lib`) | `registry/<brand>/lib/` |
-| `registry:hook` | Use for hooks. | `aliases.hooks` (`@/hooks`) | `registry/<brand>/hooks/` |
-| `registry:page` | Use for page or file-based routes. | per the file's `target` | — |
-| `registry:file` | Use for miscellaneous files. | per the file's `target` | — |
-| `registry:theme` | Use for themes. | merged as `cssVars` into the consumer's stylesheet | manifest `cssVars`, not files |
-| `registry:style` | Use for registry styles. eg. `new-york`. | — | — |
+| --- | --- | --- | --- |
+| `registry:ui` | UI components and single-file primitives | `aliases.ui` | `registry/<brand>/ui/` |
+| `registry:component` | simple components | `aliases.components` | `registry/<brand>/components/` |
+| `registry:block` | complex components with multiple files | `aliases.components` | `registry/<brand>/blocks/` |
+| `registry:lib` | lib and utils | `aliases.lib` | `registry/<brand>/lib/` |
+| `registry:hook` | hooks | `aliases.hooks` | `registry/<brand>/hooks/` |
+| `registry:theme` | themes | `cssVars` merged into the stylesheet | manifest `cssVars` |
+| `registry:base` | a design-system base | resolves its dependencies | manifest only |
+| `registry:style` | a design-system style | resolves its dependencies and sets config | manifest only |
 
-In this repo today: `@core/input` is a `registry:ui`; `@core/tokens` and
-`@widget/tokens` are `registry:theme`.
-
-## Repo structure & conventions
+## Repo structure
 
 ```
-registry.json              # @core manifest + @core/tokens theme (cssVars)
-registry.widget.json       # @widget manifest + @widget/tokens theme (cssVars)
-registry.perps.json        # @perps manifest + @perps/tokens theme (cssVars)
-components.json            # shadcn config (Tailwind v4, new-york, neutral)
+registry.json              # @core manifest and @core/tokens theme
+registry.widget.json       # @widget manifest and @widget/tokens theme
+registry.jumper.json       # @jumper manifest and @jumper/tokens theme
+registry.perps.json        # @perps manifest and @perps/tokens theme
+components.json            # shadcn config
 registry/
-├── core/                 # @core sources
-│   ├── ui/               #   registry:ui — single-file primitives
-│   ├── components/       #   registry:component — simple components
-│   └── blocks/           #   registry:block — complex, multi-file
-├── widget/               # @widget sources
-│   ├── components/
-│   └── blocks/
-└── perps/                # @perps sources
-    ├── components/
-    └── blocks/
-src/index.css              # preview-app theme harness (base layer + @theme)
+  core/                    # @core sources
+    ui/                    #   registry:ui, single-file primitives
+    components/            #   registry:component
+    lib/                   #   registry:lib (cn)
+  jumper/                  # @jumper sources
+.storybook/                # Storybook preview, not distributed
 ```
 
-Themes live as `cssVars` in the manifests, not as files under `registry/`.
-Component and block sources nest under `registry/<brand>/<type>/`; the `<brand>`
-segment is **required** — it separates each registry's sources and gives the CLI
-the segment it keys the import rewrite off (below). Adding another brand is
-additive: a `registry.<brand>.json` manifest, a `registry/<brand>/` dir, and a
-`registry:build:<brand>` script.
+Component sources nest under `registry/<brand>/<type>/`. The `<brand>` segment is required: it separates each registry's sources and is the segment the CLI keys the import rewrite off. Adding a brand is additive: a `registry.<brand>.json` manifest, a `registry:build:<brand>` script, and a `registry/<brand>/` directory once the brand ships its own files; a theme-only brand needs just the manifest. Storybook reads every `registry*.json` in the repo root, so a new manifest needs no Storybook wiring.
 
-### Imports & the install-time rewrite
+### Imports and the install-time rewrite
 
-Inside the registry, an item imports siblings via the
-**`@/registry/<brand>/<type>/...`** path (resolved by the `@/registry/*` alias in
-`tsconfig`/`vite.config`) — not from `@/components/...` directly. On `shadcn add`
-the CLI rewrites those to the **consumer's** aliases, so the `registry` segment
-never reaches installed code:
-
-| Author writes               | Consumer gets (rewritten)              |
-| --------------------------- | -------------------------------------- |
-| `@/registry/core/components/button` | `aliases.components` → `@/components/button` |
-| `@/registry/core/blocks/foo`        | `aliases.components` → `@/components/foo`     |
-
-The `<type>` segment selects the consumer alias (`ui`→`aliases.ui`,
-`lib`→`aliases.lib`, `hooks`→`aliases.hooks`; anything else → `aliases.components`),
-so place a file in the dir that matches the alias you want it installed under.
-
-List cross-registry deps in `registryDependencies` (e.g. `@core/input`) and npm
-deps in `dependencies`.
+Inside the registry, an item imports siblings through the `@/registry/<brand>/<type>/...` path (resolved by the `@/registry/*` alias in `tsconfig` and `vite.config`), not from `@/components/...`. On `shadcn add` the CLI rewrites those to the consumer's aliases, so the `registry` segment never reaches installed code. The `<type>` segment picks the consumer alias (`ui` to `aliases.ui`, `lib` to `aliases.lib`, `hooks` to `aliases.hooks`, anything else to `aliases.components`), so place a file in the directory that matches the alias you want it installed under. List cross-registry deps in `registryDependencies` and npm deps in `dependencies`.
 
 ## Composition
 
-A product item — theme or component — builds on `core` through cross-registry
-`registryDependencies`. The CLI installs the `@core/*` dependency first, then
-applies the product item. No forking, no shared runtime package, no separate repo.
+A product item builds on `core` through cross-registry `registryDependencies`. The CLI installs the `@core/*` dependency first, then applies the product item. Nothing is forked, and there is no shared runtime package.
 
-```json title="a @widget block"
+## Reuse and overrides
+
+Each component is defined once, in `@core`. A brand does not copy them. It reuses them through registry dependencies, and adds its own theme and, where needed, its own component files. Two native shadcn primitives make this automatic:
+
+- `@core/base` (`registry:base`) lists the base tokens and every core `ui` and `component` item in `registryDependencies`. It is the one place the core catalog is enumerated. Blocks are not part of it; they install individually.
+- `@<brand>/style` (`registry:style`, `extends: "none"`) depends on `@core/base` plus the brand theme and any brand items. Installing it installs the entire core set with the brand theme applied, in one step. Add a component to `@core/base` and every brand inherits it on the next install.
+
+```json title="@jumper/style"
 {
-  "name": "swap-form",
-  "type": "registry:block",
-  "registryDependencies": ["@core/input", "@core/button"],
-  "cssVars": { "light": { "lifi-widget-radius": "1rem" } }
+  "name": "style",
+  "type": "registry:style",
+  "extends": "none",
+  "registryDependencies": ["@core/base", "@jumper/tokens", "@jumper/achievement-card"]
 }
 ```
 
-Use shadcn's `include` only if a single combined build is ever needed; otherwise
-prefer separate namespaced registries.
+Both kinds of brand difference are first-class:
 
-## Building the registries
+- **Visual**: values only. Put the deltas in the brand's `registry:theme` (`@<brand>/tokens`). The shared component re-skins, with no new file.
+- **Functional**: structure or behavior. Ship a brand item with the same name as the core one (for example `@widget/button` with its own file) and list it after `@core/base` in the brand style. shadcn resolves duplicate install paths last-one-wins (see [dependency resolution](https://ui.shadcn.com/docs/registry/namespace#dependency-resolution)), so the brand file replaces core's for that brand's consumers while the rest of the core set still installs.
 
-```bash
-pnpm registry:build          # builds every registry (core + widget + perps)
-pnpm registry:build:core     # -> public/r/*.json
-pnpm registry:build:widget   # -> public/r/widget/*.json
-pnpm registry:build:perps    # -> public/r/perps/*.json
-pnpm dev                     # serve locally
-```
-
-Served locally, the catalogs resolve to:
-
-- `@core`   → `http://localhost:5173/r/registry.json`, items at `/r/<name>.json`
-- `@widget` → `http://localhost:5173/r/widget/registry.json`, items at `/r/widget/<name>.json`
-- `@perps`  → `http://localhost:5173/r/perps/registry.json`, items at `/r/perps/<name>.json`
-
-## Hosting & install
-
-CI (`.github/workflows/deploy-registry.yml`) runs `pnpm registry:build` and
-deploys `public/` to **GitHub Pages** on every push to `main`. Build output
-(`public/r`) is generated in CI, not committed. The published origin is:
-
-```
-https://lifinance.github.io/design-system/r/{name}.json
-```
-
-Consumers wire the namespaces they need in their own `components.json`:
-
-```json title="components.json (consumer)"
-{
-  "registries": {
-    "@core": "https://lifinance.github.io/design-system/r/{name}.json",
-    "@widget": "https://lifinance.github.io/design-system/r/widget/{name}.json",
-    "@perps": "https://lifinance.github.io/design-system/r/perps/{name}.json"
-  }
-}
-```
-
-Then install by namespace — cross-registry deps (`@core/tokens`) resolve through
-the consumer's mapping:
+A consumer installs a whole brand with its style, or cherry-picks from `@core`:
 
 ```bash
-pnpm dlx shadcn@latest add @core/input
+pnpm dlx shadcn@latest add @jumper/style     # the jumper design system
+pnpm dlx shadcn@latest add @core/button      # one shared component
 ```
 
-Versioning: `main` publishes `latest`; tag releases for provenance. Consumers own
-the copied source and pull updates with `shadcn diff` on their own cadence.
+## Storybook conventions
+
+The Storybook preview matches the registry: one story node per source file. The toolbar has two controls, theme and mode. Theme sets a `data-theme` attribute on `<body>`; mode toggles the `dark` class. A theme is never a separate copy of the story tree. A core component has a single story previewed across every theme; a brand-specific component pins the `theme` global in its meta, which locks the toolbar to that theme for its stories. A brand gets its own story only when it adds a real override file or a brand-specific component.
+
+Autodocs is on for every component. Each story's docs description names the component and its shadcn install command, so the docs page and the Storybook MCP both show how to add it (the MCP reads the description and the story snippets, not arbitrary parameters).
+
+The preview derives its themes from the manifests, which are the single source of token values. Each `registry:theme` item is one theme: `tokens` is the brand's default, and `tokens-<name>` is a named theme of the same brand, so `@widget/tokens-azure` appears as "Widget / Azure". A theme supports dark mode when its item carries a `dark` block. The base goes on `:root`; every other theme is a delta scoped under `[data-theme]`.
+
+Tailwind needs the `@theme` registrations at build time, so the Storybook stylesheet declares them, the same registrations a consumer's stylesheet gets from `cssVars.theme` on install. Minting a token therefore touches two files: `registry.json` and `.storybook/index.css`.
+
+### Visual regression
+
+Chromatic bills per snapshot, so by default no story is snapshotted: `chromatic.disableSnapshot` is `true` in `.storybook/preview.tsx`. Documentation and test stories cost nothing, and a new story adds no snapshot unless someone opts it in.
+
+Each component gets one `Overview` story that composes its variants, sizes, and states in a single frame and opts in with the `snapshot` parameter from `.storybook/modes.ts`. That one story, in light and dark, regresses the whole component. The Controls table covers every option in the docs without a snapshot. The Design Tokens swatches opt in with `themeSnapshot`, the one story captured across every theme, so a changed token value is caught there. A theme with no overrides renders identically to core, so it gets no snapshot mode.
+
+Chromatic runs only in CI, on every push, and changes are reviewed in Chromatic as part of the pull request. Local Storybook has no visual test button, so a build is never triggered by hand; to rerun Chromatic for the latest commit, dispatch the workflow manually, which forces a rebuild. `autoAcceptChanges` keeps `main` as the accepted baseline after a merge, and TurboSnap rebuilds only the stories a change affects, so a push that touches nothing visual costs little. A full build stays at a handful of snapshots: one per component, plus the token swatches per theme.
+
+## Building and hosting
+
+```bash
+pnpm registry:build          # build every registry into public/r
+pnpm registry:build:core     # or one registry at a time
+```
+
+CI runs `pnpm registry:build` and deploys `public/` to GitHub Pages on every push to `main`. The build output is generated in CI, not committed. The published origin is `https://lifinance.github.io/design-system/r/{name}.json`. Consumers own the copied source and pull updates with `shadcn diff` on their own cadence.
 
 ## References
 
-- shadcn registry — getting started: https://ui.shadcn.com/docs/registry/getting-started
-- shadcn registry — namespaces: https://ui.shadcn.com/docs/registry/namespace
+- shadcn registry, getting started: https://ui.shadcn.com/docs/registry/getting-started
+- shadcn registry, namespaces: https://ui.shadcn.com/docs/registry/namespace
 - registry.json schema: https://ui.shadcn.com/docs/registry/registry-json
 - registry-item schema: https://ui.shadcn.com/docs/registry/registry-item-json

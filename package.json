@@ -5,19 +5,20 @@
 	"type": "module",
 	"description": "LI.FI core design system, distributed as a shadcn registry.",
 	"scripts": {
-		"dev": "vite",
-		"build": "tsc -b && vite build",
-		"preview": "vite preview",
+		"typecheck": "tsc -b",
 		"format": "biome format --write",
 		"lint": "biome lint --write",
 		"check": "biome check --write",
 		"check:ci": "biome ci",
-		"registry:build": "pnpm registry:build:core && pnpm registry:build:widget && pnpm registry:build:perps",
+		"test:storybook": "vitest run",
+		"registry:build": "pnpm test:storybook && rm -rf public/r && pnpm registry:build:core && pnpm registry:build:widget && pnpm registry:build:perps && pnpm registry:build:jumper",
 		"registry:build:core": "shadcn build",
 		"registry:build:widget": "shadcn build registry.widget.json --output public/r/widget",
 		"registry:build:perps": "shadcn build registry.perps.json --output public/r/perps",
+		"registry:build:jumper": "shadcn build registry.jumper.json --output public/r/jumper",
 		"storybook": "storybook dev -p 6006",
-		"build-storybook": "storybook build"
+		"build-storybook": "storybook build",
+		"chromatic": "chromatic"
 	},
 	"dependencies": {
 		"@base-ui/react": "^1.5.0",
@@ -36,25 +37,27 @@
 	},
 	"devDependencies": {
 		"@biomejs/biome": "2.4.16",
-		"@chromatic-com/storybook": "^5.2.1",
-		"@storybook/addon-a11y": "^10.4.2",
-		"@storybook/addon-docs": "^10.4.2",
+		"@storybook/addon-a11y": "^10.4.3",
+		"@storybook/addon-docs": "^10.4.3",
 		"@storybook/addon-mcp": "^0.6.0",
-		"@storybook/addon-vitest": "^10.4.2",
-		"@storybook/react-vite": "^10.4.2",
+		"@storybook/addon-vitest": "^10.4.3",
+		"@storybook/react-vite": "^10.4.3",
 		"@tailwindcss/vite": "^4.1.11",
 		"@types/node": "^22.10.0",
 		"@types/react": "^19.1.2",
 		"@types/react-dom": "^19.1.2",
 		"@vitejs/plugin-react": "^6.0.2",
 		"@vitest/browser-playwright": "^4.1.8",
-		"@vitest/coverage-v8": "^4.1.8",
+		"chromatic": "^17.4.1",
 		"playwright": "^1.60.0",
 		"shadcn": "^4.11.0",
-		"storybook": "^10.4.2",
+		"storybook": "^10.4.3",
 		"tailwindcss": "^4.1.11",
 		"typescript": "~6.0.3",
 		"vite": "^8.0.16",
 		"vitest": "^4.1.8"
+	},
+	"engines": {
+		"node": ">=22"
 	}
 }

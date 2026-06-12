@@ -7,10 +7,23 @@
 			"name": "tokens",
 			"type": "registry:theme",
 			"title": "LI.FI base tokens",
-			"description": "Core token layer. shadcn base tokens used as-is, plus the --lifi- namespaced tokens.",
+			"description": "The base color, radius, and typography tokens that every theme builds on.",
 			"cssVars": {
+				"theme": {
+					"color-success": "var(--success)",
+					"color-warning": "var(--warning)",
+					"color-info": "var(--info)",
+					"color-button-primary-hover": "var(--lifi-button-primary-hover)",
+					"color-button-primary-active": "var(--lifi-button-primary-active)",
+					"color-button-primary-focus": "var(--lifi-button-primary-focus)",
+					"radius-button": "var(--lifi-button-radius)"
+				},
 				"light": {
 					"radius": "0.625rem",
+					"lifi-button-radius": "var(--radius)",
+					"lifi-button-primary-hover": "color-mix(in oklch, var(--primary), var(--primary-foreground) 12%)",
+					"lifi-button-primary-active": "color-mix(in oklch, var(--primary), var(--primary-foreground) 20%)",
+					"lifi-button-primary-focus": "var(--ring)",
 					"background": "oklch(1 0 0)",
 					"foreground": "oklch(0.145 0 0)",
 					"card": "oklch(1 0 0)",
@@ -25,7 +38,10 @@
 					"muted-foreground": "oklch(0.556 0 0)",
 					"accent": "oklch(0.97 0 0)",
 					"accent-foreground": "oklch(0.205 0 0)",
-					"destructive": "oklch(0.577 0.245 27.325)",
+					"destructive": "oklch(0.532 0.245 27.325)",
+					"success": "oklch(0.6369 0.1599 153.59)",
+					"warning": "oklch(0.8652 0.1768 90.38)",
+					"info": "oklch(0.6162 0.2083 259.24)",
 					"border": "oklch(0.922 0 0)",
 					"input": "oklch(0.922 0 0)",
 					"ring": "oklch(0.708 0 0)",
@@ -79,10 +95,24 @@
 			}
 		},
 		{
+			"name": "button",
+			"type": "registry:ui",
+			"title": "Button",
+			"description": "A button with multiple variants and sizes.",
+			"dependencies": ["@base-ui/react", "class-variance-authority"],
+			"registryDependencies": ["@core/tokens"],
+			"files": [
+				{
+					"path": "registry/core/ui/button.tsx",
+					"type": "registry:ui"
+				}
+			]
+		},
+		{
 			"name": "input",
 			"type": "registry:ui",
 			"title": "Input",
-			"description": "Single-line text input. Built on Base UI, styled entirely from tokens.",
+			"description": "A single-line text input.",
 			"dependencies": ["@base-ui/react"],
 			"registryDependencies": ["@core/tokens"],
 			"files": [
@@ -90,6 +120,106 @@
 					"path": "registry/core/ui/input.tsx",
 					"type": "registry:ui"
 				}
+			]
+		},
+		{
+			"name": "search-input",
+			"type": "registry:component",
+			"title": "Search Input",
+			"description": "A search field with a leading icon and a clear button.",
+			"dependencies": ["lucide-react"],
+			"registryDependencies": ["@core/tokens", "@core/input-group"],
+			"files": [
+				{
+					"path": "registry/core/components/search-input.tsx",
+					"type": "registry:component"
+				}
+			]
+		},
+		{
+			"name": "separator",
+			"type": "registry:ui",
+			"title": "Separator",
+			"description": "A thin rule that divides content along a horizontal or vertical axis.",
+			"dependencies": ["@base-ui/react"],
+			"registryDependencies": ["@core/tokens"],
+			"files": [
+				{
+					"path": "registry/core/ui/separator.tsx",
+					"type": "registry:ui"
+				}
+			]
+		},
+		{
+			"name": "card",
+			"type": "registry:ui",
+			"title": "Card",
+			"description": "A surface that groups related content, with optional header, content, and footer regions.",
+			"registryDependencies": ["@core/tokens"],
+			"files": [
+				{
+					"path": "registry/core/ui/card.tsx",
+					"type": "registry:ui"
+				}
+			]
+		},
+		{
+			"name": "item",
+			"type": "registry:ui",
+			"title": "Item",
+			"description": "A flexible row that pairs a title and description with optional media and actions.",
+			"dependencies": ["@base-ui/react", "class-variance-authority"],
+			"registryDependencies": ["@core/tokens", "@core/separator"],
+			"files": [
+				{
+					"path": "registry/core/ui/item.tsx",
+					"type": "registry:ui"
+				}
+			]
+		},
+		{
+			"name": "badge",
+			"type": "registry:ui",
+			"title": "Badge",
+			"description": "A small label for status, counts, and metadata.",
+			"dependencies": ["@base-ui/react", "class-variance-authority"],
+			"registryDependencies": ["@core/tokens"],
+			"files": [
+				{
+					"path": "registry/core/ui/badge.tsx",
+					"type": "registry:ui"
+				}
+			]
+		},
+		{
+			"name": "input-group",
+			"type": "registry:ui",
+			"title": "Input Group",
+			"description": "An input with leading or trailing icons, text, and buttons.",
+			"dependencies": ["class-variance-authority"],
+			"registryDependencies": ["@core/tokens", "@core/button", "@core/input"],
+			"files": [
+				{
+					"path": "registry/core/ui/input-group.tsx",
+					"type": "registry:ui"
+				}
+			]
+		},
+		{
+			"name": "base",
+			"type": "registry:base",
+			"title": "Core base",
+			"description": "The base tokens and every core ui primitive. Blocks install individually. Brands extend this with their own theme and overrides.",
+			"registryDependencies": [
+				"@core/tokens",
+				"@core/button",
+				"@core/input",
+				"@core/search-input",
+				"@core/separator",
+				"@core/card",
+				"@core/item",
+				"@core/badge",
+				"@core/input-group"
 			]
 		}
 	]

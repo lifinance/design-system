@@ -1,0 +1,29 @@
+name: Chromatic
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  chromatic:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          # Chromatic needs the full git history to find baselines and to let
+          # TurboSnap detect changed files.
+          fetch-depth: 0
+      - uses: pnpm/action-setup@v6
+        with:
+          version: 9
+      - uses: actions/setup-node@v6
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - uses: chromaui/action@latest
+        with:
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          # A manual run is a deliberate rebuild; without this the CLI skips
+          # rebuilds of an already passed commit.
+          forceRebuild: ${{ github.event_name == 'workflow_dispatch' }}

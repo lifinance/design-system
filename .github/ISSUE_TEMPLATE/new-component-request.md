@@ -26,10 +26,8 @@ A core component is done only when it:
 
 - [ ] has all states
 - [ ] passes accessibility
-- [ ] has a Storybook story
-- [ ] has a Chromatic baseline
+- [ ] has a Storybook story with a snapshotted `Overview`
 - [ ] is token-driven (uses tokens, no hard-coded values)
-- [ ] has a Code Connect mapping
 
 ## Design
 

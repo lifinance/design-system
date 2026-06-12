@@ -29,4 +29,4 @@ labels: ["token", "design-system"]
 ## Layer
 
 - [ ] core (`--lifi-`)
-- [ ] product (`--lifi-<product>-`) — which:
+- [ ] product (`--lifi-<product>-`), name the product:

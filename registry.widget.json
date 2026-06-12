@@ -7,12 +7,85 @@
 			"name": "tokens",
 			"type": "registry:theme",
 			"title": "LI.FI widget tokens",
-			"description": "Widget token layer. Builds on @core/tokens; widget overrides use the --lifi-widget- namespace.",
+			"description": "The widget's default theme. Sets palette, radius, and typography over the core tokens.",
 			"registryDependencies": ["@core/tokens"],
 			"cssVars": {
-				"light": {},
-				"dark": {}
+				"light": {
+					"foreground": "oklch(0 0 0)",
+					"card-foreground": "oklch(0 0 0)",
+					"popover-foreground": "oklch(0 0 0)",
+					"primary": "oklch(0.5824 0.2223 274.25)",
+					"primary-foreground": "oklch(1 0 0)",
+					"secondary": "oklch(0.8801 0.0997 321.97)",
+					"secondary-foreground": "oklch(0 0 0)",
+					"muted": "oklch(0.9491 0 0)",
+					"muted-foreground": "oklch(0.526 0 0)",
+					"accent": "oklch(0.9491 0 0)",
+					"accent-foreground": "oklch(0 0 0)",
+					"destructive": "oklch(0.531 0.2002 31.03)",
+					"border": "oklch(0.9067 0 0)",
+					"input": "oklch(0.9067 0 0)",
+					"ring": "oklch(0.5824 0.2223 274.25)",
+					"radius": "0.75rem",
+					"font-sans": "Inter, sans-serif"
+				},
+				"dark": {
+					"background": "oklch(0.1822 0 0)",
+					"foreground": "oklch(1 0 0)",
+					"card": "oklch(0.2478 0 0)",
+					"card-foreground": "oklch(1 0 0)",
+					"popover": "oklch(0.2478 0 0)",
+					"popover-foreground": "oklch(1 0 0)",
+					"primary": "oklch(0.607 0.2123 274.25)",
+					"primary-foreground": "oklch(0 0 0)",
+					"muted": "oklch(0.3791 0 0)",
+					"muted-foreground": "oklch(0.7921 0 0)",
+					"accent": "oklch(0.3791 0 0)",
+					"accent-foreground": "oklch(1 0 0)",
+					"destructive": "oklch(0.681 0.2002 31.03)",
+					"border": "oklch(0.3791 0 0)",
+					"input": "oklch(0.3791 0 0)",
+					"ring": "oklch(0.607 0.2123 274.25)"
+				}
 			}
+		},
+		{
+			"name": "tokens-azure",
+			"type": "registry:theme",
+			"title": "Azure tokens",
+			"description": "An alternate palette for the widget. Install in place of @widget/tokens to re-theme the same components.",
+			"registryDependencies": ["@core/tokens"],
+			"cssVars": {
+				"light": {
+					"foreground": "oklch(0.1221 0.0272 238.37)",
+					"card": "oklch(0.9797 0.0026 286.35)",
+					"card-foreground": "oklch(0.1221 0.0272 238.37)",
+					"popover": "oklch(0.9797 0.0026 286.35)",
+					"popover-foreground": "oklch(0.1221 0.0272 238.37)",
+					"primary": "oklch(0.5738 0.2316 259.64)",
+					"primary-foreground": "oklch(1 0 0)",
+					"secondary": "oklch(0.8575 0.1752 88.49)",
+					"secondary-foreground": "oklch(0.1221 0.0272 238.37)",
+					"muted": "oklch(0.9522 0.0042 271.37)",
+					"muted-foreground": "oklch(0.529 0.0235 255)",
+					"accent": "oklch(0.9522 0.0042 271.37)",
+					"accent-foreground": "oklch(0.1221 0.0272 238.37)",
+					"destructive": "oklch(0.531 0.2002 31.03)",
+					"border": "oklch(0.8866 0.011 256.7)",
+					"input": "oklch(0.8866 0.011 256.7)",
+					"ring": "oklch(0.5738 0.2316 259.64)",
+					"radius": "0.75rem",
+					"font-sans": "Inter, sans-serif"
+				}
+			}
+		},
+		{
+			"name": "style",
+			"type": "registry:style",
+			"title": "LI.FI widget",
+			"description": "The LI.FI widget design system: the core set themed with the widget palette.",
+			"extends": "none",
+			"registryDependencies": ["@core/base", "@widget/tokens"]
 		}
 	]
 }

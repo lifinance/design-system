@@ -30,3 +30,6 @@ pnpm-debug.log*
 
 *storybook.log
 storybook-static
+
+# Local Claude Code settings
+.claude/settings.local.json

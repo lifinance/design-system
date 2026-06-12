@@ -1,0 +1,91 @@
+import { Meta, Story } from "@storybook/addon-docs/blocks";
+import * as DesignTokens from "./DesignTokens.stories";
+
+<Meta of={DesignTokens} />
+
+# Design tokens
+
+Tokens are the configurable values for color, radius, and typography, written as named CSS variables. Components never use raw values. They read tokens through Tailwind utilities, so changing a theme changes token values alone and never touches component code.
+
+The samples on this page are live. Use the Theme and mode controls in the toolbar to preview any token in a given brand and mode. Azure has a light mode only, so its mode toggle has no effect.
+
+## How tokens work
+
+A token is defined once and used as a Tailwind utility. It passes through three layers:
+
+1. **Value.** A theme sets the variable for each mode, for example `--primary: oklch(0.58 0.22 274)`.
+2. **Registration.** A `@theme` block exposes the variable to Tailwind: `--color-primary: var(--primary)`.
+3. **Utility.** Components apply the generated class `bg-primary`.
+
+Registration is required. Tailwind generates a utility only for a variable declared in a `@theme` block, so a value that never reaches `@theme` has no utility.
+
+## Naming
+
+Token names are lowercase and hyphen-separated. There are two kinds.
+
+**Role tokens** carry no prefix. They are the shadcn base (`--background`, `--primary`, `--radius`, `--ring`) plus the few roles a brand needs that shadcn omits (`--success`, `--warning`, `--info`). Reach for a role token first.
+
+**Component tokens** start with `--lifi-`, then name the component and what they set: a property such as `--lifi-button-radius`, or a variant and state such as `--lifi-button-primary-hover`. Each derives from a role token by default. A brand overrides one only when it needs a different value. The names match the W3C Design Tokens format, where `--lifi-button-radius` is the path `lifi.button.radius`.
+
+## Color
+
+Surface and action tokens come in pairs: a surface token for the background and a `*-foreground` token for the text and icons on it. Their contrast is tuned for every theme and mode, so always use both. Feedback and line tokens have no foreground token. Use them as accents (`text-destructive`, `border-input`, `ring-ring`), and set the text color yourself when a feedback color fills a solid background.
+
+Each color token produces the full set of Tailwind color utilities (`bg-*`, `text-*`, `border-*`, `ring-*`, and the rest), so the table names each token's role rather than listing its utilities.
+
+Values use OKLCH, so adjusting one channel (usually lightness) can meet a contrast target without shifting hue.
+
+<Story of={DesignTokens.Colors} />
+
+Core also defines the chart palette (`--chart-1` to `--chart-5`) and the sidebar set (`--sidebar`, `--sidebar-foreground`, and so on) from the shadcn base.
+
+## Radius
+
+`--radius` sets the scale. `rounded-sm` through `rounded-xl` derive from it, and `rounded-lg` equals `--radius`, so one change rescales every corner. Each utility also has per-corner variants such as `rounded-t-lg`.
+
+<Story of={DesignTokens.Radius} />
+
+## Typography
+
+`--font-sans` is the only typography token, applied as `font-sans`. A theme can set its own family; otherwise the default sans-serif stack applies. Size, weight, and line height are not tokens. Set them with Tailwind utilities (`text-base`, `font-semibold`, `leading-tight`), because they belong to a component's design rather than a brand's settings.
+
+<Story of={DesignTokens.Typography} />
+
+## Component tokens
+
+A component token sets one property of one component that no role token covers. It derives from a role token by default, so every theme works untouched until a brand overrides it.
+
+Interactive colors add a variant and a state. The primary button defines three: `--lifi-button-primary-hover`, `--lifi-button-primary-active`, and `--lifi-button-primary-focus`. Each has a utility you apply with the matching Tailwind prefix: `hover:bg-button-primary-hover`, `active:bg-button-primary-active`, and `focus-visible:ring-button-primary-focus`.
+
+Add a component token only when a brand needs to set that value. When a state already matches a role token, the component applies that utility directly and no token exists. An outline button's hover, for example, uses the `muted` background and needs no token. If a brand later needs that hover to differ, add `--lifi-button-outline-hover` then. This keeps the set small instead of one token for every variant, state, and property.
+
+<Story of={DesignTokens.ComponentTokens} />
+
+## Themes
+
+A theme is a full token set, applied with a `data-theme` attribute such as `data-theme="widget"`. A mode, light or dark, is the `.dark` class within it. The widget themes build on `@core/tokens` and override only palette, radius, and font. Install the base, add a widget theme, then swap the widget theme to change brands.
+
+<Story of={DesignTokens.Themes} />
+
+```bash
+pnpm dlx shadcn@latest add @core/tokens
+pnpm dlx shadcn@latest add @widget/tokens   # or @widget/tokens-azure
+```
+
+## Guidelines
+
+These rules keep handwritten and generated UI consistent across every theme and mode. They matter most in product code, where one raw value breaks theming.
+
+<Story of={DesignTokens.Usage} />
+
+## Extending the system
+
+When you add, change, or remove a token:
+
+- **Prefer a role token.** Add a new role only when none fits. When one component property must vary per brand on its own, add a `--lifi-` component token that derives from a role token.
+- **Register every new utility.** A new color or radius needs a `@theme` mapping, for example `@theme inline { --color-success: var(--success); }`, in the registry's `cssVars.theme`. Without it, no utility is generated.
+- **Set mode-specific values in both blocks.** A token that differs between light and dark must appear in the `light` and `dark` blocks, or it stays at its light value.
+- **Edit the manifests.** The source of truth is `cssVars` on the `registry:theme` item in each manifest. `.storybook/themes.ts` reads the manifests, so the preview updates with no second edit.
+- **Keep roles separate.** Do not give an input the card's background token. Never point one role at another, and never hard-code a value.
+
+The full strategy lives in the `design-tokens` skill.
