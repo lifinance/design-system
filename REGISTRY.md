@@ -130,6 +130,42 @@ Each component gets one `Overview` story that composes its variants, sizes, and 
 
 Chromatic runs only in CI, on every push, and changes are reviewed in Chromatic as part of the pull request. Local Storybook has no visual test button, so a build is never triggered by hand; to rerun Chromatic for the latest commit, dispatch the workflow manually, which forces a rebuild. `autoAcceptChanges` keeps `main` as the accepted baseline after a merge, and TurboSnap rebuilds only the stories a change affects, so a push that touches nothing visual costs little. A full build stays at a handful of snapshots: one per component, plus the token swatches per theme.
 
+## Figma
+
+Components map to their Figma counterparts in both directions. [Code Connect](https://developers.figma.com/docs/code-connect/) publishes code snippets into Figma Dev Mode and the Figma MCP server, and the [designs addon](https://storybook.js.org/addons/@storybook/addon-designs) embeds the Figma frame next to each story.
+
+### Code Connect
+
+Every ui primitive has a colocated Code Connect file, `<name>.figma.tsx` next to `<name>.tsx`. The file uses the [React API](https://developers.figma.com/docs/code-connect/react/): `figma.connect(Component, url, { props, example })` maps the Figma component set's properties to component props, and the `example` function is the snippet that Dev Mode shows and the MCP server returns. `figma.config.json` in the repo root scopes parsing to `registry/**/*.tsx` and mirrors the tsconfig path aliases, so published snippets import from `@/registry/core/ui/*`. The connect URL points at the component set node, not a single variant: select the component set in Figma and copy the link to the selection, and the `node-id` in that URL is the set.
+
+Conventions the parser requires:
+
+- Map a variant property with `figma.enum` and leave the default option unmapped, so the prop is omitted from the snippet.
+- Write the example as one static composition. A helper nested inside JSX inside a mapping is not resolved, and snippet imports are derived only from identifiers used directly in the example.
+- When variants change the markup, write one `figma.connect` call per [variant restriction](https://developers.figma.com/docs/code-connect/react/#variant-restrictions), for example `variant: { Type: "Fallback" }`.
+- Map a Figma slot property with `figma.slot`. Map child instance layers with `figma.children`, which renders each child through its own Code Connect, so connected children compose automatically.
+
+Publishing needs a Figma [personal access token](https://developers.figma.com/docs/code-connect/quickstart-guide/) with two scopes: Code Connect set to Write, and File content set to Read. Validate first, then publish:
+
+```bash
+FIGMA_ACCESS_TOKEN=... pnpm exec figma connect publish --dry-run
+FIGMA_ACCESS_TOKEN=... pnpm exec figma connect publish
+```
+
+Connect files are source, not registry items: no manifest lists them, so consumers never install them.
+
+### Figma frames in Storybook
+
+A component story whose component exists in Figma links the component set in its meta, and the addon's Design tab renders the frame next to the story:
+
+```tsx
+parameters: {
+	design: { type: "figma", url: "https://www.figma.com/design/<fileKey>/<file>?node-id=<set>" },
+},
+```
+
+A story that shows a subcomponent with its own Figma set overrides the parameter at story level, the way the avatar Badge and Group stories do. A component with no Figma counterpart carries no `design` parameter.
+
 ## Building and hosting
 
 ```bash
@@ -145,3 +181,7 @@ CI runs `pnpm registry:build` and deploys `public/` to GitHub Pages on every pus
 - shadcn registry, namespaces: https://ui.shadcn.com/docs/registry/namespace
 - registry.json schema: https://ui.shadcn.com/docs/registry/registry-json
 - registry-item schema: https://ui.shadcn.com/docs/registry/registry-item-json
+- Code Connect quickstart: https://developers.figma.com/docs/code-connect/quickstart-guide/
+- Code Connect React API: https://developers.figma.com/docs/code-connect/react/
+- Code Connect configuration: https://developers.figma.com/docs/code-connect/api/config-file/
+- Storybook design integrations: https://storybook.js.org/docs/sharing/design-integrations

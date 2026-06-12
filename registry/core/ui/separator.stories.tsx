@@ -12,6 +12,10 @@ const meta = {
 					"A thin rule that divides content along a horizontal or vertical axis. Install with `pnpm dlx shadcn@latest add @core/separator`.",
 			},
 		},
+		design: {
+			type: "figma",
+			url: "https://www.figma.com/design/RxWVNX8BNpsaE0Qn51vpwx/Shadcn-Craft---Library-?node-id=2753-10017",
+		},
 	},
 } satisfies Meta<typeof Separator>;
 
