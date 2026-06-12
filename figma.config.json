@@ -1,0 +1,12 @@
+{
+	"codeConnect": {
+		"include": ["registry/**/*.tsx"],
+		"exclude": ["registry/**/*.stories.tsx"],
+		"paths": {
+			"@/registry/*": ["./registry/*"],
+			"@/*": ["./*"]
+		},
+		"label": "React",
+		"language": "jsx"
+	}
+}
