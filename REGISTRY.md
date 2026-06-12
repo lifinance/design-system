@@ -126,9 +126,9 @@ Tailwind needs the `@theme` registrations at build time, so the Storybook styles
 
 Chromatic bills per snapshot, so by default no story is snapshotted: `chromatic.disableSnapshot` is `true` in `.storybook/preview.tsx`. Documentation and test stories cost nothing, and a new story adds no snapshot unless someone opts it in.
 
-Each component gets one `Overview` story that composes its variants, sizes, and states in a single frame and sets `chromatic: { disableSnapshot: false }`. That one story, in light and dark, regresses the whole component. The Controls table covers every option in the docs without a snapshot. The Design Tokens swatches are the one story snapshotted across every theme, so a changed token value is caught there. A theme with no overrides renders identically to core, so it gets no snapshot mode.
+Each component gets one `Overview` story that composes its variants, sizes, and states in a single frame and opts in with the `snapshot` parameter from `.storybook/modes.ts`. That one story, in light and dark, regresses the whole component. The Controls table covers every option in the docs without a snapshot. The Design Tokens swatches opt in with `themeSnapshot`, the one story captured across every theme, so a changed token value is caught there. A theme with no overrides renders identically to core, so it gets no snapshot mode.
 
-A full build stays at a handful of snapshots: one per component, plus the token swatches per theme. Run Chromatic only for changes under `registry/` or `.storybook/`.
+Chromatic runs only in CI, on every push, and changes are reviewed in Chromatic as part of the pull request. Local Storybook has no visual test button, so a build is never triggered by hand; to rerun Chromatic for the latest commit, dispatch the workflow manually, which forces a rebuild. `autoAcceptChanges` keeps `main` as the accepted baseline after a merge, and TurboSnap rebuilds only the stories a change affects, so a push that touches nothing visual costs little. A full build stays at a handful of snapshots: one per component, plus the token swatches per theme.
 
 ## Building and hosting
 
