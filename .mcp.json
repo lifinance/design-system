@@ -7,6 +7,10 @@
 		"storybook": {
 			"type": "http",
 			"url": "http://localhost:6006/mcp"
+		},
+		"aria": {
+			"command": "npx",
+			"args": ["-y", "aria-mcp"]
 		}
 	}
 }
