@@ -44,7 +44,7 @@ function ToggleGroup({
 				className,
 			)}
 			{...props}
-			// role="group" does not allow aria-orientation; expose orientation via data-orientation only.
+			// aria-orientation is invalid on role="group"; Base UI's composite emits it, so clear it.
 			aria-orientation={undefined}
 		>
 			<ToggleGroupContext.Provider

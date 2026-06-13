@@ -17,6 +17,7 @@ function DropdownMenuTrigger({
 	render,
 	...props
 }: MenuPrimitive.Trigger.Props) {
+	// Base UI omits aria-expanded on a custom-rendered trigger; inject it for the menu-button pattern.
 	return (
 		<MenuPrimitive.Trigger
 			data-slot="dropdown-menu-trigger"
@@ -163,7 +164,7 @@ function DropdownMenuSubContent({
 	return (
 		<DropdownMenuContent
 			data-slot="dropdown-menu-sub-content"
-			className={cn("w-auto shadow-lg", className)}
+			className={cn("w-auto min-w-24 shadow-lg", className)}
 			align={align}
 			alignOffset={alignOffset}
 			side={side}

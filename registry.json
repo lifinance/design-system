@@ -690,7 +690,7 @@
 			"title": "Menubar",
 			"description": "A horizontal bar of menus for application-level commands, like the menu bar in a desktop app.",
 			"dependencies": ["@base-ui/react", "lucide-react"],
-			"registryDependencies": ["@core/tokens"],
+			"registryDependencies": ["@core/tokens", "@core/dropdown-menu"],
 			"files": [
 				{
 					"path": "registry/core/ui/menubar.tsx",

@@ -11,6 +11,7 @@ function Slider({
 	thumbLabels,
 	...props
 }: SliderPrimitive.Root.Props & { thumbLabels?: string[] }) {
+	// One thumb per value; a lone number stays a single thumb (upstream's [min, max] fallback renders two).
 	const _value = value ?? defaultValue;
 	const _values = Array.isArray(_value) ? _value : [_value ?? min];
 

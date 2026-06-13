@@ -36,10 +36,19 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
-	args: {
-		defaultValue: 50,
-		thumbLabels: ["Volume"],
-	},
+	render: (args) => (
+		<Field>
+			<FieldLabel id="slider-volume-label" htmlFor="slider-volume">
+				Volume
+			</FieldLabel>
+			<Slider
+				id="slider-volume"
+				aria-labelledby="slider-volume-label"
+				defaultValue={50}
+				{...args}
+			/>
+		</Field>
+	),
 	play: async ({ canvas, userEvent, args }) => {
 		const slider = canvas.getByRole("slider", { name: "Volume" });
 		await expect(slider).toHaveAttribute("aria-valuenow", "50");
@@ -64,32 +73,17 @@ export const Default: Story = {
 	},
 };
 
-export const WithLabel: Story = {
+export const Range: Story = {
 	render: (args) => (
 		<Field>
-			<FieldLabel id="slider-temperature-label" htmlFor="slider-temperature">
-				Temperature
-			</FieldLabel>
+			<FieldLabel>Price range</FieldLabel>
 			<Slider
-				id="slider-temperature"
-				aria-labelledby="slider-temperature-label"
-				defaultValue={40}
+				defaultValue={[25, 75]}
+				thumbLabels={["Minimum price", "Maximum price"]}
 				{...args}
 			/>
 		</Field>
 	),
-	play: async ({ canvas }) => {
-		await expect(
-			canvas.getByRole("slider", { name: "Temperature" }),
-		).toHaveAttribute("aria-valuenow", "40");
-	},
-};
-
-export const Range: Story = {
-	args: {
-		defaultValue: [25, 75],
-		thumbLabels: ["Minimum price", "Maximum price"],
-	},
 	play: async ({ canvas, userEvent }) => {
 		const min = canvas.getByRole("slider", { name: "Minimum price" });
 		const max = canvas.getByRole("slider", { name: "Maximum price" });
@@ -103,11 +97,20 @@ export const Range: Story = {
 };
 
 export const Steps: Story = {
-	args: {
-		defaultValue: 40,
-		step: 10,
-		thumbLabels: ["Brightness"],
-	},
+	render: (args) => (
+		<Field>
+			<FieldLabel id="slider-brightness-label" htmlFor="slider-brightness">
+				Brightness
+			</FieldLabel>
+			<Slider
+				id="slider-brightness"
+				aria-labelledby="slider-brightness-label"
+				defaultValue={40}
+				step={10}
+				{...args}
+			/>
+		</Field>
+	),
 	play: async ({ canvas, userEvent }) => {
 		const slider = canvas.getByRole("slider", { name: "Brightness" });
 		slider.focus();
@@ -117,11 +120,20 @@ export const Steps: Story = {
 };
 
 export const Disabled: Story = {
-	args: {
-		defaultValue: 50,
-		disabled: true,
-		thumbLabels: ["Volume"],
-	},
+	render: (args) => (
+		<Field>
+			<FieldLabel id="slider-disabled-label" htmlFor="slider-disabled">
+				Volume
+			</FieldLabel>
+			<Slider
+				id="slider-disabled"
+				aria-labelledby="slider-disabled-label"
+				defaultValue={50}
+				disabled
+				{...args}
+			/>
+		</Field>
+	),
 	play: async ({ canvas }) => {
 		await expect(canvas.getByRole("slider", { name: "Volume" })).toBeDisabled();
 	},
@@ -131,14 +143,49 @@ export const Overview: Story = {
 	parameters: { chromatic: snapshot },
 	render: (args) => (
 		<div className="flex w-72 flex-col gap-8">
-			<Slider defaultValue={50} thumbLabels={["Default"]} {...args} />
-			<Slider
-				defaultValue={[25, 75]}
-				thumbLabels={["Range start", "Range end"]}
-				{...args}
-			/>
-			<Slider defaultValue={40} step={10} thumbLabels={["Stepped"]} {...args} />
-			<Slider defaultValue={50} disabled thumbLabels={["Disabled"]} {...args} />
+			<Field>
+				<FieldLabel id="slider-ov-default-label" htmlFor="slider-ov-default">
+					Default
+				</FieldLabel>
+				<Slider
+					id="slider-ov-default"
+					aria-labelledby="slider-ov-default-label"
+					defaultValue={50}
+					{...args}
+				/>
+			</Field>
+			<Field>
+				<FieldLabel>Range</FieldLabel>
+				<Slider
+					defaultValue={[25, 75]}
+					thumbLabels={["Range start", "Range end"]}
+					{...args}
+				/>
+			</Field>
+			<Field>
+				<FieldLabel id="slider-ov-stepped-label" htmlFor="slider-ov-stepped">
+					Stepped
+				</FieldLabel>
+				<Slider
+					id="slider-ov-stepped"
+					aria-labelledby="slider-ov-stepped-label"
+					defaultValue={40}
+					step={10}
+					{...args}
+				/>
+			</Field>
+			<Field>
+				<FieldLabel id="slider-ov-disabled-label" htmlFor="slider-ov-disabled">
+					Disabled
+				</FieldLabel>
+				<Slider
+					id="slider-ov-disabled"
+					aria-labelledby="slider-ov-disabled-label"
+					defaultValue={50}
+					disabled
+					{...args}
+				/>
+			</Field>
 		</div>
 	),
 };

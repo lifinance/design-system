@@ -1,6 +1,11 @@
 import { Tooltip as TooltipPrimitive } from "@base-ui/react/tooltip";
+import * as React from "react";
 
 import { cn } from "@/registry/core/lib/utils";
+
+const TooltipDescriptionContext = React.createContext<string | undefined>(
+	undefined,
+);
 
 function TooltipProvider({
 	delay = 0,
@@ -16,11 +21,23 @@ function TooltipProvider({
 }
 
 function Tooltip({ ...props }: TooltipPrimitive.Root.Props) {
-	return <TooltipPrimitive.Root data-slot="tooltip" {...props} />;
+	const descriptionId = React.useId();
+	return (
+		<TooltipDescriptionContext.Provider value={descriptionId}>
+			<TooltipPrimitive.Root data-slot="tooltip" {...props} />
+		</TooltipDescriptionContext.Provider>
+	);
 }
 
 function TooltipTrigger({ ...props }: TooltipPrimitive.Trigger.Props) {
-	return <TooltipPrimitive.Trigger data-slot="tooltip-trigger" {...props} />;
+	const descriptionId = React.useContext(TooltipDescriptionContext);
+	return (
+		<TooltipPrimitive.Trigger
+			data-slot="tooltip-trigger"
+			aria-describedby={descriptionId}
+			{...props}
+		/>
+	);
 }
 
 function TooltipContent({
@@ -36,8 +53,11 @@ function TooltipContent({
 		TooltipPrimitive.Positioner.Props,
 		"align" | "alignOffset" | "side" | "sideOffset"
 	>) {
+	const descriptionId = React.useContext(TooltipDescriptionContext);
+	// keepMounted keeps the popup in the DOM (hidden when closed) so the trigger's
+	// aria-describedby always resolves, matching the WAI-ARIA tooltip pattern.
 	return (
-		<TooltipPrimitive.Portal>
+		<TooltipPrimitive.Portal keepMounted>
 			<TooltipPrimitive.Positioner
 				align={align}
 				alignOffset={alignOffset}
@@ -46,6 +66,7 @@ function TooltipContent({
 				className="isolate z-50"
 			>
 				<TooltipPrimitive.Popup
+					id={descriptionId}
 					role="tooltip"
 					data-slot="tooltip-content"
 					className={cn(
