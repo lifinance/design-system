@@ -10,8 +10,48 @@
 			"description": "The perps theme. Builds on @core/tokens.",
 			"registryDependencies": ["@core/tokens"],
 			"cssVars": {
-				"light": {},
-				"dark": {}
+				"light": {
+					"radius": "0.5rem",
+					"lifi-button-radius": "var(--radius)",
+					"background": "oklch(0.99 0.004 272)",
+					"foreground": "oklch(0.18 0.022 272)",
+					"card": "oklch(1 0 0)",
+					"card-foreground": "oklch(0.18 0.022 272)",
+					"popover": "oklch(1 0 0)",
+					"popover-foreground": "oklch(0.18 0.022 272)",
+					"primary": "oklch(0.48 0.2 272)",
+					"primary-foreground": "oklch(0.99 0.005 272)",
+					"secondary": "oklch(0.965 0.012 272)",
+					"secondary-foreground": "oklch(0.24 0.025 272)",
+					"muted": "oklch(0.965 0.012 272)",
+					"muted-foreground": "oklch(0.52 0.035 272)",
+					"accent": "oklch(0.95 0.025 280)",
+					"accent-foreground": "oklch(0.24 0.025 272)",
+					"destructive": "oklch(0.515 0.225 16)",
+					"border": "oklch(0.91 0.014 272)",
+					"input": "oklch(0.91 0.014 272)",
+					"ring": "oklch(0.48 0.2 272)"
+				},
+				"dark": {
+					"background": "oklch(0.15 0.025 272)",
+					"foreground": "oklch(0.97 0.008 270)",
+					"card": "oklch(0.195 0.03 272)",
+					"card-foreground": "oklch(0.97 0.008 270)",
+					"popover": "oklch(0.195 0.03 272)",
+					"popover-foreground": "oklch(0.97 0.008 270)",
+					"primary": "oklch(0.72 0.16 272)",
+					"primary-foreground": "oklch(0.2 0.04 272)",
+					"secondary": "oklch(0.25 0.03 272)",
+					"secondary-foreground": "oklch(0.97 0.008 270)",
+					"muted": "oklch(0.25 0.03 272)",
+					"muted-foreground": "oklch(0.71 0.04 272)",
+					"accent": "oklch(0.3 0.05 286)",
+					"accent-foreground": "oklch(0.97 0.008 270)",
+					"destructive": "oklch(0.74 0.18 18)",
+					"border": "oklch(0.64 0.06 272 / 20%)",
+					"input": "oklch(0.64 0.06 272 / 24%)",
+					"ring": "oklch(0.62 0.18 272)"
+				}
 			}
 		},
 		{

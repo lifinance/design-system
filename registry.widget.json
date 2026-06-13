@@ -80,6 +80,57 @@
 			}
 		},
 		{
+			"name": "tokens-watermelon",
+			"type": "registry:theme",
+			"title": "Watermelon tokens",
+			"description": "A summer palette for the widget: a juicy red over fresh greens. Install in place of @widget/tokens to re-theme the same components.",
+			"registryDependencies": ["@core/tokens"],
+			"cssVars": {
+				"light": {
+					"background": "oklch(0.99 0.014 154)",
+					"foreground": "oklch(0.2 0.04 18)",
+					"card": "oklch(1 0 0)",
+					"card-foreground": "oklch(0.2 0.04 18)",
+					"popover": "oklch(1 0 0)",
+					"popover-foreground": "oklch(0.2 0.04 18)",
+					"primary": "oklch(0.52 0.225 14)",
+					"primary-foreground": "oklch(1 0 0)",
+					"secondary": "oklch(0.87 0.16 150)",
+					"secondary-foreground": "oklch(0.3 0.09 152)",
+					"muted": "oklch(0.96 0.022 150)",
+					"muted-foreground": "oklch(0.5 0.035 150)",
+					"accent": "oklch(0.92 0.1 150)",
+					"accent-foreground": "oklch(0.3 0.09 152)",
+					"destructive": "oklch(0.53 0.2 32)",
+					"border": "oklch(0.9 0.035 150)",
+					"input": "oklch(0.9 0.035 150)",
+					"ring": "oklch(0.52 0.225 14)",
+					"radius": "0.75rem",
+					"font-sans": "Inter, sans-serif"
+				},
+				"dark": {
+					"background": "oklch(0.2 0.025 162)",
+					"foreground": "oklch(0.95 0.012 160)",
+					"card": "oklch(0.24 0.03 162)",
+					"card-foreground": "oklch(0.95 0.012 160)",
+					"popover": "oklch(0.24 0.03 162)",
+					"popover-foreground": "oklch(0.95 0.012 160)",
+					"primary": "oklch(0.65 0.16 14)",
+					"primary-foreground": "oklch(0.17 0.03 14)",
+					"secondary": "oklch(0.42 0.09 154)",
+					"secondary-foreground": "oklch(0.96 0.015 155)",
+					"muted": "oklch(0.28 0.025 162)",
+					"muted-foreground": "oklch(0.73 0.03 158)",
+					"accent": "oklch(0.31 0.04 162)",
+					"accent-foreground": "oklch(0.96 0.015 155)",
+					"destructive": "oklch(0.79 0.15 32)",
+					"border": "oklch(0.4 0.04 162)",
+					"input": "oklch(0.4 0.04 162)",
+					"ring": "oklch(0.65 0.16 14)"
+				}
+			}
+		},
+		{
 			"name": "style",
 			"type": "registry:style",
 			"title": "LI.FI widget",
