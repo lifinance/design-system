@@ -11,6 +11,16 @@ Always use these project skills when working in this repo:
 - **`migration`** (`.claude/skills/migration`): the process for porting a component from a product repo into a registry here.
 - **`writing`** (`.claude/skills/writing`): the writing voice for all prose. Apply before writing or editing any text.
 
+The harness enforces this. A `PreToolUse` hook (`.claude/hooks/require-skills.sh`) maps each edited file to the skills that govern it and blocks the edit until those skills are invoked in the session: `registry/**` needs `shadcn` and `design-tokens`, a `*.stories.tsx` adds `writing`, the manifests (`registry*.json`, `components.json`) need all three, and any prose (`*.md`) needs `writing`. Invoke the named skill, then retry.
+
+### MCP servers
+
+The project MCP servers in `.mcp.json` are auto-enabled (`enableAllProjectMcpServers`) and expected for contribution:
+
+- **`storybook`** drives stories and tests: call `get-storybook-story-instructions` before writing a story, `run-story-tests` after, and report `preview-stories` URLs. It serves from the local Storybook on `http://localhost:6006`; a `SessionStart` hook (`.claude/hooks/launch-storybook.sh`) starts it if it is not already running.
+- **`shadcn`** is the component reference for the Base UI variant.
+- **`aria`** verifies roles, accessible names, and attributes against the ARIA spec. A clean axe run is necessary but not sufficient; check the spec.
+
 ### Where the shadcn skill and this repo disagree
 
 The `shadcn` skill is vendored (tracked in `skills-lock.json`); never edit its files. Where it conflicts with this repo, the repo wins:
