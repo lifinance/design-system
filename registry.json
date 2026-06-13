@@ -123,6 +123,20 @@
 			]
 		},
 		{
+			"name": "amount-input",
+			"type": "registry:component",
+			"title": "Amount Input",
+			"description": "An input for entering a token amount. It accepts only digits and a single decimal point.",
+			"dependencies": ["@base-ui/react"],
+			"registryDependencies": ["@core/tokens"],
+			"files": [
+				{
+					"path": "registry/core/components/amount-input.tsx",
+					"type": "registry:component"
+				}
+			]
+		},
+		{
 			"name": "search-input",
 			"type": "registry:component",
 			"title": "Search Input",

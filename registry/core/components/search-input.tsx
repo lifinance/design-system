@@ -17,7 +17,7 @@ function SearchInput({ value, onClear, ...props }: SearchInputProps) {
 	return (
 		<InputGroup>
 			<InputGroupAddon className="pl-2.5">
-				<SearchIcon className="size-6" />
+				<SearchIcon />
 			</InputGroupAddon>
 			<InputGroupInput
 				inputMode="search"
