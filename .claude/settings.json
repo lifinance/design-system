@@ -1,6 +1,22 @@
 {
 	"$schema": "https://json.schemastore.org/claude-code-settings.json",
+	"enableAllProjectMcpServers": true,
 	"hooks": {
+		"SessionStart": [
+			{
+				"hooks": [
+					{
+						"type": "command",
+						"command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/announce-skills.sh"
+					},
+					{
+						"type": "command",
+						"command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/launch-storybook.sh",
+						"statusMessage": "Ensuring Storybook is running for the Storybook MCP"
+					}
+				]
+			}
+		],
 		"PreToolUse": [
 			{
 				"matcher": "Write|Edit",
