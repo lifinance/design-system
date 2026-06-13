@@ -38,7 +38,7 @@
 					"muted-foreground": "oklch(0.54 0 0)",
 					"accent": "oklch(0.97 0 0)",
 					"accent-foreground": "oklch(0.205 0 0)",
-					"destructive": "oklch(0.532 0.245 27.325)",
+					"destructive": "oklch(0.517 0.245 27.325)",
 					"success": "oklch(0.6369 0.1599 153.59)",
 					"warning": "oklch(0.8652 0.1768 90.38)",
 					"info": "oklch(0.6162 0.2083 259.24)",
@@ -74,7 +74,7 @@
 					"muted-foreground": "oklch(0.708 0 0)",
 					"accent": "oklch(0.269 0 0)",
 					"accent-foreground": "oklch(0.985 0 0)",
-					"destructive": "oklch(0.704 0.191 22.216)",
+					"destructive": "oklch(0.75 0.191 22.216)",
 					"border": "oklch(1 0 0 / 10%)",
 					"input": "oklch(1 0 0 / 15%)",
 					"ring": "oklch(0.556 0 0)",
@@ -220,6 +220,583 @@
 			]
 		},
 		{
+			"name": "skeleton",
+			"type": "registry:ui",
+			"title": "Skeleton",
+			"description": "A pulsing placeholder that holds space while content loads.",
+			"registryDependencies": ["@core/tokens"],
+			"files": [
+				{
+					"path": "registry/core/ui/skeleton.tsx",
+					"type": "registry:ui"
+				}
+			]
+		},
+		{
+			"name": "label",
+			"type": "registry:ui",
+			"title": "Label",
+			"description": "A caption for a form control.",
+			"registryDependencies": ["@core/tokens"],
+			"files": [
+				{
+					"path": "registry/core/ui/label.tsx",
+					"type": "registry:ui"
+				}
+			]
+		},
+		{
+			"name": "checkbox",
+			"type": "registry:ui",
+			"title": "Checkbox",
+			"description": "A control that toggles between checked and unchecked.",
+			"dependencies": ["@base-ui/react", "lucide-react"],
+			"registryDependencies": ["@core/tokens"],
+			"files": [
+				{
+					"path": "registry/core/ui/checkbox.tsx",
+					"type": "registry:ui"
+				}
+			]
+		},
+		{
+			"name": "dialog",
+			"type": "registry:ui",
+			"title": "Dialog",
+			"description": "A modal window over the page content, with optional header, footer, and close button.",
+			"dependencies": ["@base-ui/react", "lucide-react"],
+			"registryDependencies": ["@core/tokens", "@core/button"],
+			"files": [
+				{
+					"path": "registry/core/ui/dialog.tsx",
+					"type": "registry:ui"
+				}
+			]
+		},
+		{
+			"name": "field",
+			"type": "registry:ui",
+			"title": "Field",
+			"description": "A form field that pairs a control with its label, description, and error message.",
+			"dependencies": ["class-variance-authority"],
+			"registryDependencies": [
+				"@core/tokens",
+				"@core/label",
+				"@core/separator"
+			],
+			"files": [
+				{
+					"path": "registry/core/ui/field.tsx",
+					"type": "registry:ui"
+				}
+			]
+		},
+		{
+			"name": "accordion",
+			"type": "registry:ui",
+			"title": "Accordion",
+			"description": "A vertically stacked set of headers that expand to reveal their content.",
+			"dependencies": ["@base-ui/react", "lucide-react"],
+			"registryDependencies": ["@core/tokens"],
+			"files": [
+				{
+					"path": "registry/core/ui/accordion.tsx",
+					"type": "registry:ui"
+				}
+			]
+		},
+		{
+			"name": "alert",
+			"type": "registry:ui",
+			"title": "Alert",
+			"description": "A callout that highlights a status, warning, or error.",
+			"dependencies": ["class-variance-authority"],
+			"registryDependencies": ["@core/tokens"],
+			"files": [
+				{
+					"path": "registry/core/ui/alert.tsx",
+					"type": "registry:ui"
+				}
+			]
+		},
+		{
+			"name": "alert-dialog",
+			"type": "registry:ui",
+			"title": "Alert Dialog",
+			"description": "A modal dialog that interrupts the user to confirm an action before it runs.",
+			"dependencies": ["@base-ui/react"],
+			"registryDependencies": ["@core/tokens", "@core/button"],
+			"files": [
+				{
+					"path": "registry/core/ui/alert-dialog.tsx",
+					"type": "registry:ui"
+				}
+			]
+		},
+		{
+			"name": "aspect-ratio",
+			"type": "registry:ui",
+			"title": "Aspect Ratio",
+			"description": "A container that keeps its content at a chosen width-to-height ratio.",
+			"registryDependencies": ["@core/tokens"],
+			"files": [
+				{
+					"path": "registry/core/ui/aspect-ratio.tsx",
+					"type": "registry:ui"
+				}
+			]
+		},
+		{
+			"name": "breadcrumb",
+			"type": "registry:ui",
+			"title": "Breadcrumb",
+			"description": "Displays the path to the current page as a trail of links.",
+			"dependencies": ["@base-ui/react", "lucide-react"],
+			"registryDependencies": ["@core/tokens"],
+			"files": [
+				{
+					"path": "registry/core/ui/breadcrumb.tsx",
+					"type": "registry:ui"
+				}
+			]
+		},
+		{
+			"name": "button-group",
+			"type": "registry:ui",
+			"title": "Button Group",
+			"description": "Joins related buttons and inputs into one connected control.",
+			"dependencies": ["@base-ui/react", "class-variance-authority"],
+			"registryDependencies": ["@core/tokens", "@core/separator"],
+			"files": [
+				{
+					"path": "registry/core/ui/button-group.tsx",
+					"type": "registry:ui"
+				}
+			]
+		},
+		{
+			"name": "collapsible",
+			"type": "registry:ui",
+			"title": "Collapsible",
+			"description": "An expandable section that shows or hides content below a trigger.",
+			"dependencies": ["@base-ui/react"],
+			"registryDependencies": ["@core/tokens"],
+			"files": [
+				{
+					"path": "registry/core/ui/collapsible.tsx",
+					"type": "registry:ui"
+				}
+			]
+		},
+		{
+			"name": "combobox",
+			"type": "registry:ui",
+			"title": "Combobox",
+			"description": "An input that filters a list of options as the user types and selects one or more of them.",
+			"dependencies": ["@base-ui/react", "lucide-react"],
+			"registryDependencies": [
+				"@core/tokens",
+				"@core/button",
+				"@core/input-group"
+			],
+			"files": [
+				{
+					"path": "registry/core/ui/combobox.tsx",
+					"type": "registry:ui"
+				}
+			]
+		},
+		{
+			"name": "popover",
+			"type": "registry:ui",
+			"title": "Popover",
+			"description": "A floating panel anchored to a trigger, for secondary content and quick edits.",
+			"dependencies": ["@base-ui/react"],
+			"registryDependencies": ["@core/tokens"],
+			"files": [
+				{
+					"path": "registry/core/ui/popover.tsx",
+					"type": "registry:ui"
+				}
+			]
+		},
+		{
+			"name": "tooltip",
+			"type": "registry:ui",
+			"title": "Tooltip",
+			"description": "A popup that shows a hint when its trigger is hovered or focused.",
+			"dependencies": ["@base-ui/react"],
+			"registryDependencies": ["@core/tokens"],
+			"files": [
+				{
+					"path": "registry/core/ui/tooltip.tsx",
+					"type": "registry:ui"
+				}
+			]
+		},
+		{
+			"name": "switch",
+			"type": "registry:ui",
+			"title": "Switch",
+			"description": "A control that toggles between on and off.",
+			"dependencies": ["@base-ui/react"],
+			"registryDependencies": ["@core/tokens"],
+			"files": [
+				{
+					"path": "registry/core/ui/switch.tsx",
+					"type": "registry:ui"
+				}
+			]
+		},
+		{
+			"name": "progress",
+			"type": "registry:ui",
+			"title": "Progress",
+			"description": "A bar that shows how far along a task is.",
+			"dependencies": ["@base-ui/react"],
+			"registryDependencies": ["@core/tokens"],
+			"files": [
+				{
+					"path": "registry/core/ui/progress.tsx",
+					"type": "registry:ui"
+				}
+			]
+		},
+		{
+			"name": "radio-group",
+			"type": "registry:ui",
+			"title": "Radio Group",
+			"description": "A set of radio buttons where selecting one clears the rest.",
+			"dependencies": ["@base-ui/react"],
+			"registryDependencies": ["@core/tokens"],
+			"files": [
+				{
+					"path": "registry/core/ui/radio-group.tsx",
+					"type": "registry:ui"
+				}
+			]
+		},
+		{
+			"name": "tabs",
+			"type": "registry:ui",
+			"title": "Tabs",
+			"description": "A set of layered panels where one shows at a time, switched by a row of tabs.",
+			"dependencies": ["@base-ui/react", "class-variance-authority"],
+			"registryDependencies": ["@core/tokens"],
+			"files": [
+				{
+					"path": "registry/core/ui/tabs.tsx",
+					"type": "registry:ui"
+				}
+			]
+		},
+		{
+			"name": "toggle",
+			"type": "registry:ui",
+			"title": "Toggle",
+			"description": "A button that switches between an on and off state.",
+			"dependencies": ["@base-ui/react", "class-variance-authority"],
+			"registryDependencies": ["@core/tokens"],
+			"files": [
+				{
+					"path": "registry/core/ui/toggle.tsx",
+					"type": "registry:ui"
+				}
+			]
+		},
+		{
+			"name": "textarea",
+			"type": "registry:ui",
+			"title": "Textarea",
+			"description": "A multiline text input.",
+			"registryDependencies": ["@core/tokens"],
+			"files": [
+				{
+					"path": "registry/core/ui/textarea.tsx",
+					"type": "registry:ui"
+				}
+			]
+		},
+		{
+			"name": "select",
+			"type": "registry:ui",
+			"title": "Select",
+			"description": "A control that opens a list of options and lets the user choose one.",
+			"dependencies": ["@base-ui/react", "lucide-react"],
+			"registryDependencies": ["@core/tokens"],
+			"files": [
+				{
+					"path": "registry/core/ui/select.tsx",
+					"type": "registry:ui"
+				}
+			]
+		},
+		{
+			"name": "slider",
+			"type": "registry:ui",
+			"title": "Slider",
+			"description": "A control for choosing a value, or a range of values, from a given interval.",
+			"dependencies": ["@base-ui/react"],
+			"registryDependencies": ["@core/tokens"],
+			"files": [
+				{
+					"path": "registry/core/ui/slider.tsx",
+					"type": "registry:ui"
+				}
+			]
+		},
+		{
+			"name": "sheet",
+			"type": "registry:ui",
+			"title": "Sheet",
+			"description": "A panel that slides in from an edge of the screen.",
+			"dependencies": ["@base-ui/react", "lucide-react"],
+			"registryDependencies": ["@core/tokens", "@core/button"],
+			"files": [
+				{
+					"path": "registry/core/ui/sheet.tsx",
+					"type": "registry:ui"
+				}
+			]
+		},
+		{
+			"name": "hover-card",
+			"type": "registry:ui",
+			"title": "Hover Card",
+			"description": "A card of supplementary content that opens when its trigger is hovered or focused.",
+			"dependencies": ["@base-ui/react"],
+			"registryDependencies": ["@core/tokens"],
+			"files": [
+				{
+					"path": "registry/core/ui/hover-card.tsx",
+					"type": "registry:ui"
+				}
+			]
+		},
+		{
+			"name": "pagination",
+			"type": "registry:ui",
+			"title": "Pagination",
+			"description": "Navigation for moving through pages of content, with page links, previous and next controls, and an ellipsis for skipped ranges.",
+			"dependencies": ["lucide-react"],
+			"registryDependencies": ["@core/tokens", "@core/button"],
+			"files": [
+				{
+					"path": "registry/core/ui/pagination.tsx",
+					"type": "registry:ui"
+				}
+			]
+		},
+		{
+			"name": "spinner",
+			"type": "registry:ui",
+			"title": "Spinner",
+			"description": "An animated indicator that shows a loading or busy state.",
+			"dependencies": ["lucide-react"],
+			"registryDependencies": ["@core/tokens"],
+			"files": [
+				{
+					"path": "registry/core/ui/spinner.tsx",
+					"type": "registry:ui"
+				}
+			]
+		},
+		{
+			"name": "empty",
+			"type": "registry:ui",
+			"title": "Empty",
+			"description": "A placeholder that explains why a region has no content and points to a next step.",
+			"dependencies": ["class-variance-authority"],
+			"registryDependencies": ["@core/tokens"],
+			"files": [
+				{
+					"path": "registry/core/ui/empty.tsx",
+					"type": "registry:ui"
+				}
+			]
+		},
+		{
+			"name": "toggle-group",
+			"type": "registry:ui",
+			"title": "Toggle Group",
+			"description": "A set of toggle buttons that share a single or multiple selection.",
+			"dependencies": ["@base-ui/react", "class-variance-authority"],
+			"registryDependencies": ["@core/tokens", "@core/toggle"],
+			"files": [
+				{
+					"path": "registry/core/ui/toggle-group.tsx",
+					"type": "registry:ui"
+				}
+			]
+		},
+		{
+			"name": "context-menu",
+			"type": "registry:ui",
+			"title": "Context Menu",
+			"description": "A menu of actions that opens at the pointer on right click, with items, checkboxes, radios, and submenus.",
+			"dependencies": ["@base-ui/react", "lucide-react"],
+			"registryDependencies": ["@core/tokens"],
+			"files": [
+				{
+					"path": "registry/core/ui/context-menu.tsx",
+					"type": "registry:ui"
+				}
+			]
+		},
+		{
+			"name": "direction",
+			"type": "registry:ui",
+			"title": "Direction",
+			"description": "Sets the reading direction for descendant components so they adapt to right-to-left layouts.",
+			"dependencies": ["@base-ui/react"],
+			"registryDependencies": ["@core/tokens"],
+			"files": [
+				{
+					"path": "registry/core/ui/direction.tsx",
+					"type": "registry:ui"
+				}
+			]
+		},
+		{
+			"name": "dropdown-menu",
+			"type": "registry:ui",
+			"title": "Dropdown Menu",
+			"description": "A menu of actions and options that opens from a button, with checkbox items, radio groups, and submenus.",
+			"dependencies": ["@base-ui/react", "lucide-react"],
+			"registryDependencies": ["@core/tokens"],
+			"files": [
+				{
+					"path": "registry/core/ui/dropdown-menu.tsx",
+					"type": "registry:ui"
+				}
+			]
+		},
+		{
+			"name": "kbd",
+			"type": "registry:ui",
+			"title": "Kbd",
+			"description": "Displays a keyboard key or shortcut.",
+			"registryDependencies": ["@core/tokens"],
+			"files": [
+				{
+					"path": "registry/core/ui/kbd.tsx",
+					"type": "registry:ui"
+				}
+			]
+		},
+		{
+			"name": "menubar",
+			"type": "registry:ui",
+			"title": "Menubar",
+			"description": "A horizontal bar of menus for application-level commands, like the menu bar in a desktop app.",
+			"dependencies": ["@base-ui/react", "lucide-react"],
+			"registryDependencies": ["@core/tokens"],
+			"files": [
+				{
+					"path": "registry/core/ui/menubar.tsx",
+					"type": "registry:ui"
+				}
+			]
+		},
+		{
+			"name": "native-select",
+			"type": "registry:ui",
+			"title": "Native Select",
+			"description": "A styled native select for choosing one option from a list.",
+			"dependencies": ["lucide-react"],
+			"registryDependencies": ["@core/tokens"],
+			"files": [
+				{
+					"path": "registry/core/ui/native-select.tsx",
+					"type": "registry:ui"
+				}
+			]
+		},
+		{
+			"name": "navigation-menu",
+			"type": "registry:ui",
+			"title": "Navigation Menu",
+			"description": "A site navigation bar whose triggers reveal panels of links.",
+			"dependencies": [
+				"@base-ui/react",
+				"class-variance-authority",
+				"lucide-react"
+			],
+			"registryDependencies": ["@core/tokens"],
+			"files": [
+				{
+					"path": "registry/core/ui/navigation-menu.tsx",
+					"type": "registry:ui"
+				}
+			]
+		},
+		{
+			"name": "scroll-area",
+			"type": "registry:ui",
+			"title": "Scroll Area",
+			"description": "A scrollable container with custom scrollbars in place of the browser's.",
+			"dependencies": ["@base-ui/react"],
+			"registryDependencies": ["@core/tokens"],
+			"files": [
+				{
+					"path": "registry/core/ui/scroll-area.tsx",
+					"type": "registry:ui"
+				}
+			]
+		},
+		{
+			"name": "table",
+			"type": "registry:ui",
+			"title": "Table",
+			"description": "Displays rows and columns of data, with an optional header, footer, and caption.",
+			"registryDependencies": ["@core/tokens"],
+			"files": [
+				{
+					"path": "registry/core/ui/table.tsx",
+					"type": "registry:ui"
+				}
+			]
+		},
+		{
+			"name": "use-mobile",
+			"type": "registry:hook",
+			"title": "Use Mobile",
+			"description": "A hook that reports whether the viewport is below the mobile breakpoint.",
+			"files": [
+				{
+					"path": "registry/core/hooks/use-mobile.ts",
+					"type": "registry:hook"
+				}
+			]
+		},
+		{
+			"name": "sidebar",
+			"type": "registry:ui",
+			"title": "Sidebar",
+			"description": "A collapsible navigation panel for the side of an application, with menus, groups, and a content area.",
+			"dependencies": [
+				"@base-ui/react",
+				"lucide-react",
+				"class-variance-authority"
+			],
+			"registryDependencies": [
+				"@core/tokens",
+				"@core/button",
+				"@core/input",
+				"@core/separator",
+				"@core/sheet",
+				"@core/skeleton",
+				"@core/tooltip",
+				"@core/use-mobile"
+			],
+			"files": [
+				{
+					"path": "registry/core/ui/sidebar.tsx",
+					"type": "registry:ui"
+				}
+			]
+		},
+		{
 			"name": "base",
 			"type": "registry:base",
 			"title": "Core base",
@@ -234,7 +811,46 @@
 				"@core/item",
 				"@core/badge",
 				"@core/input-group",
-				"@core/avatar"
+				"@core/avatar",
+				"@core/skeleton",
+				"@core/label",
+				"@core/checkbox",
+				"@core/dialog",
+				"@core/field",
+				"@core/accordion",
+				"@core/alert",
+				"@core/alert-dialog",
+				"@core/aspect-ratio",
+				"@core/breadcrumb",
+				"@core/button-group",
+				"@core/collapsible",
+				"@core/combobox",
+				"@core/popover",
+				"@core/tooltip",
+				"@core/switch",
+				"@core/progress",
+				"@core/radio-group",
+				"@core/tabs",
+				"@core/toggle",
+				"@core/textarea",
+				"@core/select",
+				"@core/slider",
+				"@core/sheet",
+				"@core/hover-card",
+				"@core/pagination",
+				"@core/spinner",
+				"@core/empty",
+				"@core/toggle-group",
+				"@core/context-menu",
+				"@core/direction",
+				"@core/dropdown-menu",
+				"@core/kbd",
+				"@core/menubar",
+				"@core/native-select",
+				"@core/navigation-menu",
+				"@core/scroll-area",
+				"@core/table",
+				"@core/sidebar"
 			]
 		}
 	]
