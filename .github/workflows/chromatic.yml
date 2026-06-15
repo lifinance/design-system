@@ -2,10 +2,19 @@ name: Chromatic
 
 on:
   push:
+  pull_request:
+    types: [opened]
   workflow_dispatch:
+
+permissions:
+  contents: read
+  pull-requests: write
 
 jobs:
   chromatic:
+    # The visual build runs on push; the pull_request event only triggers the
+    # link comment below.
+    if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
@@ -27,3 +36,19 @@ jobs:
           # A manual run is a deliberate rebuild; without this the CLI skips
           # rebuilds of an already passed commit.
           forceRebuild: ${{ github.event_name == 'workflow_dispatch' }}
+
+  storybook-link:
+    # The per-branch permalink is stable, so comment it once when the PR opens.
+    # Chromatic slugifies the branch by replacing "/" with "-".
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - env:
+          GH_TOKEN: ${{ github.token }}
+          PR: ${{ github.event.pull_request.number }}
+          REPO: ${{ github.repository }}
+          HEAD_REF: ${{ github.head_ref }}
+        run: |
+          slug="${HEAD_REF//\//-}"
+          gh pr comment "$PR" -R "$REPO" \
+            --body "📕 **Storybook for this branch:** https://${slug}--6a2b0a559c04f8c543ed851d.chromatic.com"
