@@ -55,7 +55,7 @@ Pick the first that fits, reading top to bottom.
 | Component | simple components | `registry:component` | `registry/<brand>/components/` |
 | Block | complex components with multiple files | `registry:block` | `registry/<brand>/blocks/` |
 
-A single-file primitive is `ui` (a button). A single component built from primitives is `component` (an achievement card). Anything spanning multiple files is a `block`. A brand theme is none of these; it ships as a `registry:theme` item of token values.
+A single-file primitive is `ui` (a button). A single component built from primitives is `component` (a mission card). Anything spanning multiple files is a `block`. A brand theme is none of these; it ships as a `registry:theme` item of token values.
 
 ## Design in Figma
 

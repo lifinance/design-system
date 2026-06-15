@@ -23,6 +23,8 @@ const meta = {
 			options: [
 				"default",
 				"secondary",
+				"muted",
+				"success",
 				"destructive",
 				"outline",
 				"ghost",
@@ -44,6 +46,7 @@ export const Overview: Story = {
 		<div className="flex flex-wrap items-center gap-2">
 			<Badge>Default</Badge>
 			<Badge variant="secondary">Secondary</Badge>
+			<Badge variant="muted">Muted</Badge>
 			<Badge variant="destructive">Destructive</Badge>
 			<Badge variant="outline">Outline</Badge>
 			<Badge variant="ghost">Ghost</Badge>

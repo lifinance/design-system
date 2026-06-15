@@ -96,7 +96,7 @@ Each component is defined once, in `@core`. A brand does not copy them. It reuse
   "name": "style",
   "type": "registry:style",
   "extends": "none",
-  "registryDependencies": ["@core/base", "@jumper/tokens", "@jumper/achievement-card"]
+  "registryDependencies": ["@core/base", "@jumper/tokens", "@jumper/mission-card"]
 }
 ```
 
