@@ -112,7 +112,6 @@
 	--radius-md: calc(var(--radius) - 2px);
 	--radius-lg: var(--radius);
 	--radius-xl: calc(var(--radius) + 4px);
-	--radius-button: var(--lifi-button-radius);
 
 	/* tw-animate-css keys these on the Radix height variable; Base UI sets
 	   --accordion-panel-height, so the keyframes are redefined the way the

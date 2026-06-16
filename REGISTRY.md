@@ -30,17 +30,21 @@ The producer manifests declare no `registries` block of their own. That wiring l
 
 ## Tokens
 
-`lifi` appears in one place only: CSS token names, where the global CSS cascade and third-party embedding require unique names. Role tokens stay unprefixed (the shadcn base). Component tokens take a per-layer prefix: `--lifi-` for core, `--lifi-widget-` for widget, `--lifi-<product>-` for others. Use shadcn base tokens as-is, and never prefix them.
+Tokens are the color, font, and `--radius` values. Role tokens stay unprefixed (the shadcn base, plus `--success`, `--warning`, `--info`); use them as-is. Variant-state colors that shadcn lacks take a per-layer prefix, where the global cascade and third-party embedding require unique names: `--lifi-` for core, `--lifi-widget-` for widget, `--lifi-<product>-` for others. Structure (padding, radius step, sizing) is not a token; it lives in the styles.
 
 The token name grammar:
 
 ```
---[namespace]-[component]-[property]-[modifier]-[state]
+--[namespace]-[component]-[variant]-[state]
 ```
 
-Check for an existing shadcn token before adding one. New tokens are proposed through the [new token request](.github/ISSUE_TEMPLATE/new-token-request.md) template.
+Check for an existing shadcn token before adding one. New tokens are proposed through the [new token request](.github/ISSUE_TEMPLATE/new-token-request.md) template; the `design-tokens` skill is the full strategy.
 
 **One theme per namespace.** Each namespace ships its tokens as a `registry:theme` item whose `cssVars` (`light`, `dark`, `theme`) the CLI merges into the consumer's stylesheet on `add` (`light` into `:root`, `dark` into `.dark`, `theme` into the Tailwind `@theme` namespace). `@core/tokens` carries the base; a brand's tokens declare `registryDependencies: ["@core/tokens"]` and carry only their overrides. On install the CLI deep-merges `cssVars` across registries (last wins, see [dependency resolution](https://ui.shadcn.com/docs/registry/namespace#dependency-resolution)), so a brand's tokens layer over core. The merge is global to the consumer's `:root` and `.dark`; shadcn has no per-subtree theme scoping. The Storybook preview derives its themes from these manifests (see [Storybook conventions](#storybook-conventions)) and keeps no second copy of the values.
+
+## Styles
+
+A component is authored once with shadcn's `cn-*` style classes (`cn-button`, `cn-button-size-*`, `cn-button-variant-*`) and carries no geometry of its own. A **style** maps each `cn-*` class to Tailwind utilities and owns structure: padding, radius, sizing, and type scale. `registry/core/style.css` is the base; a brand's `registry/<brand>/style.css` overrides only the classes it changes, so the core button is `rounded-lg` while jumper's is `rounded-full`, both from the same `--radius`.
 
 ## Item types
 
@@ -70,11 +74,13 @@ registry/
     ui/                    #   registry:ui, single-file primitives
     components/            #   registry:component
     lib/                   #   registry:lib (cn)
+    style.css              #   the core style: cn-* mapped to utilities
   jumper/                  # @jumper sources
+    style.css              #   jumper's structural deltas
 .storybook/                # Storybook preview, not distributed
 ```
 
-Component sources nest under `registry/<brand>/<type>/`. The `<brand>` segment is required: it separates each registry's sources and is the segment the CLI keys the import rewrite off. Adding a brand is additive: a `registry.<brand>.json` manifest, a `registry:build:<brand>` script, and a `registry/<brand>/` directory once the brand ships its own files; a theme-only brand needs just the manifest. Storybook reads every `registry*.json` in the repo root, so a new manifest needs no Storybook wiring.
+Component sources nest under `registry/<brand>/<type>/`, and each brand keeps a `style.css` at its root. The `<brand>` segment is required: it separates each registry's sources and is the segment the CLI keys the import rewrite off. Adding a brand is additive: a `registry.<brand>.json` manifest, a `registry:build:<brand>` script, and a `registry/<brand>/` directory with a `style.css` for its structural deltas; a brand that only restyles colors needs just the manifest. Storybook reads every `registry*.json` in the repo root, so a new manifest needs no Storybook wiring.
 
 ### Imports and the install-time rewrite
 
@@ -100,10 +106,11 @@ Each component is defined once, in `@core`. A brand does not copy them. It reuse
 }
 ```
 
-Both kinds of brand difference are first-class:
+The kinds of brand difference are first-class:
 
-- **Visual**: values only. Put the deltas in the brand's `registry:theme` (`@<brand>/tokens`). The shared component re-skins, with no new file.
-- **Functional**: structure or behavior. Ship a brand item with the same name as the core one (for example `@widget/button` with its own file) and list it after `@core/base` in the brand style. shadcn resolves duplicate install paths last-one-wins (see [dependency resolution](https://ui.shadcn.com/docs/registry/namespace#dependency-resolution)), so the brand file replaces core's for that brand's consumers while the rest of the core set still installs.
+- **Visual** (color, font, the `--radius` value): put the deltas in the brand's `registry:theme` (`@<brand>/tokens`). The shared component re-skins, with no new file.
+- **Structural** (padding, radius step, sizing): put the deltas in the brand's `style.css`. The shared component reshapes, with no new file.
+- **Functional** (behavior or markup): ship a brand item with the same name as the core one (for example `@widget/button` with its own file) and list it after `@core/base` in the brand style. shadcn resolves duplicate install paths last-one-wins (see [dependency resolution](https://ui.shadcn.com/docs/registry/namespace#dependency-resolution)), so the brand file replaces core's for that brand's consumers while the rest of the core set still installs. Use it only when neither the theme nor the style can express the difference.
 
 A consumer installs a whole brand with its style, or cherry-picks from `@core`:
 
@@ -114,11 +121,13 @@ pnpm dlx shadcn@latest add @core/button      # one shared component
 
 ## Storybook conventions
 
-The Storybook preview matches the registry: one story node per source file. The toolbar has two controls, theme and mode. Theme sets a `data-theme` attribute on `<body>`; mode toggles the `dark` class. A theme is never a separate copy of the story tree. A core component has a single story previewed across every theme; a brand-specific component pins the `theme` global in its meta, which locks the toolbar to that theme for its stories. A brand gets its own story only when it adds a real override file or a brand-specific component.
+The Storybook preview matches the registry: one story node per source file. The toolbar has two controls, theme and mode. Theme sets a `data-theme` attribute and the brand's `data-style` on `<body>`; mode toggles the `dark` class. A theme is never a separate copy of the story tree. A core component has a single story previewed across every theme; a brand-specific component pins the `theme` global in its meta, which locks the toolbar to that theme for its stories. A brand gets its own story only when it adds a real override file or a brand-specific component.
 
 Autodocs is on for every component. Each story's docs description names the component and its shadcn install command, so the docs page and the Storybook MCP both show how to add it (the MCP reads the description and the story snippets, not arbitrary parameters).
 
 The preview derives its themes from the manifests, which are the single source of token values. Each `registry:theme` item is one theme: `tokens` is the brand's default, and `tokens-<name>` is a named theme of the same brand, so `@widget/tokens-azure` appears as "Widget / Azure". A theme supports dark mode when its item carries a `dark` block. The base goes on `:root`; every other theme is a delta scoped under `[data-theme]`.
+
+`.storybook/style-registry.css` aggregates the styles: it `@reference`s the preview stylesheet, then imports each brand's `style.css` into a Tailwind layer. The core style is the global base; a brand's deltas are scoped under `[data-style]`, the attribute the decorator sets to the active brand. Adding a brand's `style.css` means adding one `@import` line there.
 
 Tailwind needs the `@theme` registrations at build time, so the Storybook stylesheet declares them, the same registrations a consumer's stylesheet gets from `cssVars.theme` on install. Minting a token therefore touches two files: `registry.json` and `.storybook/index.css`.
 

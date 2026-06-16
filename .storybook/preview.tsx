@@ -1,6 +1,7 @@
 import type { Preview } from "@storybook/react-vite";
 import * as React from "react";
 import "./index.css";
+import "./style-registry.css";
 import "./themes";
 import { themes } from "./modes";
 
@@ -74,8 +75,9 @@ const preview: Preview = {
 
 			React.useLayoutEffect(() => {
 				document.body.setAttribute("data-theme", theme.id);
+				document.body.setAttribute("data-style", theme.brand);
 				document.documentElement.classList.toggle("dark", dark);
-			}, [theme.id, dark]);
+			}, [theme.id, theme.brand, dark]);
 
 			return (
 				<div className="bg-background text-foreground p-6">
