@@ -36,7 +36,7 @@ This registry is Base UI, not Radix. When consulting shadcn for a component (doc
 - Docs: `https://ui.shadcn.com/docs/components/base/<name>` (the Radix variant lives at `/docs/components/radix/<name>`; do not use it).
 - Source of truth: `shadcn-ui/ui` → `apps/v4/registry/bases/base/ui/<name>.tsx` (fetch via `gh api repos/shadcn-ui/ui/contents/...`).
 
-Upstream has moved its base components to `cn-*` preset classes defined in CSS. This repo keeps the inline Tailwind utility convention. When matching upstream, mirror the structure, props, and `data-slot` contract, and translate `cn-*` classes back to inline utilities. Translation applies the repo's value rules, which win over a verbatim copy: convert an arbitrary pixel value to the scale step that equals it (`ring-3` not `ring-[3px]`, `min-w-24` not `min-w-[96px]`), keeping the arbitrary form only when no scale step matches. See the `design-tokens` skill.
+Upstream authors its Base UI components with `cn-*` style classes and maps them to utilities in a per-style CSS file. This repo follows that model. A component mirrors upstream's `cn-*` source, props, and `data-slot` contract; `registry/core/style.css` maps each `cn-*` class to utilities, and a brand overrides only its deltas in its own `style.css`. Styles own structure (padding, radius, sizing); themes own color, font, and the `--radius` value (see `REGISTRY.md`). When authoring style utilities, convert an arbitrary pixel value to the scale step that equals it (`ring-3` not `ring-[3px]`, `min-w-24` not `min-w-[96px]`), keeping the arbitrary form only when no scale step matches (see the `design-tokens` skill).
 
 Match shadcn's Base UI authoring conventions:
 

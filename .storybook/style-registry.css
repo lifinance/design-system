@@ -1,0 +1,6 @@
+/* Aggregates the per-brand style sheets so every brand can be previewed from one
+   build. The core style is the base; each brand scopes its deltas under
+   [data-style], which the preview decorator sets to the active brand. */
+@import "../registry/core/style.css" layer(base);
+@import "../registry/jumper/style.css" layer(base);
+@reference "./index.css";

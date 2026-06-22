@@ -24,11 +24,11 @@
 					"accent": "oklch(0.9423 0.0068 295.45)",
 					"accent-foreground": "oklch(0 0 0)",
 					"destructive": "oklch(0.531 0.2002 31.03)",
+					"success": "oklch(0.48 0.15 152)",
 					"border": "oklch(0.9158 0.0141 304.12)",
 					"input": "oklch(0.9158 0.0141 304.12)",
 					"ring": "oklch(0.2957 0.1699 287.56)",
 					"radius": "0.75rem",
-					"lifi-button-radius": "calc(infinity * 1px)",
 					"font-sans": "Inter, sans-serif"
 				},
 				"dark": {
@@ -47,6 +47,7 @@
 					"accent": "oklch(0.3594 0.0632 289)",
 					"accent-foreground": "oklch(1 0 0)",
 					"destructive": "oklch(0.76 0.142 31.03)",
+					"success": "oklch(0.85 0.17 152)",
 					"border": "oklch(0.3594 0.0632 289)",
 					"input": "oklch(0.3594 0.0632 289)",
 					"ring": "oklch(0.6985 0.1607 298.4)"
@@ -54,14 +55,45 @@
 			}
 		},
 		{
-			"name": "achievement-card",
+			"name": "mission-card",
 			"type": "registry:component",
-			"title": "Achievement card",
-			"description": "An achievement card showing artwork, a title, a description, and a badge.",
+			"title": "Mission card",
+			"description": "A mission card showing artwork, a title, and a reward, with an available or earned status.",
 			"registryDependencies": ["@jumper/tokens", "@core/card", "@core/badge"],
 			"files": [
 				{
-					"path": "registry/jumper/components/achievement-card.tsx",
+					"path": "registry/jumper/components/mission-card.tsx",
+					"type": "registry:component"
+				}
+			]
+		},
+		{
+			"name": "perk-card",
+			"type": "registry:component",
+			"title": "Perk card",
+			"description": "A perk card showing artwork, a title, a description, a discount, and an unlock status.",
+			"registryDependencies": ["@jumper/tokens", "@core/card", "@core/badge"],
+			"files": [
+				{
+					"path": "registry/jumper/components/perk-card.tsx",
+					"type": "registry:component"
+				}
+			]
+		},
+		{
+			"name": "activity-card",
+			"type": "registry:component",
+			"title": "Activity card",
+			"description": "An activity card showing artwork, a title, a date, a description, and a reward.",
+			"registryDependencies": [
+				"@jumper/tokens",
+				"@core/card",
+				"@core/badge",
+				"@core/tooltip"
+			],
+			"files": [
+				{
+					"path": "registry/jumper/components/activity-card.tsx",
 					"type": "registry:component"
 				}
 			]
@@ -75,7 +107,9 @@
 			"registryDependencies": [
 				"@core/base",
 				"@jumper/tokens",
-				"@jumper/achievement-card"
+				"@jumper/mission-card",
+				"@jumper/perk-card",
+				"@jumper/activity-card"
 			]
 		}
 	]

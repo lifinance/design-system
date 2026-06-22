@@ -7,7 +7,7 @@ labels: ["token", "design-system"]
 
 ## Token
 
-<!-- Proposed name. Convention: --[namespace]-[component]-[property]-[modifier]-[state] -->
+<!-- Proposed name. Convention: --[namespace]-[component]-[variant]-[state] -->
 
 - **Name:** `--lifi-...`
 - **Value (light):**

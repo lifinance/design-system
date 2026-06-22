@@ -15,12 +15,10 @@
 					"color-info": "var(--info)",
 					"color-button-primary-hover": "var(--lifi-button-primary-hover)",
 					"color-button-primary-active": "var(--lifi-button-primary-active)",
-					"color-button-primary-focus": "var(--lifi-button-primary-focus)",
-					"radius-button": "var(--lifi-button-radius)"
+					"color-button-primary-focus": "var(--lifi-button-primary-focus)"
 				},
 				"light": {
 					"radius": "0.625rem",
-					"lifi-button-radius": "var(--radius)",
 					"lifi-button-primary-hover": "color-mix(in oklch, var(--primary), var(--primary-foreground) 12%)",
 					"lifi-button-primary-active": "color-mix(in oklch, var(--primary), var(--primary-foreground) 20%)",
 					"lifi-button-primary-focus": "var(--ring)",

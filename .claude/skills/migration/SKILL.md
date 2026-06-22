@@ -19,7 +19,7 @@ Rebuild what the component does, not its original markup. The source's structure
 5. **Choose the registry** (see below).
 6. **Map tokens to our naming** (see below).
 7. **Reimplement in our conventions** (see below).
-8. **Install** the component: the source file, a manifest item, and one story whose docs description names the component and its `shadcn add` command. Adding a whole new brand also needs a `registry.<brand>.json` and a build script. The preview shows rendered JSX in the docs (the global `docs.source.type` is `dynamic`), so a compositional story reads cleanly; only a story that renders through a stateful demo wrapper needs an explicit `parameters.docs.source.code` with the real usage, so the docs show the component and not the wrapper.
+8. **Install** the component: the source file, its `cn-*` rules in `registry/core/style.css` for a primitive, a manifest item, and one story whose docs description names the component and its `shadcn add` command. Adding a whole new brand also needs a `registry.<brand>.json`, a `registry/<brand>/style.css`, and a build script. The preview shows rendered JSX in the docs (the global `docs.source.type` is `dynamic`), so a compositional story reads cleanly; only a story that renders through a stateful demo wrapper needs an explicit `parameters.docs.source.code` with the real usage, so the docs show the component and not the wrapper.
 9. **Verify in both light and dark** (see below).
 
 ## Choosing the registry
@@ -32,7 +32,7 @@ Pick the home by who the component belongs to, not by where it came from.
 
 Dependency direction is one way: a brand builds on core (`@jumper/tokens` depends on `@core/tokens`), and may build on the widget if it composes widget components. The widget never depends on a brand. Components stay brand-agnostic by reading role utilities, so any theme restyles them.
 
-Each component is defined once in `@core` and is reused by brands through registry dependencies: each brand's `registry:style` extends `@core/base`, so it includes the whole core set without copying. A brand difference is either visual (values in `@<brand>/tokens`) or functional (a brand item with the **same name** as core's, listed after `@core/base` in the style, which replaces it last-wins). Use a functional override only when tokens cannot express the difference.
+Each component is defined once in `@core` and reused by brands through registry dependencies: each brand's `registry:style` extends `@core/base`, so it includes the whole core set without copying. A brand difference is visual (color and value in `@<brand>/tokens`), structural (padding, radius, and sizing in the brand's `style.css`), or functional (a brand component with the **same name** as core's, listed after `@core/base` in the style, which replaces it last-wins). Use a functional override only when neither the theme nor the style can express the difference.
 
 Within a registry, the item type and folder follow what the thing is. A primitive is `registry:ui` and lives in `ui/` (button, input, card, item). A composed component built from those primitives is `registry:component` and lives in `components/` (the achievement card). Match the item `type` in the manifest to the folder.
 
@@ -47,13 +47,14 @@ Translate the source's theme tokens to ours per the `design-tokens` skill. Commo
 | `palette.on-primary` / `on-secondary` | `primary-foreground` / `secondary-foreground` |
 | `palette.outline` / a surface border | `border` |
 | status `success/error/warning` bg+fg | the `success` / `destructive` / `warning` role tokens |
-| `shape.cardBorderRadius` / `buttonBorderRadius` | the radius scale (`rounded-xl`, `rounded-button`) |
+| `shape.cardBorderRadius` / `buttonBorderRadius` | the radius scale in the style (`rounded-lg`, `rounded-xl`) |
 | `shadows[n]` | `shadow-sm` / `shadow-md` |
 
-Use a role token when one fits. Mint a component token (`--lifi-<component>-<property>`) only when the brand must vary a property no role covers. Size, weight, and spacing are not tokens; use the Tailwind scale.
+Use a role token when one fits. Mint a variant-state color token (`--lifi-<component>-<variant>-<state>`) only when a brand must set an interactive color no role covers. Radius, size, weight, and spacing are not tokens; they live in the style, written with the Tailwind scale.
 
 ## Reimplementing in our conventions
 
+- Author a primitive with shadcn's `cn-*` style classes, mirroring upstream's Base UI source. Map each `cn-*` class to utilities in the core style (`registry/core/style.css`), and put a brand's structural delta in that brand's `style.css`. A composed component instead uses primitives and writes its own layout with Tailwind classes.
 - Compose shadcn primitives. Build the structure from `Card`, `Item`, and the other primitives instead of nesting bare `div`s with hand-written layout classes. If the composite needs a primitive core lacks, add that primitive to `@core` from shadcn first, then compose it.
 - Remove MUI. No `styled`, `sx`, `Box`, `Stack`, or `Typography`. Use the primitives above, or plain elements with Tailwind classes and `cn` where no primitive fits.
 - Where the source used Radix `Slot` / `asChild`, use Base UI's `useRender` / `render`.
