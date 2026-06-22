@@ -25,7 +25,7 @@ Token names are lowercase and hyphen-separated. There are two kinds.
 
 **Role tokens** carry no prefix. They are the shadcn base (`--background`, `--primary`, `--radius`, `--ring`) plus the few roles a brand needs that shadcn omits (`--success`, `--warning`, `--info`). Reach for a role token first.
 
-**Component tokens** start with `--lifi-`, then name the component and what they set: a property such as `--lifi-button-radius`, or a variant and state such as `--lifi-button-primary-hover`. Each derives from a role token by default. A brand overrides one only when it needs a different value. The names match the W3C Design Tokens format, where `--lifi-button-radius` is the path `lifi.button.radius`.
+**Variant-state color tokens** start with `--lifi-`, then name the component, variant, and state, such as `--lifi-button-primary-hover`. Each derives from a role token by default. A brand overrides one only when it needs a different color. The names match the W3C Design Tokens format, where `--lifi-button-primary-hover` is the path `lifi.button.primary.hover`.
 
 ## Color
 
@@ -41,7 +41,7 @@ Core also defines the chart palette (`--chart-1` to `--chart-5`) and the sidebar
 
 ## Radius
 
-`--radius` sets the scale. `rounded-sm` through `rounded-xl` derive from it, and `rounded-lg` equals `--radius`, so one change rescales every corner. Each utility also has per-corner variants such as `rounded-t-lg`.
+`--radius` sets the scale. `rounded-sm` through `rounded-xl` derive from it, and `rounded-lg` equals `--radius`, so one change rescales every corner. Each utility also has per-corner variants such as `rounded-t-lg`. Which corner a component takes is its style, not a per-component token.
 
 <Story of={DesignTokens.Radius} />
 
@@ -51,13 +51,13 @@ Core also defines the chart palette (`--chart-1` to `--chart-5`) and the sidebar
 
 <Story of={DesignTokens.Typography} />
 
-## Component tokens
+## Variant-state color tokens
 
-A component token sets one property of one component that no role token covers. It derives from a role token by default, so every theme works untouched until a brand overrides it.
+A `--lifi-` token sets one interactive color of one component that no role token covers. It derives from a role token by default, so every theme works untouched until a brand overrides it.
 
-Interactive colors add a variant and a state. The primary button defines three: `--lifi-button-primary-hover`, `--lifi-button-primary-active`, and `--lifi-button-primary-focus`. Each has a utility you apply with the matching Tailwind prefix: `hover:bg-button-primary-hover`, `active:bg-button-primary-active`, and `focus-visible:ring-button-primary-focus`.
+The primary button defines three: `--lifi-button-primary-hover`, `--lifi-button-primary-active`, and `--lifi-button-primary-focus`. Each has a utility you apply with the matching Tailwind prefix: `hover:bg-button-primary-hover`, `active:bg-button-primary-active`, and `focus-visible:ring-button-primary-focus`.
 
-Add a component token only when a brand needs to set that value. When a state already matches a role token, the component applies that utility directly and no token exists. An outline button's hover, for example, uses the `muted` background and needs no token. If a brand later needs that hover to differ, add `--lifi-button-outline-hover` then. This keeps the set small instead of one token for every variant, state, and property.
+Add a token only when a brand needs to set that color. When a state already matches a role token, the style applies that utility directly and no token exists. An outline button's hover, for example, uses the `muted` background and needs no token. If a brand later needs that hover to differ, add `--lifi-button-outline-hover` then. This keeps the set small.
 
 <Story of={DesignTokens.ComponentTokens} />
 
@@ -82,7 +82,7 @@ These rules keep handwritten and generated UI consistent across every theme and 
 
 When you add, change, or remove a token:
 
-- **Prefer a role token.** Add a new role only when none fits. When one component property must vary per brand on its own, add a `--lifi-` component token that derives from a role token.
+- **Prefer a role token.** Add a new role only when none fits. When one component's interactive color must vary per brand on its own, add a `--lifi-` variant-state token that derives from a role token.
 - **Register every new utility.** A new color or radius needs a `@theme` mapping, for example `@theme inline { --color-success: var(--success); }`, in the registry's `cssVars.theme`. Without it, no utility is generated.
 - **Set mode-specific values in both blocks.** A token that differs between light and dark must appear in the `light` and `dark` blocks, or it stays at its light value.
 - **Edit the manifests.** The source of truth is `cssVars` on the `registry:theme` item in each manifest. `.storybook/themes.ts` reads the manifests, so the preview updates with no second edit.

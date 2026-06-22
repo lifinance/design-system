@@ -29,7 +29,6 @@
 					"input": "oklch(0.9158 0.0141 304.12)",
 					"ring": "oklch(0.2957 0.1699 287.56)",
 					"radius": "0.75rem",
-					"lifi-button-radius": "calc(infinity * 1px)",
 					"font-sans": "Inter, sans-serif"
 				},
 				"dark": {

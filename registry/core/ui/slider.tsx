@@ -11,14 +11,14 @@ function Slider({
 	thumbLabels,
 	...props
 }: SliderPrimitive.Root.Props & { thumbLabels?: string[] }) {
-	// One thumb per value; a lone number stays a single thumb (upstream's [min, max] fallback renders two).
+	// One thumb per value; a lone number stays a single thumb (Base UI's [min, max] fallback renders two).
 	const _value = value ?? defaultValue;
 	const _values = Array.isArray(_value) ? _value : [_value ?? min];
 
 	return (
 		<SliderPrimitive.Root
-			data-slot="slider"
 			className={cn("data-horizontal:w-full data-vertical:h-full", className)}
+			data-slot="slider"
 			defaultValue={defaultValue}
 			value={value}
 			min={min}
@@ -26,14 +26,14 @@ function Slider({
 			thumbAlignment="edge"
 			{...props}
 		>
-			<SliderPrimitive.Control className="relative flex w-full touch-none items-center select-none data-disabled:opacity-50 data-vertical:h-full data-vertical:w-auto data-vertical:flex-col data-vertical:min-h-40">
+			<SliderPrimitive.Control className="cn-slider relative flex w-full touch-none items-center select-none data-disabled:opacity-50 data-vertical:h-full data-vertical:w-auto data-vertical:flex-col">
 				<SliderPrimitive.Track
 					data-slot="slider-track"
-					className="relative grow overflow-hidden rounded-full bg-muted select-none data-horizontal:h-1 data-horizontal:w-full data-vertical:h-full data-vertical:w-1"
+					className="cn-slider-track relative grow overflow-hidden select-none"
 				>
 					<SliderPrimitive.Indicator
 						data-slot="slider-range"
-						className="select-none bg-primary data-horizontal:h-full data-vertical:w-full"
+						className="cn-slider-range select-none data-horizontal:h-full data-vertical:w-full"
 					/>
 				</SliderPrimitive.Track>
 				{Array.from({ length: _values.length }, (_, index) => (
@@ -42,7 +42,7 @@ function Slider({
 						// biome-ignore lint/suspicious/noArrayIndexKey: a thumb is identified by its position in the value array
 						key={index}
 						aria-label={thumbLabels?.[index]}
-						className="relative block size-3 shrink-0 rounded-full border border-ring bg-white ring-ring/50 transition-[color,box-shadow] select-none after:absolute after:-inset-2 hover:ring-3 focus-visible:ring-3 focus-visible:outline-hidden active:ring-3 disabled:pointer-events-none disabled:opacity-50 data-disabled:pointer-events-none data-disabled:opacity-50"
+						className="cn-slider-thumb block shrink-0 select-none disabled:pointer-events-none disabled:opacity-50"
 					/>
 				))}
 			</SliderPrimitive.Control>

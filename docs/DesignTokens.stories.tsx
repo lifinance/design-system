@@ -80,12 +80,6 @@ const ROLE_RADIUS: RadiusRow[] = [
 
 const COMPONENT_TOKENS: ComponentTokenRow[] = [
 	{
-		sample: <span className="block h-10 w-14 rounded-button border bg-muted" />,
-		token: "lifi-button-radius",
-		utility: "rounded-button",
-		use: "Button corner radius. Defaults to --radius, so a brand can round buttons independently.",
-	},
-	{
 		sample: (
 			<span className="block h-10 w-14 rounded-md border bg-button-primary-hover" />
 		),
@@ -129,12 +123,6 @@ const GUIDELINES: Guideline[] = [
 		why: "A token's value changes per brand; a fixed palette color does not, so it stops matching the active theme.",
 		do: '<p className="text-destructive">Payment failed</p>',
 		dont: '<p className="text-red-600">Payment failed</p>',
-	},
-	{
-		point: "Round buttons with the button-radius token",
-		why: "It lets a brand give buttons their own radius, separate from inputs and the rest of the scale.",
-		do: '<button className="rounded-button">',
-		dont: '<button className="rounded-[24px]">',
 	},
 	{
 		point: "Express size with the spacing scale, not tokens",

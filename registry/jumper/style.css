@@ -1,0 +1,7 @@
+/* Jumper style: deltas over the core style. */
+[data-style="jumper"] {
+	/* Button */
+	.cn-button {
+		@apply rounded-full;
+	}
+}

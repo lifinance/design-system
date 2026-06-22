@@ -1,4 +1,6 @@
-# Consuming tokens in a component
+# Writing token utilities
+
+A style maps `cn-*` classes to utilities, and a component's class string carries its layout. Both follow these rules.
 
 ## Contents
 
