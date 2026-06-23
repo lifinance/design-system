@@ -3,4 +3,5 @@
    [data-style], which the preview decorator sets to the active brand. */
 @import "../registry/core/style.css" layer(base);
 @import "../registry/jumper/style.css" layer(base);
+@import "../registry/perps/style.css" layer(perps);
 @reference "./index.css";
