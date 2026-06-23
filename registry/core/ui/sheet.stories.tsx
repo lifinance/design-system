@@ -77,8 +77,11 @@ export const Default: Story = {
 			screen.getByRole("heading", { name: /edit profile/i }),
 		).toBeVisible();
 		await userEvent.keyboard("{Escape}");
-		await waitFor(() =>
-			expect(screen.queryByRole("dialog")).not.toBeInTheDocument(),
+		// The panel unmounts only after its close transition ends, so allow more
+		// than the default poll window.
+		await waitFor(
+			() => expect(screen.queryByRole("dialog")).not.toBeInTheDocument(),
+			{ timeout: 5000 },
 		);
 	},
 };
@@ -119,8 +122,11 @@ export const Sides: Story = {
 		await waitFor(() => expect(sheet).toBeVisible());
 		await expect(sheet).toHaveAttribute("data-side", "left");
 		await userEvent.keyboard("{Escape}");
-		await waitFor(() =>
-			expect(screen.queryByRole("dialog")).not.toBeInTheDocument(),
+		// The panel unmounts only after its close transition ends, so allow more
+		// than the default poll window.
+		await waitFor(
+			() => expect(screen.queryByRole("dialog")).not.toBeInTheDocument(),
+			{ timeout: 5000 },
 		);
 	},
 };
