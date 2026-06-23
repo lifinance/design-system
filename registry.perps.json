@@ -7,12 +7,120 @@
 			"name": "tokens",
 			"type": "registry:theme",
 			"title": "LI.FI perps tokens",
-			"description": "The perps theme. Builds on @core/tokens.",
+			"description": "The perps trading theme: dark-first, indigo primary, green/red PnL. Re-skins core components with the perps palette. Builds on @core/tokens.",
 			"registryDependencies": ["@core/tokens"],
 			"cssVars": {
-				"light": {},
-				"dark": {}
+				"light": {
+					"background": "oklch(0.985 0 0)",
+					"foreground": "oklch(0.18 0.006 285)",
+					"card": "oklch(1 0 0)",
+					"card-foreground": "oklch(0.18 0.006 285)",
+					"popover": "oklch(1 0 0)",
+					"popover-foreground": "oklch(0.18 0.006 285)",
+					"primary": "oklch(0.585 0.222 277)",
+					"primary-foreground": "oklch(0.985 0 0)",
+					"secondary": "oklch(0.96 0.004 286)",
+					"secondary-foreground": "oklch(0.21 0.006 285)",
+					"muted": "oklch(0.96 0.004 286)",
+					"muted-foreground": "oklch(0.52 0.008 286)",
+					"accent": "oklch(0.95 0.01 277)",
+					"accent-foreground": "oklch(0.21 0.006 285)",
+					"destructive": "oklch(0.64 0.21 25)",
+					"success": "oklch(0.68 0.18 153)",
+					"border": "oklch(0.92 0.004 286)",
+					"input": "oklch(0.92 0.004 286)",
+					"ring": "oklch(0.585 0.222 277)",
+					"radius": "0.5rem",
+					"font-sans": "Inter, sans-serif"
+				},
+				"dark": {
+					"background": "oklch(0.17 0.006 285)",
+					"foreground": "oklch(0.97 0 0)",
+					"card": "oklch(0.21 0.006 285)",
+					"card-foreground": "oklch(0.97 0 0)",
+					"popover": "oklch(0.21 0.006 285)",
+					"popover-foreground": "oklch(0.97 0 0)",
+					"primary": "oklch(0.62 0.2 277)",
+					"primary-foreground": "oklch(0.985 0 0)",
+					"secondary": "oklch(0.25 0.006 286)",
+					"secondary-foreground": "oklch(0.97 0 0)",
+					"muted": "oklch(0.25 0.006 286)",
+					"muted-foreground": "oklch(0.7 0.008 286)",
+					"accent": "oklch(0.28 0.02 277)",
+					"accent-foreground": "oklch(0.97 0 0)",
+					"destructive": "oklch(0.64 0.21 25)",
+					"success": "oklch(0.68 0.18 153)",
+					"border": "oklch(0.27 0.006 286)",
+					"input": "oklch(0.27 0.006 286)",
+					"ring": "oklch(0.62 0.2 277)",
+					"radius": "0.5rem"
+				}
 			}
+		},
+		{
+			"name": "depth-ratio-bar",
+			"type": "registry:ui",
+			"title": "Depth ratio bar",
+			"description": "An order-book depth ratio bar showing the share of resting size on the bid and ask sides.",
+			"registryDependencies": ["@perps/tokens"],
+			"files": [
+				{
+					"path": "registry/perps/ui/depth-ratio-bar.tsx",
+					"type": "registry:ui"
+				}
+			]
+		},
+		{
+			"name": "spread",
+			"type": "registry:ui",
+			"title": "Spread",
+			"description": "The order-book spread divider: a three-cell row with a leading slot (e.g. a price-grouping select), a center slot, and the spread readout end-aligned.",
+			"registryDependencies": ["@perps/tokens"],
+			"files": [
+				{
+					"path": "registry/perps/ui/spread.tsx",
+					"type": "registry:ui"
+				}
+			]
+		},
+		{
+			"name": "market-table",
+			"type": "registry:component",
+			"title": "Market table",
+			"description": "A compact financial table for order-book and trades data: end-aligned numeric columns, a tone-colored leading column, per-row depth shading, optional header actions and a full-width divider row.",
+			"registryDependencies": ["@perps/tokens", "@core/table"],
+			"files": [
+				{
+					"path": "registry/perps/components/market-table.tsx",
+					"type": "registry:component"
+				}
+			]
+		},
+		{
+			"name": "panel-header",
+			"type": "registry:ui",
+			"title": "Panel header",
+			"description": "A card/panel header bar with leading, content and trailing slots and an optional divider.",
+			"registryDependencies": ["@perps/tokens"],
+			"files": [
+				{
+					"path": "registry/perps/ui/panel-header.tsx",
+					"type": "registry:ui"
+				}
+			]
+		},
+		{
+			"name": "panel-footer",
+			"type": "registry:ui",
+			"title": "Panel footer",
+			"description": "A card/panel footer region with a top divider, e.g. for an order-book depth summary.",
+			"registryDependencies": ["@perps/tokens"],
+			"files": [
+				{
+					"path": "registry/perps/ui/panel-footer.tsx",
+					"type": "registry:ui"
+				}
+			]
 		},
 		{
 			"name": "style",
@@ -20,7 +128,15 @@
 			"title": "Perps",
 			"description": "The perps design system: the core set themed for perps.",
 			"extends": "none",
-			"registryDependencies": ["@core/base", "@perps/tokens"]
+			"registryDependencies": [
+				"@core/base",
+				"@perps/tokens",
+				"@perps/depth-ratio-bar",
+				"@perps/spread",
+				"@perps/market-table",
+				"@perps/panel-header",
+				"@perps/panel-footer"
+			]
 		}
 	]
 }

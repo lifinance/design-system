@@ -289,6 +289,34 @@ export const Overview: Story = {
 					</SelectGroup>
 				</SelectContent>
 			</Select>
+			<Select defaultValue="Banana">
+				<SelectTrigger variant="ghost" size="sm" aria-label="Ghost">
+					<SelectValue />
+				</SelectTrigger>
+				<SelectContent aria-label="Ghost">
+					<SelectGroup>
+						{FRUITS.map((fruit) => (
+							<SelectItem key={fruit} value={fruit}>
+								{fruit}
+							</SelectItem>
+						))}
+					</SelectGroup>
+				</SelectContent>
+			</Select>
+			<Select defaultValue="Banana">
+				<SelectTrigger variant="ghost" size="xs" aria-label="Extra small">
+					<SelectValue />
+				</SelectTrigger>
+				<SelectContent size="xs" aria-label="Extra small">
+					<SelectGroup>
+						{FRUITS.map((fruit) => (
+							<SelectItem key={fruit} value={fruit}>
+								{fruit}
+							</SelectItem>
+						))}
+					</SelectGroup>
+				</SelectContent>
+			</Select>
 			<Select>
 				<SelectTrigger aria-label="Invalid" aria-invalid>
 					<SelectValue placeholder="Select a fruit" />

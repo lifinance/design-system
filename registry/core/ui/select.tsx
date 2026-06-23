@@ -29,17 +29,24 @@ function SelectValue({ className, ...props }: SelectPrimitive.Value.Props) {
 function SelectTrigger({
 	className,
 	size = "default",
+	variant = "default",
 	children,
 	...props
 }: SelectPrimitive.Trigger.Props & {
-	size?: "sm" | "default";
+	size?: "xs" | "sm" | "default";
+	variant?: "default" | "ghost";
 }) {
 	return (
 		<SelectPrimitive.Trigger
 			data-slot="select-trigger"
 			data-size={size}
+			data-variant={variant}
 			className={cn(
-				"flex w-fit items-center justify-between gap-1.5 rounded-lg border border-input bg-transparent py-2 pr-2 pl-2.5 text-sm whitespace-nowrap transition-colors outline-none select-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 disabled:cursor-not-allowed disabled:opacity-50 data-placeholder:text-muted-foreground data-[size=default]:h-8 data-[size=sm]:h-7 data-[size=sm]:rounded-[min(var(--radius-md),10px)] aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 *:data-[slot=select-value]:flex *:data-[slot=select-value]:items-center *:data-[slot=select-value]:gap-1.5 *:data-[slot=select-value]:line-clamp-1 dark:bg-input/30 dark:hover:bg-input/50 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+				"flex w-fit items-center justify-between gap-1.5 rounded-lg border border-transparent bg-transparent py-2 pr-2 pl-2.5 text-sm whitespace-nowrap transition-colors outline-none select-none focus-visible:ring-3 focus-visible:ring-ring/50 disabled:cursor-not-allowed disabled:opacity-50 data-placeholder:text-muted-foreground data-[size=default]:h-8 data-[size=sm]:h-7 data-[size=sm]:rounded-[min(var(--radius-md),10px)] data-[size=xs]:h-6 data-[size=xs]:gap-1 data-[size=xs]:rounded-[min(var(--radius-md),10px)] data-[size=xs]:px-2 data-[size=xs]:text-xs aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 *:data-[slot=select-value]:flex *:data-[slot=select-value]:items-center *:data-[slot=select-value]:gap-1.5 *:data-[slot=select-value]:line-clamp-1 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+				variant === "default" &&
+					"border-input focus-visible:border-ring dark:bg-input/30 dark:hover:bg-input/50 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40",
+				variant === "ghost" &&
+					"hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50",
 				className,
 			)}
 			{...props}
@@ -62,6 +69,7 @@ function SelectContent({
 	align = "center",
 	alignOffset = 0,
 	alignItemWithTrigger = true,
+	size = "default",
 	"aria-label": ariaLabel,
 	"aria-labelledby": ariaLabelledby,
 	...props
@@ -69,7 +77,9 @@ function SelectContent({
 	Pick<
 		SelectPrimitive.Positioner.Props,
 		"align" | "alignOffset" | "side" | "sideOffset" | "alignItemWithTrigger"
-	>) {
+	> & {
+		size?: "xs" | "sm" | "default";
+	}) {
 	return (
 		<SelectPrimitive.Portal>
 			<SelectPrimitive.Positioner
@@ -82,9 +92,12 @@ function SelectContent({
 			>
 				<SelectPrimitive.Popup
 					data-slot="select-content"
+					data-size={size}
 					data-align-trigger={alignItemWithTrigger}
 					className={cn(
 						"relative isolate z-50 max-h-(--available-height) w-(--anchor-width) min-w-36 origin-(--transform-origin) overflow-x-hidden overflow-y-auto rounded-lg text-popover-foreground shadow-md ring-1 ring-foreground/10 duration-100 data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=inline-end]:slide-in-from-left-2 data-[side=inline-start]:slide-in-from-right-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 data-[align-trigger=true]:animate-none animate-none! bg-popover/70 before:pointer-events-none before:absolute before:inset-0 before:-z-1 before:rounded-[inherit] before:backdrop-blur-2xl before:backdrop-saturate-150 **:data-[slot$=-item]:focus:bg-foreground/10 **:data-[slot$=-item]:data-highlighted:bg-foreground/10 **:data-[slot$=-separator]:bg-foreground/5 **:data-[slot$=-trigger]:focus:bg-foreground/10 **:data-[slot$=-trigger]:aria-expanded:bg-foreground/10! **:data-[variant=destructive]:focus:bg-foreground/10! **:data-[variant=destructive]:text-accent-foreground! **:data-[variant=destructive]:**:text-accent-foreground!",
+						size === "xs" &&
+							"min-w-(--anchor-width) **:data-[slot=select-group]:p-0.5 **:data-[slot=select-item]:gap-1 **:data-[slot=select-item]:py-0.5 **:data-[slot=select-item]:pr-6 **:data-[slot=select-item]:pl-2 **:data-[slot=select-item]:text-xs",
 						className,
 					)}
 					{...props}
