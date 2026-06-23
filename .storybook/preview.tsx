@@ -1,9 +1,15 @@
 import type { Preview } from "@storybook/react-vite";
 import * as React from "react";
+import { configure } from "storybook/test";
 import "./index.css";
 import "./style-registry.css";
 import "./themes";
 import { themes } from "./modes";
+
+// Play functions wait for overlays to finish their open and close transitions
+// before asserting visibility or unmount. The default poll window is too tight
+// when the full theme and mode matrix runs in parallel.
+configure({ asyncUtilTimeout: 5000 });
 
 const preview: Preview = {
 	parameters: {
