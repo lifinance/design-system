@@ -250,10 +250,8 @@ function Badge({ kind }: { kind: "do" | "dont" }) {
 	return (
 		<span
 			className={cn(
-				"inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-bold tracking-wide",
-				isDo
-					? "bg-success text-black"
-					: "bg-destructive text-white dark:bg-destructive/60",
+				"inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-bold tracking-wide text-foreground",
+				isDo ? "bg-success/15" : "bg-destructive/10",
 			)}
 		>
 			{isDo ? <Check className="size-3.5" /> : <X className="size-3.5" />}
