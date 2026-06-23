@@ -1,0 +1,85 @@
+/* Perps style: maps each perps cn-* class to utilities, scoped to the brand.
+   Native perps components define their base here; the core-overrides section at
+   the end re-skins shared core classes for the perps brand. */
+[data-style="perps"] {
+	/* MARK: Depth Ratio Bar */
+	.cn-depth-ratio-bar {
+		@apply flex w-full flex-col gap-3 text-xs font-medium;
+	}
+
+	.cn-depth-ratio-bar-legend {
+		@apply flex items-center gap-5 whitespace-nowrap;
+	}
+
+	.cn-depth-ratio-bar-group {
+		@apply flex flex-1 items-center gap-1;
+	}
+
+	.cn-depth-ratio-bar-label {
+		@apply text-card-foreground;
+	}
+
+	.cn-depth-ratio-bar-track {
+		@apply flex w-full items-start gap-2;
+	}
+
+	.cn-depth-ratio-bar-fill {
+		@apply h-1 min-w-px rounded-full;
+	}
+
+	/* MARK: Market Table */
+	.cn-market-table {
+		@apply text-xs tabular-nums;
+	}
+
+	.cn-market-table-head {
+		@apply text-muted-foreground h-auto px-4 py-2.5 text-xs font-medium;
+	}
+
+	.cn-market-table-head-label {
+		@apply flex items-center gap-1;
+	}
+
+	.cn-market-table-cell {
+		@apply px-4 py-1 font-medium;
+	}
+
+	.cn-market-table-divider-cell {
+		@apply px-4 py-0;
+	}
+
+	/* MARK: Panel Footer */
+	.cn-panel-footer {
+		@apply flex w-full flex-col gap-3 border-t px-4 py-4;
+	}
+
+	/* MARK: Panel Header */
+	.cn-panel-header {
+		@apply flex w-full items-center gap-4 px-4 py-2.5;
+	}
+
+	.cn-panel-header-content {
+		@apply flex min-w-0 flex-1 items-center gap-2;
+	}
+
+	/* MARK: Spread */
+	.cn-spread {
+		@apply flex h-9 items-center;
+	}
+
+	.cn-spread-start {
+		@apply flex flex-1 items-center;
+	}
+
+	.cn-spread-center {
+		@apply flex flex-1 items-center justify-center;
+	}
+
+	.cn-spread-readout {
+		@apply text-muted-foreground flex flex-1 items-center justify-end gap-1 text-xs font-medium tabular-nums;
+	}
+
+	/* MARK: Core overrides */
+	/* Reserved: re-skin shared core classes (e.g. .cn-button) for the perps
+	   brand here, the way jumper overrides core in its own style sheet. */
+}
