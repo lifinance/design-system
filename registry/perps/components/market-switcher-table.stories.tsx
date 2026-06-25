@@ -171,7 +171,7 @@ const meta = {
 		docs: {
 			description: {
 				component:
-					"A compact market picker table for perps market switching: avatar, market pair, leverage/spot/category badges, market stats, and optional sort affordances. Install with `pnpm dlx shadcn@latest add @perps/market-switcher-table`.",
+					"A compact market picker table for pair selection, market stats, and sorting. Install with `pnpm dlx shadcn@latest add @perps/market-switcher-table`.",
 			},
 		},
 		design: {

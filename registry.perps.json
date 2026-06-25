@@ -7,9 +7,14 @@
 			"name": "tokens",
 			"type": "registry:theme",
 			"title": "LI.FI perps tokens",
-			"description": "The perps theme. Builds on @core/tokens.",
+			"description": "Color tokens for the perps theme.",
 			"registryDependencies": ["@core/tokens"],
 			"cssVars": {
+				"light": {
+					"background": "oklch(1 0 0)",
+					"card": "oklch(1 0 0)",
+					"popover": "oklch(1 0 0)"
+				},
 				"dark": {
 					"background": "#0A0A0A",
 					"card": "#171717",
@@ -21,7 +26,7 @@
 			"name": "style",
 			"type": "registry:style",
 			"title": "Perps",
-			"description": "The perps design system: the core set themed for perps.",
+			"description": "The perps theme and component set.",
 			"extends": "none",
 			"registryDependencies": [
 				"@core/base",
@@ -67,7 +72,7 @@
 			"name": "market-switcher-button",
 			"type": "registry:component",
 			"title": "Market Switcher Button",
-			"description": "A perps market switcher trigger with avatar and provider sub-badge.",
+			"description": "A market switcher trigger with a market avatar and provider badge.",
 			"registryDependencies": ["@perps/tokens", "@core/avatar", "@core/button"],
 			"dependencies": ["lucide-react"],
 			"files": [

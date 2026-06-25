@@ -29,7 +29,7 @@ const meta = {
 		docs: {
 			description: {
 				component:
-					"A perps market switcher trigger with market avatar, provider sub-badge, pair label, and dropdown affordance. Install with `pnpm dlx shadcn@latest add @perps/market-switcher-button`.",
+					"A market switcher trigger that shows the selected pair and venue. Install with `pnpm dlx shadcn@latest add @perps/market-switcher-button`.",
 			},
 		},
 		design: {

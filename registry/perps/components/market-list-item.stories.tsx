@@ -11,7 +11,7 @@ const meta = {
 		docs: {
 			description: {
 				component:
-					"A compact list item for mobile market and asset lists. Install with `pnpm dlx shadcn@latest add @perps/market-list-item`.",
+					"A compact row for mobile market and asset lists. Install with `pnpm dlx shadcn@latest add @perps/market-list-item`.",
 			},
 		},
 		design: {
@@ -31,7 +31,7 @@ const meta = {
 		avatarFallback: "B",
 		badges: [{ tone: "info", label: "40x" }],
 		primaryValue: "$66,167.21",
-		secondaryValue: "Vol. $1.1B · OI $2.1B",
+		secondaryValue: "Vol. $1.1B, OI $2.1B",
 		trailingValue: "+1.13%",
 		trailingTone: "success",
 	},
@@ -48,7 +48,7 @@ export const Spot: Story = {
 		avatarFallback: "H",
 		badges: [{ tone: "warning", label: "Spot" }],
 		primaryValue: "$59.80",
-		secondaryValue: "Vol. $208.3M · Market Cap $1.2B",
+		secondaryValue: "Vol. $208.3M, Market Cap $1.2B",
 		trailingValue: "-1.34%",
 		trailingTone: "destructive",
 	},

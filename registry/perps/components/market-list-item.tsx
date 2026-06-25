@@ -92,7 +92,6 @@ function MarketListItem({
 									<Badge
 										key={`${badge.tone}-${String(badge.label)}`}
 										variant={badge.tone}
-										className="h-5 px-2"
 									>
 										{badge.label}
 									</Badge>
