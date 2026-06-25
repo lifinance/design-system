@@ -25,6 +25,8 @@ const meta = {
 				"secondary",
 				"muted",
 				"success",
+				"info",
+				"warning",
 				"destructive",
 				"outline",
 				"ghost",
@@ -47,6 +49,9 @@ export const Overview: Story = {
 			<Badge>Default</Badge>
 			<Badge variant="secondary">Secondary</Badge>
 			<Badge variant="muted">Muted</Badge>
+			<Badge variant="success">Success</Badge>
+			<Badge variant="info">Info</Badge>
+			<Badge variant="warning">Warning</Badge>
 			<Badge variant="destructive">Destructive</Badge>
 			<Badge variant="outline">Outline</Badge>
 			<Badge variant="ghost">Ghost</Badge>

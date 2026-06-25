@@ -105,6 +105,38 @@ export const Line: Story = {
 	),
 };
 
+export const Pill: Story = {
+	render: () => (
+		<div className="flex flex-col gap-4">
+			<Tabs defaultValue="hyperliquid">
+				<TabsList variant="pill" size="sm" aria-label="Providers">
+					<TabsTrigger value="hyperliquid">
+						<span className="size-4 rounded-full bg-success" />
+						Hyperliquid
+					</TabsTrigger>
+					<TabsTrigger value="lighter">
+						<span className="size-4 rounded-full bg-muted-foreground" />
+						Lighter
+					</TabsTrigger>
+					<TabsTrigger value="ostium">
+						<span className="size-4 rounded-full bg-warning" />
+						Ostium
+					</TabsTrigger>
+				</TabsList>
+			</Tabs>
+			<Tabs defaultValue="all">
+				<TabsList variant="pill" size="xs" aria-label="Market filters">
+					<TabsTrigger value="all">All</TabsTrigger>
+					<TabsTrigger value="new">New</TabsTrigger>
+					<TabsTrigger value="stocks">Stocks</TabsTrigger>
+					<TabsTrigger value="crypto">Crypto</TabsTrigger>
+					<TabsTrigger value="commodities">Commodities</TabsTrigger>
+				</TabsList>
+			</Tabs>
+		</div>
+	),
+};
+
 export const Disabled: Story = {
 	render: () => (
 		<Tabs defaultValue="overview" className="w-96">
@@ -164,6 +196,13 @@ export const Overview: Story = {
 					<TabsTrigger value="overview">Overview</TabsTrigger>
 					<TabsTrigger value="analytics">Analytics</TabsTrigger>
 					<TabsTrigger value="reports">Reports</TabsTrigger>
+				</TabsList>
+			</Tabs>
+			<Tabs defaultValue="all" className="w-96">
+				<TabsList variant="pill" size="xs" aria-label="Pill tabs">
+					<TabsTrigger value="all">All</TabsTrigger>
+					<TabsTrigger value="new">New</TabsTrigger>
+					<TabsTrigger value="stocks">Stocks</TabsTrigger>
 				</TabsList>
 			</Tabs>
 		</div>

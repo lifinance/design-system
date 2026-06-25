@@ -8,6 +8,7 @@ import {
 	AvatarGroup,
 	AvatarGroupCount,
 	AvatarImage,
+	AvatarSubBadge,
 } from "./avatar";
 
 const FIGMA = {
@@ -137,6 +138,21 @@ export const Badge: Story = {
 					/>
 				</AvatarBadge>
 			</Avatar>
+		</div>
+	),
+};
+
+export const SubBadge: Story = {
+	parameters: { design: { type: "figma", url: FIGMA.badge } },
+	render: () => (
+		<div className="flex items-end gap-4">
+			{(["2xs", "xs", "sm", "default", "lg", "xl"] as const).map((size) => (
+				<Avatar key={size} size={size} className="after:border-0">
+					<AvatarImage src={ASSETS[1].logo} alt={ASSETS[1].name} />
+					<AvatarFallback>{ASSETS[1].initials}</AvatarFallback>
+					<AvatarSubBadge src={NETWORKS[1].logo} alt={NETWORKS[1].name} />
+				</Avatar>
+			))}
 		</div>
 	),
 };

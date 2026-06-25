@@ -27,6 +27,125 @@
 		@apply h-1 min-w-px rounded-full;
 	}
 
+	/* MARK: Market Pair Cell */
+	.cn-market-pair-cell {
+		@apply flex items-center gap-2;
+	}
+
+	.cn-market-pair-cell-symbol {
+		@apply text-card-foreground truncate;
+	}
+
+	.cn-market-pair-cell-badges {
+		@apply flex items-center gap-1;
+	}
+
+	/* MARK: Market List Item */
+	.cn-market-list-item {
+		@apply bg-card flex h-16 w-full items-center gap-3 px-4 py-3 text-left tabular-nums transition-[background-color,opacity] duration-150 hover:bg-muted/20 disabled:pointer-events-none disabled:opacity-40 disabled:hover:bg-card;
+	}
+
+	.cn-market-list-item-avatar {
+		@apply after:border-0;
+	}
+
+	.cn-market-list-item-content {
+		@apply flex min-w-0 flex-1 flex-col gap-1;
+	}
+
+	.cn-market-list-item-row {
+		@apply flex w-full items-center gap-4;
+	}
+
+	.cn-market-list-item-label-group {
+		@apply flex min-w-0 flex-1 items-center gap-1;
+	}
+
+	.cn-market-list-item-label {
+		@apply text-card-foreground truncate text-sm leading-5 font-medium;
+	}
+
+	.cn-market-list-item-badges {
+		@apply flex shrink-0 items-center gap-1;
+	}
+
+	.cn-market-list-item-primary-value {
+		@apply text-card-foreground shrink-0 text-sm leading-5 font-medium;
+	}
+
+	.cn-market-list-item-row-secondary {
+		@apply flex w-full items-center justify-end gap-4 whitespace-nowrap text-xs leading-4 font-medium;
+	}
+
+	.cn-market-list-item-secondary-value {
+		@apply text-muted-foreground min-w-0 flex-1 truncate;
+	}
+
+	.cn-market-list-item-trailing-value {
+		@apply shrink-0 text-right;
+	}
+
+	.cn-market-list-item-skeleton {
+		@apply bg-card flex h-16 w-full items-center gap-3 rounded-xl px-4 py-3;
+	}
+
+	.cn-market-list-item-skeleton-avatar {
+		@apply bg-accent size-10 shrink-0 rounded-full;
+	}
+
+	.cn-market-list-item-skeleton-content {
+		@apply flex min-w-0 flex-1 items-center justify-between gap-4;
+	}
+
+	.cn-market-list-item-skeleton-lines-start {
+		@apply flex shrink-0 flex-col gap-2;
+	}
+
+	.cn-market-list-item-skeleton-lines-end {
+		@apply flex shrink-0 flex-col items-end gap-2;
+	}
+
+	.cn-market-list-item-skeleton-line-01 {
+		@apply bg-accent h-2.5 w-40 rounded-full;
+	}
+
+	.cn-market-list-item-skeleton-line-02 {
+		@apply bg-accent h-2.5 w-28 rounded-full;
+	}
+
+	.cn-market-list-item-skeleton-line-03 {
+		@apply bg-accent h-2.5 w-20 rounded-full;
+	}
+
+	.cn-market-list-item-skeleton-line-04 {
+		@apply bg-accent h-2.5 w-16 rounded-full;
+	}
+
+	/* MARK: Market Switcher Button */
+	.cn-market-switcher-button {
+		@apply bg-card text-card-foreground hover:bg-muted/20 h-10 justify-start gap-3 rounded-lg border-0 px-3 text-left text-sm font-medium;
+	}
+
+	.cn-market-switcher-button-content {
+		@apply flex min-w-0 items-center gap-3;
+	}
+
+	.cn-market-switcher-button-avatar {
+		@apply after:border-0;
+	}
+
+	.cn-market-switcher-button-label-group {
+		@apply flex min-w-0 items-center gap-1;
+	}
+
+	.cn-market-switcher-button-label {
+		@apply truncate;
+	}
+
+	.cn-market-switcher-button-icon {
+		@apply text-muted-foreground size-5 shrink-0;
+	}
+
 	/* MARK: Market Table */
 	.cn-market-table {
 		@apply text-xs tabular-nums;
@@ -46,6 +165,44 @@
 
 	.cn-market-table-divider-cell {
 		@apply px-4 py-0;
+	}
+
+	/* MARK: Market Switcher Table */
+	.cn-market-switcher-table {
+		@apply flex h-full min-h-0 flex-col text-xs tabular-nums;
+	}
+
+	.cn-market-switcher-table-header-table,
+	.cn-market-switcher-table-body-table {
+		@apply table-fixed;
+	}
+
+	.cn-market-switcher-table-body {
+		@apply min-h-0 flex-1 overflow-y-auto;
+	}
+
+	.cn-market-switcher-table-head {
+		@apply text-muted-foreground h-12 px-4 py-0 text-xs font-normal;
+	}
+
+	.cn-market-switcher-table-head-label {
+		@apply flex items-center gap-1;
+	}
+
+	.cn-market-switcher-table-row {
+		@apply h-9 cursor-pointer bg-transparent transition-[background-color,opacity] duration-150 hover:bg-muted/20 data-disabled:pointer-events-none data-disabled:opacity-40 data-disabled:hover:bg-transparent;
+	}
+
+	.cn-market-switcher-table-cell {
+		@apply h-9 px-4 py-0 font-medium;
+	}
+
+	.cn-market-switcher-table-spacer-row {
+		@apply h-10 border-0 pointer-events-none hover:bg-transparent;
+	}
+
+	.cn-market-switcher-table-spacer-cell {
+		@apply h-10 p-0;
 	}
 
 	/* MARK: Panel Footer */

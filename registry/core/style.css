@@ -73,7 +73,7 @@
 
 /* MARK: Avatar */
 .cn-avatar {
-	@apply size-8 rounded-full after:rounded-full data-[size=lg]:size-10 data-[size=sm]:size-6;
+	@apply size-8 rounded-full after:rounded-full data-[size=2xs]:size-5 data-[size=lg]:size-10 data-[size=sm]:size-8 data-[size=xl]:size-12 data-[size=xs]:size-6;
 }
 
 .cn-avatar-fallback {
@@ -85,11 +85,11 @@
 }
 
 .cn-avatar-badge {
-	@apply bg-primary text-primary-foreground ring-background;
+	@apply bg-background text-primary-foreground ring-background group-data-[size=2xs]/avatar:border group-data-[size=2xs]/avatar:border-background group-data-[size=lg]/avatar:border-2 group-data-[size=lg]/avatar:border-background group-data-[size=sm]/avatar:border-2 group-data-[size=sm]/avatar:border-background group-data-[size=xl]/avatar:border-2 group-data-[size=xl]/avatar:border-background group-data-[size=xs]/avatar:border group-data-[size=xs]/avatar:border-background;
 }
 
 .cn-avatar-group-count {
-	@apply bg-muted text-muted-foreground size-8 rounded-full text-sm group-has-data-[size=lg]/avatar-group:size-10 group-has-data-[size=sm]/avatar-group:size-6 [&>svg]:size-4 group-has-data-[size=lg]/avatar-group:[&>svg]:size-5 group-has-data-[size=sm]/avatar-group:[&>svg]:size-3;
+	@apply bg-muted text-muted-foreground size-8 rounded-full text-sm group-has-data-[size=2xs]/avatar-group:size-5 group-has-data-[size=lg]/avatar-group:size-10 group-has-data-[size=sm]/avatar-group:size-8 group-has-data-[size=xl]/avatar-group:size-12 group-has-data-[size=xs]/avatar-group:size-6 [&>svg]:size-4 group-has-data-[size=2xs]/avatar-group:[&>svg]:size-2.5 group-has-data-[size=lg]/avatar-group:[&>svg]:size-5 group-has-data-[size=sm]/avatar-group:[&>svg]:size-4 group-has-data-[size=xl]/avatar-group:[&>svg]:size-6 group-has-data-[size=xs]/avatar-group:[&>svg]:size-3;
 }
 
 /* MARK: Badge */
@@ -127,6 +127,14 @@
 
 .cn-badge-variant-success {
 	@apply bg-success/15 text-success [a]:hover:bg-success/25;
+}
+
+.cn-badge-variant-info {
+	@apply bg-blue-500/15 text-blue-400 [a]:hover:bg-blue-500/25;
+}
+
+.cn-badge-variant-warning {
+	@apply bg-orange-500/15 text-orange-400 [a]:hover:bg-orange-500/25;
 }
 
 /* MARK: Breadcrumb */
@@ -1250,8 +1258,28 @@
 	@apply rounded-lg p-[3px] group-data-horizontal/tabs:h-8 data-[variant=line]:rounded-none;
 }
 
+.cn-tabs-list-size-default {
+	@apply group-data-horizontal/tabs:h-8;
+}
+
+.cn-tabs-list-size-sm {
+	@apply group-data-horizontal/tabs:h-9;
+}
+
+.cn-tabs-list-size-xs {
+	@apply group-data-horizontal/tabs:h-6;
+}
+
 .cn-tabs-trigger {
 	@apply gap-1.5 rounded-md border border-transparent px-1.5 py-0.5 text-sm font-medium group-data-[variant=default]/tabs-list:data-active:shadow-sm group-data-[variant=line]/tabs-list:data-active:shadow-none [&_svg:not([class*='size-'])]:size-4 has-data-[icon=inline-end]:pr-1 has-data-[icon=inline-start]:pl-1;
+}
+
+.cn-tabs-list-variant-pill {
+	@apply p-0;
+}
+
+.cn-tabs-list-variant-pill .cn-tabs-trigger {
+	@apply border-input rounded-lg data-active:bg-foreground/10 data-active:text-foreground group-data-[size=sm]/tabs-list:h-9 group-data-[size=sm]/tabs-list:px-2.5 group-data-[size=sm]/tabs-list:[&_img]:size-4 group-data-[size=sm]/tabs-list:[&_svg:not([class*='size-'])]:size-4 group-data-[size=xs]/tabs-list:rounded-lg group-data-[size=xs]/tabs-list:px-2.5 group-data-[size=xs]/tabs-list:text-xs group-data-[size=xs]/tabs-list:[&_svg:not([class*='size-'])]:size-3.5;
 }
 
 .cn-tabs-content {

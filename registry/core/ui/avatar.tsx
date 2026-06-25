@@ -10,7 +10,7 @@ function Avatar({
 	size = "default",
 	...props
 }: AvatarPrimitive.Root.Props & {
-	size?: "default" | "sm" | "lg";
+	size?: "2xs" | "xs" | "sm" | "default" | "lg" | "xl";
 }) {
 	return (
 		<AvatarPrimitive.Root
@@ -61,12 +61,54 @@ function AvatarBadge({ className, ...props }: React.ComponentProps<"span">) {
 			className={cn(
 				"cn-avatar-badge absolute right-0 bottom-0 z-10 inline-flex items-center justify-center rounded-full bg-blend-color ring-2 select-none",
 				"group-data-[size=sm]/avatar:size-2 group-data-[size=sm]/avatar:[&>svg]:hidden",
+				"group-data-[size=2xs]/avatar:size-2 group-data-[size=2xs]/avatar:[&>svg]:hidden",
+				"group-data-[size=xs]/avatar:size-2 group-data-[size=xs]/avatar:[&>svg]:hidden",
 				"group-data-[size=default]/avatar:size-2.5 group-data-[size=default]/avatar:[&>svg]:size-2",
 				"group-data-[size=lg]/avatar:size-3 group-data-[size=lg]/avatar:[&>svg]:size-2",
+				"group-data-[size=xl]/avatar:size-4 group-data-[size=xl]/avatar:[&>svg]:size-3",
 				className,
 			)}
 			{...props}
 		/>
+	);
+}
+
+export interface AvatarSubBadgeProps extends React.ComponentProps<"span"> {
+	src?: string;
+	alt?: string;
+	fallback?: React.ReactNode;
+}
+
+function AvatarSubBadge({
+	src,
+	alt,
+	fallback,
+	className,
+	children,
+	...props
+}: AvatarSubBadgeProps) {
+	return (
+		<AvatarBadge
+			className={cn(
+				"-right-0.5 -bottom-0.5 min-h-3 min-w-3 border-0 ring-0 group-data-[size=2xs]/avatar:!size-3 group-data-[size=xs]/avatar:size-3 group-data-[size=sm]/avatar:size-4 group-data-[size=default]/avatar:size-4 group-data-[size=lg]/avatar:size-5 group-data-[size=xl]/avatar:size-6",
+				className,
+			)}
+			{...props}
+		>
+			<span className="flex size-full items-center justify-center overflow-hidden rounded-full border border-background bg-background group-data-[size=sm]/avatar:border-2 group-data-[size=default]/avatar:border-2 group-data-[size=lg]/avatar:border-2 group-data-[size=xl]/avatar:border-2">
+				{src ? (
+					<img
+						src={src}
+						alt={alt ?? ""}
+						className="h-full w-full rounded-full object-cover"
+					/>
+				) : (
+					<span className="text-[8px] leading-none font-medium text-foreground">
+						{fallback ?? children}
+					</span>
+				)}
+			</span>
+		</AvatarBadge>
 	);
 }
 
@@ -107,4 +149,5 @@ export {
 	AvatarGroup,
 	AvatarGroupCount,
 	AvatarImage,
+	AvatarSubBadge,
 };

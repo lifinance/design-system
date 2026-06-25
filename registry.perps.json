@@ -10,8 +10,11 @@
 			"description": "The perps theme. Builds on @core/tokens.",
 			"registryDependencies": ["@core/tokens"],
 			"cssVars": {
-				"light": {},
-				"dark": {}
+				"dark": {
+					"background": "#0A0A0A",
+					"card": "#171717",
+					"popover": "#171717"
+				}
 			}
 		},
 		{
@@ -20,7 +23,72 @@
 			"title": "Perps",
 			"description": "The perps design system: the core set themed for perps.",
 			"extends": "none",
-			"registryDependencies": ["@core/base", "@perps/tokens"]
+			"registryDependencies": [
+				"@core/base",
+				"@perps/tokens",
+				"@perps/market-list-item",
+				"@perps/market-pair-cell",
+				"@perps/market-switcher-button",
+				"@perps/market-switcher-table"
+			]
+		},
+		{
+			"name": "market-pair-cell",
+			"type": "registry:component",
+			"title": "Market Pair Cell",
+			"description": "A compact market pair display with avatar and metadata badges.",
+			"registryDependencies": ["@perps/tokens", "@core/avatar", "@core/badge"],
+			"files": [
+				{
+					"path": "registry/perps/components/market-pair-cell.tsx",
+					"type": "registry:component"
+				}
+			]
+		},
+		{
+			"name": "market-list-item",
+			"type": "registry:component",
+			"title": "Market List Item",
+			"description": "A compact mobile-friendly market row with avatar, badges, price, stats, and trailing change.",
+			"registryDependencies": [
+				"@perps/tokens",
+				"@core/avatar",
+				"@core/badge",
+				"@core/skeleton"
+			],
+			"files": [
+				{
+					"path": "registry/perps/components/market-list-item.tsx",
+					"type": "registry:component"
+				}
+			]
+		},
+		{
+			"name": "market-switcher-button",
+			"type": "registry:component",
+			"title": "Market Switcher Button",
+			"description": "A perps market switcher trigger with avatar and provider sub-badge.",
+			"registryDependencies": ["@perps/tokens", "@core/avatar", "@core/button"],
+			"dependencies": ["lucide-react"],
+			"files": [
+				{
+					"path": "registry/perps/components/market-switcher-button.tsx",
+					"type": "registry:component"
+				}
+			]
+		},
+		{
+			"name": "market-switcher-table",
+			"type": "registry:component",
+			"title": "Market Switcher Table",
+			"description": "A compact table for selecting a perps or spot market.",
+			"registryDependencies": ["@perps/tokens", "@core/table"],
+			"files": [
+				{
+					"path": "registry/perps/components/market-switcher-table.tsx",
+					"type": "registry:component"
+				}
+			]
 		}
 	]
 }
