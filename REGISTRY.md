@@ -17,7 +17,7 @@ A namespace is a registry: one manifest, built to its own output path, aliased i
 
 Adding a brand is additive: a `registry.<brand>.json` manifest, a `registry:build:<brand>` script, and a `registry/<brand>/` source directory. A brand that only recolors needs just the manifest and a theme.
 
-A consumer wires the namespaces it needs. The `{style}` placeholder resolves to the consumer's `components.json` `style`:
+A consumer wires the namespaces it needs. The `{style}` placeholder resolves to the `style` field:
 
 ```json title="components.json (consumer)"
 {
@@ -29,15 +29,13 @@ A consumer wires the namespaces it needs. The `{style}` placeholder resolves to 
 }
 ```
 
-Producer manifests declare no `registries` block. That wiring lives in the consumer's config.
-
 ## Styles
 
 A component is authored once with shadcn's `cn-*` style classes (`cn-button`, `cn-button-size-*`, `cn-button-variant-*`) and carries no geometry of its own. A **style** maps each `cn-*` class to Tailwind utilities and owns structure: padding, radius, sizing, and type scale.
 
 `@core` defines the styles in `registry/core/styles/style-<name>.css`. A namespace overrides only the classes it changes in `registry/<brand>/styles/style-<name>.css`, so the core button is `rounded-lg` and jumper's is `rounded-full`, both from one `--radius`. The build layers a brand's delta over the core base for each style.
 
-A namespace ships more styles by adding more `style-<name>.css` files. The consumer selects one through the `style` field in `components.json`, which fills the `{style}` segment of the registry URL.
+A namespace ships more styles by adding more `style-<name>.css` files, each built to `r/<ns>/<style>/`.
 
 ## Themes and modes
 
@@ -53,10 +51,10 @@ The build emits two forms of every style, so a consumer chooses how styling arri
 
 | Path | Form | Component source | Style ships as |
 | --- | --- | --- | --- |
-| `r/<ns>/<style>/<name>.json` | inline-resolved | `cn-*` replaced with utilities | nothing; baked into the source |
-| `r/<ns>/<style>/cn/<name>.json` | preserved | `cn-*` renamed to `lifi-*`, kept | the item's `css` field, scoped under `@layer components` |
+| `r/<ns>/<style>/<name>.json` | default | styled classes resolved to utilities | nothing; baked into the source |
+| `r/<ns>/<style>/customize/<name>.json` | customize | styled classes kept as `lifi-*` | the item's `css` field, under `@layer components` |
 
-The inline form is shadcn's default: components carry utilities and theme tokens, no custom classes. The preserved form keeps the style classes so a consumer can restyle by remapping them. The shadcn CLI strips `cn-*` on install, so the build renames them to `lifi-*`, which the CLI leaves intact, and ships the style in the item's `css` field. A consumer selects a form through its registry URL: the inline form at `r/<ns>/{style}/{name}.json`, the preserved form with a `cn` segment at `r/<ns>/{style}/cn/{name}.json`.
+The default form is shadcn's, with styling baked in. The customize form keeps each styled class as a `lifi-*` rule in the item's `css`, so a consumer restyles in plain CSS with no Tailwind build.
 
 ## Item types
 
@@ -132,7 +130,7 @@ registry/
     styles/
       style-default.css    #   jumper's structural deltas
 scripts/
-  build-registry.mjs       # builds one namespace into both forms
+  build-registry.mjs       # builds one namespace into the default and customize forms
 .storybook/                # preview, not distributed
 ```
 
@@ -174,7 +172,7 @@ pnpm registry:build          # build every namespace into public/r
 pnpm registry:build:core     # or one namespace
 ```
 
-`build-registry.mjs <manifest> <namespace> <output>` builds, for each style, both distribution forms from the shared `@core` source. CI runs `pnpm registry:build` and deploys `public/` to GitHub Pages on every push to `main`; the output is generated in CI, not committed. The published origin is `https://lifinance.github.io/design-system/r/<ns>/<style>/{name}.json`. Consumers own the copied source and pull updates with `shadcn diff` on their own cadence.
+`build-registry.mjs <manifest> <namespace> <output>` builds, for each style, the default and customize forms from the shared `@core` source. CI runs `pnpm registry:build` and deploys `public/` to GitHub Pages on every push to `main`; the output is generated in CI, not committed. The published origin is `https://lifinance.github.io/design-system/r/<ns>/<style>/{name}.json`, with the customize form under `.../customize/`. Consumers own the copied source and pull updates with `shadcn diff` on their own cadence.
 
 ## References
 

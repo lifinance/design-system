@@ -1,6 +1,11 @@
-// Builds one namespace's registry into two distribution forms with shadcn/utils:
-//   <output>/<style>      cn-* resolved to utilities (transformStyle)
-//   <output>/<style>/cn   cn-* renamed to lifi-* and kept, style shipped as item css
+// Builds one namespace's registry into two distribution forms, once per style. A consumer
+// selects a style through the {style} segment of the registry URL (r/<ns>/<style>/...),
+// so a style of one name applies across every namespace:
+//   <output>/<style>             default   cn-* resolved to utilities (shadcn's default);
+//                                          styling is baked in
+//   <output>/<style>/customize   customize every styled class kept as lifi-* and mapped in
+//                                          the item css, so a consumer restyles it in plain
+//                                          CSS, no Tailwind build
 //
 // usage: build-registry.mjs <manifest> <namespace> <output>
 
@@ -21,31 +26,14 @@ const SHADCN = path.join(ROOT, "node_modules/.bin/shadcn");
 const read = (rel) => fs.readFileSync(path.join(ROOT, rel), "utf8");
 const exists = (rel) => fs.existsSync(path.join(ROOT, rel));
 
+// Effective item set: a namespace inherits @core's components and its registry:base
+// catalog, then overlays its own items by name (a same-named brand item replaces
+// core's). Theme and style stay brand-local; every brand brings its own. Component
+// cross-deps rescope @core/* to @<ns>/* so each namespace is self-contained; a theme
+// keeps @core/tokens because a brand palette extends core's.
 const core = JSON.parse(read("registry.json"));
 const manifest = JSON.parse(read(manifestPath));
-const isComponent = (item) => (item.files ?? []).length > 0;
 
-const overrides = new Map(
-	manifest.items.filter(isComponent).map((i) => [i.name, i]),
-);
-const components = core.items
-	.filter(isComponent)
-	.map((i) => overrides.get(i.name) ?? i);
-for (const [name, item] of overrides) {
-	if (!components.some((c) => c.name === name)) components.push(item);
-}
-
-const nonComponents = manifest.items.filter((i) => !isComponent(i));
-if (namespace !== "core") {
-	const defined = new Set(nonComponents.map((i) => i.name));
-	nonComponents.push(
-		...core.items.filter(
-			(i) => i.type === "registry:base" && !defined.has(i.name),
-		),
-	);
-}
-
-// Theme deps stay @core/* (a brand theme extends the core palette); others rescope.
 const rescope = (item) =>
 	namespace === "core" ||
 	item.type === "registry:theme" ||
@@ -57,88 +45,104 @@ const rescope = (item) =>
 					d.replace(/^@core\//, `@${namespace}/`),
 				),
 			};
-const items = [...components, ...nonComponents].map(rescope);
 
-const styleNames = fs
-	.readdirSync(path.join(ROOT, "registry/core/styles"))
-	.filter((f) => f.endsWith(".css"))
-	.map((f) => path.basename(f, ".css").replace(/^style-/, ""));
+const inherited =
+	namespace === "core"
+		? core.items
+		: core.items.filter(
+				(i) => i.type !== "registry:theme" && i.type !== "registry:style",
+			);
+const byName = new Map(inherited.map((i) => [i.name, i]));
+for (const item of manifest.items) byName.set(item.name, item);
+const items = [...byName.values()].map(rescope);
 
-// Ship persistent utility classes under the lifi- namespace: the shadcn CLI strips
-// cn-* on install, so the consumer-facing (preserved) form renames structural cn-*
-// to lifi-*, which the CLI leaves intact. Functional cn-* the CLI transforms by name
-// (menu, direction, font) stay cn- so that behavior still runs on add.
-const FUNCTIONAL = new Set([
-	"cn-menu-target",
-	"cn-menu-translucent",
-	"cn-logical-sides",
-	"cn-rtl-flip",
-	"cn-font-heading",
-]);
-const toLifi = (s) =>
-	s.replace(/\bcn-[\w-]+\b/g, (m) =>
-		FUNCTIONAL.has(m) ? m : `lifi-${m.slice(3)}`,
-	);
+// In the customize form every class the style defines (i.e. present in the style map)
+// is renamed cn-* -> lifi-* and shipped as a css rule, so a consumer who cannot reach
+// the install config (anyone embedding the widget, say) can still restyle it by
+// remapping the class. Classes the style does not define stay cn-*: they are pure CLI
+// behavior markers (menu dark-targeting, rtl flips, font swap) that the shadcn CLI
+// rewrites by name on `add` and carry no utilities to override. lifi-* names are left
+// intact by the CLI, so the shipped rule survives install.
+const toLifi = (src, styleMap) =>
+	src.replace(/\bcn-[\w-]+\b/g, (m) => (styleMap[m] ? `lifi-${m.slice(3)}` : m));
 
-function attachStyleCss(item, styleMap) {
-	const classes = new Set();
-	for (const file of item.files ?? []) {
-		for (const [cn] of read(file.path).matchAll(/cn-[\w-]+/g)) {
-			if (styleMap[cn]) classes.add(cn);
+// The customize form's item css: `.lifi-x { @apply <utilities> }` for each styled class
+// the source uses. styleMap concatenates core base + brand delta (delta last); twMerge
+// collapses the overlap so a brand override wins, matching the default form.
+const styleRules = (src, styleMap) => {
+	const rules = {};
+	for (const [cn] of src.matchAll(/\bcn-[\w-]+\b/g)) {
+		if (styleMap[cn]) {
+			rules[`.lifi-${cn.slice(3)}`] = { [`@apply ${twMerge(styleMap[cn])}`]: {} };
 		}
 	}
-	if (classes.size === 0) return;
-	const rules = {};
-	for (const cn of classes) {
-		// styleMap concatenates core base + brand delta (delta last); twMerge collapses
-		// the overlap so a brand override wins cleanly, matching the inline form.
-		rules[`.${toLifi(cn)}`] = { [`@apply ${twMerge(styleMap[cn])}`]: {} };
-	}
-	item.css = { "@layer components": rules };
-}
+	return rules;
+};
 
-async function buildVariant(out, styleName, styleMap, resolve) {
+// The two distribution forms. `content` transforms one source file; `css` (customize
+// only) derives the item's css rules from the original source.
+const FORMS = [
+	{
+		subdir: "",
+		content: (src, file, styleMap) =>
+			file.endsWith(".tsx") ? transformStyle(src, { styleMap }) : src,
+	},
+	{
+		subdir: "customize",
+		content: (src, _file, styleMap) => toLifi(src, styleMap),
+		css: styleRules,
+	},
+];
+
+async function buildVariant(form, style, styleMap) {
 	const tempDir = path.join(ROOT, ".registry-build", namespace);
 	fs.rmSync(tempDir, { recursive: true, force: true });
 	fs.mkdirSync(tempDir, { recursive: true });
+
 	const built = structuredClone(items);
 	for (const item of built) {
+		const rules = {};
 		for (const file of item.files ?? []) {
+			const src = read(file.path);
 			const dest = path.join(tempDir, file.path);
 			fs.mkdirSync(path.dirname(dest), { recursive: true });
-			const source = read(file.path);
-			fs.writeFileSync(
-				dest,
-				resolve && file.path.endsWith(".tsx")
-					? await transformStyle(source, { styleMap })
-					: toLifi(source),
-			);
+			fs.writeFileSync(dest, await form.content(src, file.path, styleMap));
+			if (form.css) Object.assign(rules, form.css(src, styleMap));
 		}
-		if (!resolve) attachStyleCss(item, styleMap);
+		if (form.css && Object.keys(rules).length > 0) {
+			item.css = { "@layer components": rules };
+		}
 	}
+
 	fs.writeFileSync(
 		path.join(tempDir, "registry.json"),
 		JSON.stringify({ ...manifest, items: built }, null, "\t"),
 	);
 	execFileSync(
 		SHADCN,
-		["build", "registry.json", "--output", path.resolve(ROOT, out)],
-		{
-			stdio: "inherit",
-			cwd: tempDir,
-		},
+		[
+			"build",
+			"registry.json",
+			"--output",
+			path.resolve(ROOT, output, style, form.subdir),
+		],
+		{ stdio: "inherit", cwd: tempDir },
 	);
 	fs.rmSync(tempDir, { recursive: true, force: true });
 }
 
+const styleNames = fs
+	.readdirSync(path.join(ROOT, "registry/core/styles"))
+	.filter((f) => f.endsWith(".css"))
+	.map((f) => path.basename(f, ".css").replace(/^style-/, ""));
+
 for (const styleName of styleNames) {
-	// Delta before base: createStyleMap prepends later files and transformStyle
-	// resolves with tailwind-merge (last wins), so the delta must come first to win.
+	// Delta before base: createStyleMap prepends later files and transformStyle resolves
+	// with twMerge (last wins), so the brand delta must come first to win.
 	const base = `registry/core/styles/style-${styleName}.css`;
 	const delta = `registry/${namespace}/styles/style-${styleName}.css`;
 	const chain = namespace !== "core" && exists(delta) ? [delta, base] : [base];
 	const styleMap = createStyleMap(chain.map(read).join("\n"));
-	await buildVariant(`${output}/${styleName}`, styleName, styleMap, true);
-	await buildVariant(`${output}/${styleName}/cn`, styleName, styleMap, false);
-	console.log(`✓ ${namespace}/${styleName} → ${output}/${styleName} (+ /cn)`);
+	for (const form of FORMS) await buildVariant(form, styleName, styleMap);
+	console.log(`✓ ${namespace}/${styleName} → ${output}/${styleName} (+ /customize)`);
 }

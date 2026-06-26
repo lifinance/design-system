@@ -45,7 +45,7 @@ Match shadcn's Base UI authoring conventions:
 
 ## components.json
 
-`components.json` uses **`"style": "base-nova"`**. The primitive library is encoded in `style` (`base-*` = Base UI, `radix-*`/`new-york` = Radix); there is no separate `base` field. We theme on top with our own tokens; the preset is the Base UI marker, not a constraint on our tokens.
+`components.json` uses **`"style": "base-nova"`**. This field marks the primitive library (`base-*` is Base UI, `radix-*`/`new-york` is Radix), not a design-system style. The design system's own styles are chosen through the registry URL path.
 
 Note: the shadcn MCP only exposes the default Radix `@shadcn` registry, so for Base UI parity rely on the base docs/source URLs above, not the MCP's `@shadcn/<name>` item.
 

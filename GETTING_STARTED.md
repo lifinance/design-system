@@ -24,7 +24,7 @@ The rest of this page is the workflow: design in Figma, build in the registry, p
    }
    ```
 
-   The `style` field selects which style installs. For the preserved-`cn` form, add `cn` to the path: `.../{style}/cn/{name}.json`. See [REGISTRY.md](./REGISTRY.md) for both forms.
+   `{style}` in each URL resolves to the `style` field. For the customize form, which you restyle in plain CSS, add `customize` to the path: `.../{style}/customize/{name}.json`. See [REGISTRY.md](./REGISTRY.md).
 
 2. Add one component, or a whole brand at once:
 
