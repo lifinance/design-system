@@ -64,7 +64,9 @@ const items = [...byName.values()].map(rescope);
 // rewrites by name on `add` and carry no utilities to override. lifi-* names are left
 // intact by the CLI, so the shipped rule survives install.
 const toLifi = (src, styleMap) =>
-	src.replace(/\bcn-[\w-]+\b/g, (m) => (styleMap[m] ? `lifi-${m.slice(3)}` : m));
+	src.replace(/\bcn-[\w-]+\b/g, (m) =>
+		styleMap[m] ? `lifi-${m.slice(3)}` : m,
+	);
 
 // The customize form's item css: `.lifi-x { @apply <utilities> }` for each styled class
 // the source uses. styleMap concatenates core base + brand delta (delta last); twMerge
@@ -73,7 +75,9 @@ const styleRules = (src, styleMap) => {
 	const rules = {};
 	for (const [cn] of src.matchAll(/\bcn-[\w-]+\b/g)) {
 		if (styleMap[cn]) {
-			rules[`.lifi-${cn.slice(3)}`] = { [`@apply ${twMerge(styleMap[cn])}`]: {} };
+			rules[`.lifi-${cn.slice(3)}`] = {
+				[`@apply ${twMerge(styleMap[cn])}`]: {},
+			};
 		}
 	}
 	return rules;
@@ -144,5 +148,7 @@ for (const styleName of styleNames) {
 	const chain = namespace !== "core" && exists(delta) ? [delta, base] : [base];
 	const styleMap = createStyleMap(chain.map(read).join("\n"));
 	for (const form of FORMS) await buildVariant(form, styleName, styleMap);
-	console.log(`✓ ${namespace}/${styleName} → ${output}/${styleName} (+ /customize)`);
+	console.log(
+		`✓ ${namespace}/${styleName} → ${output}/${styleName} (+ /customize)`,
+	);
 }
