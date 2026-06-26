@@ -6,6 +6,9 @@
 /build
 /public/r
 
+# Temp trees the registry build transforms components into (inlined + ext variants)
+/.registry-build
+
 logs
 *.log
 npm-debug.log*

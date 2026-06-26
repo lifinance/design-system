@@ -14,7 +14,7 @@
 					"foreground": "oklch(0 0 0)",
 					"card-foreground": "oklch(0 0 0)",
 					"popover-foreground": "oklch(0 0 0)",
-					"primary": "oklch(0.5824 0.2223 274.25)",
+					"primary": "oklch(0.582 0.2223 274.2)",
 					"primary-foreground": "oklch(1 0 0)",
 					"secondary": "oklch(0.8801 0.0997 321.97)",
 					"secondary-foreground": "oklch(0 0 0)",
@@ -25,7 +25,7 @@
 					"destructive": "oklch(0.531 0.2002 31.03)",
 					"border": "oklch(0.9067 0 0)",
 					"input": "oklch(0.9067 0 0)",
-					"ring": "oklch(0.5824 0.2223 274.25)",
+					"ring": "oklch(0.582 0.2223 274.2)",
 					"radius": "0.75rem",
 					"font-sans": "Inter, sans-serif"
 				},

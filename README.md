@@ -13,11 +13,8 @@ pnpm registry:build    # build every registry into public/r
 ```
 
 - [GETTING_STARTED.md](GETTING_STARTED.md): the dev, design, prototyping, Figma, and AI workflows.
-- [REGISTRY.md](REGISTRY.md): the registry model (namespaces, tokens, theming, composition).
+- [REGISTRY.md](REGISTRY.md): the registry model (namespaces, styles, themes, modes, composition).
 
 ## Contributing
 
-Propose new tokens and components through the GitHub issue templates:
-
-- [New token request](.github/ISSUE_TEMPLATE/new-token-request.md)
-- [New component request](.github/ISSUE_TEMPLATE/new-component-request.md)
+Propose new components through the [new component request](.github/ISSUE_TEMPLATE/new-component-request.md) GitHub issue template.

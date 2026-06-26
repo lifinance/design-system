@@ -89,9 +89,6 @@
 	--color-success: var(--success);
 	--color-warning: var(--warning);
 	--color-info: var(--info);
-	--color-button-primary-hover: var(--lifi-button-primary-hover);
-	--color-button-primary-active: var(--lifi-button-primary-active);
-	--color-button-primary-focus: var(--lifi-button-primary-focus);
 	--color-border: var(--border);
 	--color-input: var(--input);
 	--color-ring: var(--ring);
