@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import * as React from "react";
 import { expect } from "storybook/test";
 import { snapshot } from "@/.storybook/modes";
 import { Input } from "./input";
@@ -63,6 +64,20 @@ export const Invalid: Story = {
 
 export const File: Story = {
 	args: { type: "file", "aria-label": "Upload file", placeholder: undefined },
+};
+
+const inputRef = React.createRef<HTMLElement>();
+
+export const RefForwarding: Story = {
+	render: (args) => <Input {...args} ref={inputRef} />,
+	play: async ({ canvas }) => {
+		await expect(inputRef.current).toBe(
+			canvas.getByRole("textbox", { name: /email/i }),
+		);
+		// InputGroupInput renders this component, so a ref handed to that Base UI
+		// render target only reaches the input element when this one forwards it too.
+		await expect(Input.$$typeof).toBe(Symbol.for("react.forward_ref"));
+	},
 };
 
 export const Overview: Story = {

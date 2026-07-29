@@ -18,13 +18,13 @@ function ComboboxValue({ ...props }: ComboboxPrimitive.Value.Props) {
 	return <ComboboxPrimitive.Value data-slot="combobox-value" {...props} />;
 }
 
-function ComboboxTrigger({
-	className,
-	children,
-	...props
-}: ComboboxPrimitive.Trigger.Props) {
+const ComboboxTrigger = React.forwardRef<
+	HTMLButtonElement,
+	ComboboxPrimitive.Trigger.Props
+>(function ComboboxTrigger({ className, children, ...props }, ref) {
 	return (
 		<ComboboxPrimitive.Trigger
+			ref={ref}
 			data-slot="combobox-trigger"
 			className={cn("cn-combobox-trigger", className)}
 			{...props}
@@ -33,7 +33,7 @@ function ComboboxTrigger({
 			<ChevronDownIcon className="cn-combobox-trigger-icon pointer-events-none" />
 		</ComboboxPrimitive.Trigger>
 	);
-}
+});
 
 function ComboboxClear({ className, ...props }: ComboboxPrimitive.Clear.Props) {
 	return (
