@@ -1,6 +1,7 @@
 {
 	"name": "@lifi/design-system-core",
 	"version": "0.0.0",
+	"packageManager": "pnpm@9.15.9",
 	"private": true,
 	"type": "module",
 	"description": "LI.FI core design system, distributed as a shadcn registry.",
