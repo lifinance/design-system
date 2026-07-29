@@ -26,6 +26,10 @@ const preview: Preview = {
 			},
 		},
 		a11y: {
+			context: {
+				// Base UI focus guards are intentionally focusable and aria-hidden.
+				exclude: "[data-base-ui-focus-guard]",
+			},
 			test: "error",
 		},
 		chromatic: {
