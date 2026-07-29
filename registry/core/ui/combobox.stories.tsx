@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import * as React from "react";
 import { expect, screen, waitFor, within } from "storybook/test";
 import { snapshot } from "@/.storybook/modes";
 import { Button } from "./button";
@@ -257,6 +258,28 @@ export const Multiple: Story = {
 		await userEvent.keyboard("{Escape}");
 		await waitFor(() =>
 			expect(screen.queryByRole("listbox")).not.toBeInTheDocument(),
+		);
+	},
+};
+
+const triggerRef = React.createRef<HTMLButtonElement>();
+
+export const TriggerRefForwarding: Story = {
+	render: () => (
+		<Combobox items={REGIONS} defaultValue="Frankfurt">
+			<ComboboxTrigger ref={triggerRef} aria-label="Region">
+				<ComboboxValue />
+			</ComboboxTrigger>
+		</Combobox>
+	),
+	play: async ({ canvas }) => {
+		await expect(triggerRef.current).toBe(
+			canvas.getByRole("combobox", { name: /region/i }),
+		);
+		// React 18 hands a Base UI render element its ref outside props, so a consumer
+		// on 18 only reaches the node when the component forwards the ref.
+		await expect(ComboboxTrigger.$$typeof).toBe(
+			Symbol.for("react.forward_ref"),
 		);
 	},
 };
