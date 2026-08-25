@@ -39,7 +39,7 @@ A namespace ships more styles by adding more `style-<name>.css` files, each buil
 
 ## Themes and modes
 
-A **theme** is the color, font, and `--radius` values, shipped as a `registry:theme` item whose `cssVars` the CLI merges into the consumer's stylesheet on `add`: `light` into `:root`, `dark` into `.dark`, and `theme` into the Tailwind `@theme` namespace. `@core/tokens` carries the base palette; a brand theme declares `registryDependencies: ["@core/tokens"]` and carries only its overrides, which deep-merge over core (last wins, see [dependency resolution](https://ui.shadcn.com/docs/registry/namespace#dependency-resolution)). The merge is global to `:root` and `.dark`; shadcn has no per-subtree theme scoping.
+A **theme** is the color, font, and `--radius` values, shipped as a `registry:theme` item whose `cssVars` the CLI merges into the consumer's stylesheet on `add`: `light` into `:root`, `dark` into `.dark`, and `theme` into the Tailwind `@theme` namespace. `@core/tokens` carries the base palette; a brand theme declares `registryDependencies: ["@core/tokens"]` and carries only its overrides, which deep-merge over core (last wins, see [dependency resolution](https://ui.shadcn.com/docs/registry/namespace#dependency-resolution)). The merge is global to `:root` and `.dark`; shadcn has no per-subtree theme scoping. A token set that belongs to another selector ships as a `registry:item` whose `css` field carries that selector, which the CLI writes into the stylesheet unchanged.
 
 A theme's **modes** are `light` and `dark`. A theme supports dark mode when its item carries a `dark` block, which the consumer toggles with the `dark` class. Add a theme as a `registry:theme` item: name it `tokens` for the brand default, or `tokens-<name>` for a named variant of the same brand.
 
@@ -68,6 +68,7 @@ Every manifest entry declares a `type`. The first three are the component types;
 | `registry:lib` | lib and utils | `aliases.lib` | `registry/<ns>/lib/` |
 | `registry:hook` | hooks | `aliases.hooks` | `registry/<ns>/hooks/` |
 | `registry:theme` | themes | `cssVars` merged into the stylesheet | manifest `cssVars` |
+| `registry:item` | a plain registry entry, for example `css` under a selector a theme cannot reach | its own fields | manifest only |
 | `registry:base` | a design-system catalog | resolves its dependencies | manifest only |
 | `registry:style` | a design-system style | resolves its dependencies and sets config | manifest only |
 

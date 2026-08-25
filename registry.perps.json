@@ -10,8 +10,65 @@
 			"description": "The perps theme. Builds on @core/tokens.",
 			"registryDependencies": ["@core/tokens"],
 			"cssVars": {
-				"light": {},
-				"dark": {}
+				"theme": {
+					"color-border-subtle": "var(--border-subtle)",
+					"color-input-30": "var(--input-30)",
+					"color-warning-10": "var(--warning-10)",
+					"color-info-10": "var(--info-10)"
+				},
+				"light": {
+					"destructive": "#b91c1c",
+					"success": "#15803d",
+					"warning": "#c2410c",
+					"info": "#2563eb",
+					"border-subtle": "var(--border)",
+					"input-30": "color-mix(in oklch, var(--input) 30%, transparent)",
+					"warning-10": "#f973161a",
+					"info-10": "#3b82f61a"
+				},
+				"dark": {
+					"foreground": "#fafafa",
+					"card": "#171717",
+					"card-foreground": "#fafafa",
+					"popover": "#262626",
+					"popover-foreground": "#fafafa",
+					"primary": "#5580ff",
+					"primary-foreground": "#0a0a0a",
+					"secondary": "#ffffff0f",
+					"secondary-foreground": "#fafafa",
+					"muted": "#262626",
+					"muted-foreground": "#a3a3a3",
+					"accent": "#ffffff1f",
+					"accent-foreground": "#fafafa",
+					"destructive": "#ff8d8f",
+					"success": "#4ade80",
+					"warning": "#fb923c",
+					"info": "#60a5fa",
+					"border": "#ffffff14",
+					"input": "#ffffff14",
+					"ring": "#414deb",
+					"border-subtle": "#ffffff1a",
+					"input-30": "#ffffff0a",
+					"warning-10": "#f973161a",
+					"info-10": "#3b82f61a"
+				}
+			}
+		},
+		{
+			"name": "jumper-tokens",
+			"type": "registry:item",
+			"title": "Perps tokens for the Jumper theme",
+			"description": "The perps token values that apply while the Jumper theme is active.",
+			"registryDependencies": ["@perps/tokens"],
+			"css": {
+				"body[data-theme=\"jumper\"]": {
+					"--border-subtle": "#0000000d",
+					"--input-30": "#ffffff"
+				},
+				".dark body[data-theme=\"jumper\"]": {
+					"--border-subtle": "#c9bcdc1a",
+					"--input-30": "#c9bcdc0f"
+				}
 			}
 		},
 		{
@@ -20,7 +77,11 @@
 			"title": "Perps",
 			"description": "The perps design system: the core set themed for perps.",
 			"extends": "none",
-			"registryDependencies": ["@core/base", "@perps/tokens"]
+			"registryDependencies": [
+				"@core/base",
+				"@perps/tokens",
+				"@perps/jumper-tokens"
+			]
 		}
 	]
 }
