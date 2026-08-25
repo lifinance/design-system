@@ -35,6 +35,8 @@ Each color token produces the full set of Tailwind color utilities (`bg-*`, `tex
 
 Values use OKLCH, so adjusting one channel (usually lightness) can meet a contrast target without shifting hue.
 
+`--link` and `--destructive-subtle-foreground` are text-only role tokens. Use `text-link` on a page surface. Use `text-destructive-subtle-foreground` on a destructive tint. Neither token defines its own surface.
+
 <Story of={DesignTokens.Colors} />
 
 Core also defines the chart palette (`--chart-1` to `--chart-5`) and the sidebar set (`--sidebar`, `--sidebar-foreground`, and so on) from the shadcn base.

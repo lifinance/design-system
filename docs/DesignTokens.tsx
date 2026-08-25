@@ -17,6 +17,13 @@ export type ColorRow = {
 	use: string;
 };
 
+export type TextRow = {
+	name: string;
+	textClassName: string;
+	surfaceClassName: string;
+	use: string;
+};
+
 export type RadiusRow = {
 	token: string;
 	utility: string;
@@ -100,6 +107,51 @@ export function ColorTokenTable({
 										--{row.foreground}
 									</div>
 								) : null}
+							</TableCell>
+							<TableCell className="whitespace-normal text-sm">
+								{row.use}
+							</TableCell>
+						</TableRow>
+					))}
+				</TableBody>
+			</Table>
+		</Section>
+	);
+}
+
+export function TextTokenTable({
+	caption,
+	rows,
+}: {
+	caption: string;
+	rows: TextRow[];
+}) {
+	return (
+		<Section title={caption}>
+			<Table>
+				<TableHeader>
+					<TableRow>
+						<TableHead className="w-24">Sample</TableHead>
+						<TableHead>Token</TableHead>
+						<TableHead className="w-full">Role</TableHead>
+					</TableRow>
+				</TableHeader>
+				<TableBody>
+					{rows.map((row) => (
+						<TableRow key={row.name}>
+							<TableCell>
+								<span
+									className={cn(
+										row.surfaceClassName,
+										row.textClassName,
+										"inline-flex h-10 w-16 items-center justify-center rounded-md border text-xl font-bold",
+									)}
+								>
+									Aa
+								</span>
+							</TableCell>
+							<TableCell className="font-mono text-[13px]">
+								--{row.name}
 							</TableCell>
 							<TableCell className="whitespace-normal text-sm">
 								{row.use}
