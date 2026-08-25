@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import * as React from "react";
 import { expect } from "storybook/test";
 import { snapshot } from "@/.storybook/modes";
 import { Input } from "./input";
@@ -48,6 +49,18 @@ export const Disabled: Story = {
 			/>
 		</div>
 	),
+};
+
+const labelRef = React.createRef<HTMLLabelElement>();
+
+export const RefForwarding: Story = {
+	render: (args) => <Label {...args} ref={labelRef} />,
+	play: async ({ canvas }) => {
+		await expect(labelRef.current).toBe(canvas.getByText("Email address"));
+		// React 18 hands a Base UI render element its ref outside props, so a consumer
+		// on 18 only reaches the node when the component forwards the ref.
+		await expect(Label.$$typeof).toBe(Symbol.for("react.forward_ref"));
+	},
 };
 
 export const Overview: Story = {

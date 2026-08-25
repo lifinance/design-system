@@ -1,6 +1,6 @@
 # Getting started
 
-The LI.FI design system is a set of [shadcn registries](https://ui.shadcn.com/docs/registry) built on [Base UI](https://base-ui.com) and [Tailwind v4](https://tailwindcss.com/docs), distributed as source. Teams install components with the shadcn CLI and own the copied code; there is no runtime package. One core registry holds the shared components and base tokens, and each brand adds a theme and, where it needs one, a component of its own.
+The LI.FI design system is a set of [shadcn registries](https://ui.shadcn.com/docs/registry) built on [Base UI](https://base-ui.com) and [Tailwind v4](https://tailwindcss.com/docs), distributed as source. Teams install components with the shadcn CLI and own the copied code; there is no runtime package. One core registry holds the shared components and the base theme, and each brand adds a theme and, where it needs one, a component of its own.
 
 ## The model
 
@@ -15,13 +15,16 @@ The rest of this page is the workflow: design in Figma, build in the registry, p
 
    ```json
    {
+     "style": "default",
      "registries": {
-       "@core": "https://lifinance.github.io/design-system/r/{name}.json",
-       "@widget": "https://lifinance.github.io/design-system/r/widget/{name}.json",
-       "@jumper": "https://lifinance.github.io/design-system/r/jumper/{name}.json"
+       "@core": "https://lifinance.github.io/design-system/r/core/{style}/{name}.json",
+       "@widget": "https://lifinance.github.io/design-system/r/widget/{style}/{name}.json",
+       "@jumper": "https://lifinance.github.io/design-system/r/jumper/{style}/{name}.json"
      }
    }
    ```
+
+   `{style}` in each URL resolves to the `style` field. For the customize form, which you restyle in plain CSS, add `customize` to the path: `.../{style}/customize/{name}.json`. See [REGISTRY.md](./REGISTRY.md).
 
 2. Add one component, or a whole brand at once:
 
@@ -43,7 +46,7 @@ pnpm check                                  # lint and format
 pnpm registry:build                         # build every registry into public/r
 ```
 
-Pick the item type (below) and add the source file (a primitive maps its `cn-*` classes to utilities in `registry/core/style.css`), a manifest entry, and one story, then preview and test it. Match shadcn's components in their **base** variant, for example [Button](https://ui.shadcn.com/docs/components/base/button), not Radix. Four skills guide the work: [shadcn](.claude/skills/shadcn/SKILL.md) for the CLI and registry conventions, [migration](.claude/skills/migration/SKILL.md) for porting from another app, [design-tokens](.claude/skills/design-tokens/SKILL.md) for tokens and theming, and [writing](.claude/skills/writing/SKILL.md) for any text.
+Pick the item type (below) and add the source file (a primitive maps its `cn-*` classes to utilities in `registry/core/styles/style-default.css`), a manifest entry, and one story, then preview and test it. Match shadcn's components in their **base** variant, for example [Button](https://ui.shadcn.com/docs/components/base/button), not Radix. Four skills guide the work: [shadcn](.claude/skills/shadcn/SKILL.md) for the CLI and registry conventions, [migration](.claude/skills/migration/SKILL.md) for porting from another app, [design-tokens](.claude/skills/design-tokens/SKILL.md) for theming, and [writing](.claude/skills/writing/SKILL.md) for any text.
 
 ### Which item type
 
@@ -55,13 +58,13 @@ Pick the first that fits, reading top to bottom.
 | Component | simple components | `registry:component` | `registry/<brand>/components/` |
 | Block | complex components with multiple files | `registry:block` | `registry/<brand>/blocks/` |
 
-A single-file primitive is `ui` (a button). A single component built from primitives is `component` (a mission card). Anything spanning multiple files is a `block`. A brand's theme ships as a `registry:theme` item of token values, and its structural deltas live in `registry/<brand>/style.css`.
+A single-file primitive is `ui` (a button). A single component built from primitives is `component` (a mission card). Anything spanning multiple files is a `block`. A brand's theme ships as a `registry:theme` item of native shadcn token values, and its structural deltas live in `registry/<brand>/styles/style-<name>.css`.
 
 ## Design in Figma
 
 Structure the Figma library to mirror the registry, so design and code stay aligned:
 
-- Hold every theme as a [mode](https://help.figma.com/hc/en-us/articles/15339657135383-Guide-to-variables-in-Figma) in one **Variables** file. The modes carry the same values as the code tokens, so switching mode restyles every component. Keep the variable names matching the token names.
+- Hold every theme as a [mode](https://help.figma.com/hc/en-us/articles/15339657135383-Guide-to-variables-in-Figma) in one **Variables** file. The modes carry the same values as the code theme, so switching mode restyles every component. Keep the variable names matching the shadcn token names.
 - Keep the shared components in one **Core** file, bound to those variables.
 - Give a brand its own file only for the components it owns. A component that only changes color is the core component under the brand's mode, not a new component.
 

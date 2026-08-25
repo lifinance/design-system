@@ -36,7 +36,7 @@ This registry is Base UI, not Radix. When consulting shadcn for a component (doc
 - Docs: `https://ui.shadcn.com/docs/components/base/<name>` (the Radix variant lives at `/docs/components/radix/<name>`; do not use it).
 - Source of truth: `shadcn-ui/ui` → `apps/v4/registry/bases/base/ui/<name>.tsx` (fetch via `gh api repos/shadcn-ui/ui/contents/...`).
 
-Upstream authors its Base UI components with `cn-*` style classes and maps them to utilities in a per-style CSS file. This repo follows that model. A component mirrors upstream's `cn-*` source, props, and `data-slot` contract; `registry/core/style.css` maps each `cn-*` class to utilities, and a brand overrides only its deltas in its own `style.css`. Styles own structure (padding, radius, sizing); themes own color, font, and the `--radius` value (see `REGISTRY.md`). When authoring style utilities, convert an arbitrary pixel value to the scale step that equals it (`ring-3` not `ring-[3px]`, `min-w-24` not `min-w-[96px]`), keeping the arbitrary form only when no scale step matches (see the `design-tokens` skill).
+Upstream authors its Base UI components with `cn-*` style classes and maps them to utilities in a per-style CSS file. This repo follows that model. A component mirrors upstream's `cn-*` source, props, and `data-slot` contract; `registry/core/styles/style-<name>.css` maps each `cn-*` class to utilities, and a brand overrides only its deltas in its own `styles/style-<name>.css`. Styles own structure (padding, radius, sizing); themes own color, font, and the `--radius` value (see `REGISTRY.md`). When authoring style utilities, convert an arbitrary pixel value to the scale step that equals it (`ring-3` not `ring-[3px]`, `min-w-24` not `min-w-[96px]`), keeping the arbitrary form only when no scale step matches (see the `design-tokens` skill).
 
 Match shadcn's Base UI authoring conventions:
 
@@ -45,7 +45,7 @@ Match shadcn's Base UI authoring conventions:
 
 ## components.json
 
-`components.json` uses **`"style": "base-nova"`**. The primitive library is encoded in `style` (`base-*` = Base UI, `radix-*`/`new-york` = Radix); there is no separate `base` field. We theme on top with our own tokens; the preset is the Base UI marker, not a constraint on our tokens.
+`components.json` uses **`"style": "base-nova"`**. This field marks the primitive library (`base-*` is Base UI, `radix-*`/`new-york` is Radix), not a design-system style. The design system's own styles are chosen through the registry URL path.
 
 Note: the shadcn MCP only exposes the default Radix `@shadcn` registry, so for Base UI parity rely on the base docs/source URLs above, not the MCP's `@shadcn/<name>` item.
 

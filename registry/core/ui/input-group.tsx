@@ -1,7 +1,7 @@
 "use client";
 
 import { cva, type VariantProps } from "class-variance-authority";
-import type * as React from "react";
+import * as React from "react";
 
 import { cn } from "@/registry/core/lib/utils";
 import { Button } from "@/registry/core/ui/button";
@@ -83,18 +83,19 @@ const inputGroupButtonVariants = cva(
 	},
 );
 
-function InputGroupButton({
-	className,
-	type = "button",
-	variant = "ghost",
-	size = "xs",
-	...props
-}: Omit<React.ComponentProps<typeof Button>, "size" | "type"> &
-	VariantProps<typeof inputGroupButtonVariants> & {
-		type?: "button" | "submit" | "reset";
-	}) {
+const InputGroupButton = React.forwardRef<
+	HTMLElement,
+	Omit<React.ComponentProps<typeof Button>, "size" | "type"> &
+		VariantProps<typeof inputGroupButtonVariants> & {
+			type?: "button" | "submit" | "reset";
+		}
+>(function InputGroupButton(
+	{ className, type = "button", variant = "ghost", size = "xs", ...props },
+	ref,
+) {
 	return (
 		<Button
+			ref={ref}
 			type={type}
 			data-size={size}
 			variant={variant}
@@ -102,7 +103,7 @@ function InputGroupButton({
 			{...props}
 		/>
 	);
-}
+});
 
 function InputGroupText({ className, ...props }: React.ComponentProps<"span">) {
 	return (
@@ -116,18 +117,19 @@ function InputGroupText({ className, ...props }: React.ComponentProps<"span">) {
 	);
 }
 
-function InputGroupInput({
-	className,
-	...props
-}: React.ComponentProps<"input">) {
+const InputGroupInput = React.forwardRef<
+	HTMLElement,
+	React.ComponentProps<"input">
+>(function InputGroupInput({ className, ...props }, ref) {
 	return (
 		<Input
+			ref={ref}
 			data-slot="input-group-control"
 			className={cn("cn-input-group-input flex-1", className)}
 			{...props}
 		/>
 	);
-}
+});
 
 function InputGroupTextarea({
 	className,

@@ -6,6 +6,12 @@
 /build
 /public/r
 
+# Temp trees the registry build transforms components into (inlined + ext variants)
+/.registry-build
+
+# Sibling checkouts of this repo, one directory per branch
+/.worktrees
+
 logs
 *.log
 npm-debug.log*

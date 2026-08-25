@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { ClipboardIcon, SearchIcon } from "lucide-react";
+import * as React from "react";
+import { expect } from "storybook/test";
 import { snapshot } from "@/.storybook/modes";
 import {
 	InputGroup,
@@ -45,6 +47,42 @@ export const Default: Story = {
 			<InputGroupInput aria-label="Search" placeholder="Search" />
 		</InputGroup>
 	),
+};
+
+const controlRef = React.createRef<HTMLElement>();
+const buttonRef = React.createRef<HTMLElement>();
+
+export const RefForwarding: Story = {
+	render: () => (
+		<InputGroup>
+			<InputGroupInput
+				ref={controlRef}
+				aria-label="Recipient"
+				placeholder="Wallet address"
+			/>
+			<InputGroupAddon align="inline-end">
+				<InputGroupButton ref={buttonRef} size="icon-xs" aria-label="Paste">
+					<ClipboardIcon />
+				</InputGroupButton>
+			</InputGroupAddon>
+		</InputGroup>
+	),
+	play: async ({ canvas }) => {
+		await expect(controlRef.current).toBe(
+			canvas.getByRole("textbox", { name: /recipient/i }),
+		);
+		await expect(buttonRef.current).toBe(
+			canvas.getByRole("button", { name: /paste/i }),
+		);
+		// React 18 hands a Base UI render element its ref outside props, so a consumer
+		// on 18 only reaches the node when the component forwards the ref.
+		await expect(InputGroupInput.$$typeof).toBe(
+			Symbol.for("react.forward_ref"),
+		);
+		await expect(InputGroupButton.$$typeof).toBe(
+			Symbol.for("react.forward_ref"),
+		);
+	},
 };
 
 export const Overview: Story = {

@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { PlusIcon } from "lucide-react";
+import * as React from "react";
 import { expect, fn } from "storybook/test";
 import { snapshot } from "@/.storybook/modes";
 import { Button } from "./button";
@@ -84,6 +85,20 @@ export const Disabled: Story = {
 		await expect(
 			canvas.getByRole("button", { name: /continue/i }),
 		).toBeDisabled();
+	},
+};
+
+const buttonRef = React.createRef<HTMLElement>();
+
+export const RefForwarding: Story = {
+	render: (args) => <Button {...args} ref={buttonRef} />,
+	play: async ({ canvas }) => {
+		await expect(buttonRef.current).toBe(
+			canvas.getByRole("button", { name: /continue/i }),
+		);
+		// React 18 hands a Base UI render element its ref outside props, so a consumer
+		// on 18 only reaches the node when the component forwards the ref.
+		await expect(Button.$$typeof).toBe(Symbol.for("react.forward_ref"));
 	},
 };
 
