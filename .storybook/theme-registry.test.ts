@@ -14,8 +14,16 @@ const core: Manifest = {
 			name: "tokens",
 			type: "registry:theme",
 			cssVars: {
-				light: { background: "white", secondary: "light-gray" },
-				dark: { background: "black", secondary: "dark-gray" },
+				light: {
+					background: "white",
+					secondary: "light-gray",
+					link: "var(--secondary)",
+				},
+				dark: {
+					background: "black",
+					secondary: "dark-gray",
+					link: "var(--secondary)",
+				},
 			},
 		},
 		{ name: "base", type: "registry:style" },
@@ -116,13 +124,19 @@ describe("buildThemeCss", () => {
 	const css = buildThemeCss(deriveThemes([brand, bare, core]));
 
 	it("puts the base on :root and .dark", () => {
-		expect(css).toContain(":root{--background:white;--secondary:light-gray;}");
-		expect(css).toContain(".dark{--background:black;--secondary:dark-gray;}");
+		expect(css).toContain(
+			":root{--background:white;--secondary:light-gray;--link:var(--secondary);}",
+		);
+		expect(css).toContain(
+			".dark{--background:black;--secondary:dark-gray;--link:var(--secondary);}",
+		);
 	});
 
-	it("scopes a theme's light overrides as a delta", () => {
+	it("resolves the light block so a derived token reads the theme's value", () => {
+		// --link reads --secondary. CSS substitutes a custom property where it is
+		// declared, so the theme's own --secondary sits in the same block.
 		expect(css).toContain(
-			'[data-theme="brand"]{--secondary:pink;--radius:1rem;}',
+			'[data-theme="brand"]{--background:white;--secondary:pink;--link:var(--secondary);--radius:1rem;}',
 		);
 	});
 
@@ -130,12 +144,14 @@ describe("buildThemeCss", () => {
 		// brand overrides secondary in light only; dark mode must fall back to
 		// the core dark value, exactly as a consumer install resolves it.
 		expect(css).toContain(
-			'.dark [data-theme="brand"]{--background:navy;--secondary:dark-gray;}',
+			'.dark [data-theme="brand"]{--background:navy;--secondary:dark-gray;--link:var(--secondary);}',
 		);
 	});
 
 	it("emits no dark block for a light-only theme", () => {
-		expect(css).toContain('[data-theme="brand-alt"]{--background:ivory;}');
+		expect(css).toContain(
+			'[data-theme="brand-alt"]{--background:ivory;--secondary:light-gray;--link:var(--secondary);}',
+		);
 		expect(css).not.toContain('.dark [data-theme="brand-alt"]');
 	});
 });
