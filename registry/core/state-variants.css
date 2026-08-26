@@ -1,0 +1,28 @@
+/* State variants shared by Storybook and every registry token item. */
+@custom-variant data-open (&:is(
+	:where([data-state="open"]),
+	:where([data-open]:not([data-open="false"]))
+));
+@custom-variant data-closed (&:is(
+	:where([data-state="closed"]),
+	:where([data-closed]:not([data-closed="false"]))
+));
+@custom-variant data-checked (&:is(
+	:where([data-state="checked"]),
+	:where([data-checked]:not([data-checked="false"]))
+));
+@custom-variant data-unchecked (&:is(
+	:where([data-state="unchecked"]),
+	:where([data-unchecked]:not([data-unchecked="false"]))
+));
+@custom-variant data-selected (&:where([data-selected="true"]));
+@custom-variant data-disabled (&:is(
+	[data-disabled="true"],
+	[data-disabled]:where(:not([data-disabled="false"]))
+));
+@custom-variant data-active (&:is(
+	[data-state="active"],
+	[data-active]:where(:not([data-active="false"]))
+));
+@custom-variant data-horizontal (&[data-orientation="horizontal"]);
+@custom-variant data-vertical (&[data-orientation="vertical"]);
