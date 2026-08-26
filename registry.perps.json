@@ -19,8 +19,8 @@
 				"light": {
 					"destructive": "#b91c1c",
 					"success": "#15803d",
-					"warning": "#c2410c",
-					"info": "#2563eb",
+					"warning": "#9f2d00",
+					"info": "#1447e6",
 					"border-subtle": "var(--border)",
 					"input-30": "color-mix(in oklch, var(--input) 30%, transparent)",
 					"warning-10": "#f973161a",
