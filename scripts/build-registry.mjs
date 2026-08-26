@@ -26,6 +26,14 @@ const SHADCN = path.join(ROOT, "node_modules/.bin/shadcn");
 const read = (rel) => fs.readFileSync(path.join(ROOT, rel), "utf8");
 const exists = (rel) => fs.existsSync(path.join(ROOT, rel));
 
+const stateVariantCss = Object.fromEntries(
+	(
+		read("registry/core/state-variants.css").match(
+			/@custom-variant[\s\S]*?;/g,
+		) ?? []
+	).map((rule) => [rule.replace(/\s+/g, " ").trim().slice(0, -1), {}]),
+);
+
 // Effective item set: a namespace inherits @core's components and its registry:base
 // catalog, then overlays its own items by name (a same-named brand item replaces
 // core's). Theme and style stay brand-local; every brand brings its own. Component
@@ -54,7 +62,14 @@ const inherited =
 			);
 const byName = new Map(inherited.map((i) => [i.name, i]));
 for (const item of manifest.items) byName.set(item.name, item);
-const items = [...byName.values()].map(rescope);
+const items = [...byName.values()].map(rescope).map((item) =>
+	item.type === "registry:theme"
+		? {
+				...item,
+				css: { ...stateVariantCss, ...item.css },
+			}
+		: item,
+);
 
 // In the customize form every class the style defines (i.e. present in the style map)
 // is renamed cn-* -> lifi-* and shipped as a css rule, so a consumer who cannot reach
