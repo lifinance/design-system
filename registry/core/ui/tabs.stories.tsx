@@ -25,6 +25,17 @@ type Story = StoryObj<typeof meta>;
 
 const PANEL_CLASS = "rounded-lg border p-4";
 
+// A token resolves to a different color in each theme and mode, so read the
+// expected color from the live cascade instead of a literal.
+function tokenColor(utility: string, within: HTMLElement) {
+	const probe = document.createElement("span");
+	probe.className = utility;
+	within.append(probe);
+	const { color } = getComputedStyle(probe);
+	probe.remove();
+	return color;
+}
+
 export const Default: Story = {
 	render: () => (
 		<Tabs defaultValue="account" className="w-96">
@@ -103,6 +114,23 @@ export const Line: Story = {
 			</div>
 		</Tabs>
 	),
+	play: async ({ canvas, canvasElement }) => {
+		const active = canvas.getByRole("tab", { name: "Overview" });
+		const inactive = canvas.getByRole("tab", { name: "Analytics" });
+		const foreground = tokenColor("text-foreground", canvasElement);
+		const muted = tokenColor("text-muted-foreground", canvasElement);
+
+		// The variant-scoped utilities carry the color, so pin them by name.
+		await expect(inactive).toHaveClass(
+			"group-data-[variant=line]/tabs-list:text-muted-foreground",
+		);
+		await expect(active).toHaveClass(
+			"group-data-[variant=line]/tabs-list:data-active:text-foreground",
+		);
+
+		await expect(getComputedStyle(inactive).color).toBe(muted);
+		await expect(getComputedStyle(active).color).toBe(foreground);
+	},
 };
 
 export const Disabled: Story = {
