@@ -237,7 +237,7 @@ export const Pill: Story = {
 export const Sizes: Story = {
 	render: () => (
 		<div className="flex flex-col gap-6">
-			{(["xs", "default", "lg"] as const).map((size) => (
+			{(["xs", "default", "sm"] as const).map((size) => (
 				<Tabs key={size} defaultValue="overview" className="w-96">
 					<TabsList variant="pill" size={size} aria-label={`${size} tabs`}>
 						<TabsTrigger value="overview">Overview</TabsTrigger>
