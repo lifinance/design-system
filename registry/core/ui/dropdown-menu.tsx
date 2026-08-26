@@ -34,7 +34,7 @@ function DropdownMenuTrigger({
 						render,
 						mergeProps<"button">(
 							withExpanded,
-							render.props as React.ComponentProps<"button">,
+							render.props as React.ComponentPropsWithoutRef<"button">,
 						),
 					);
 				}
