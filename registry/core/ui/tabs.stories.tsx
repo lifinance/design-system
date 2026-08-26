@@ -41,6 +41,17 @@ function tokenColor(
 	return value;
 }
 
+// Reads the box shadow a utility renders, by probing it directly rather
+// than depending on a real focus-visible state.
+function boxShadowOf(utility: string, within: HTMLElement) {
+	const probe = document.createElement("span");
+	probe.className = utility;
+	within.append(probe);
+	const { boxShadow } = getComputedStyle(probe);
+	probe.remove();
+	return boxShadow;
+}
+
 export const Default: Story = {
 	render: () => (
 		<Tabs defaultValue="account" className="w-96">
@@ -62,9 +73,15 @@ export const Default: Story = {
 			</div>
 		</Tabs>
 	),
-	play: async ({ canvas, userEvent }) => {
+	play: async ({ canvas, canvasElement, userEvent }) => {
 		const tabs = canvas.getAllByRole("tab");
 		await expect(tabs).toHaveLength(3);
+
+		const tabList = canvas.getByRole("tablist");
+		await expect(getComputedStyle(tabList).paddingTop).toBe("3px");
+		await expect(boxShadowOf("ring-3", canvasElement)).toContain(
+			"0px 0px 0px 3px",
+		);
 
 		// The selected tab points at the visible panel; the panel points back.
 		const account = canvas.getByRole("tab", { name: "Account" });

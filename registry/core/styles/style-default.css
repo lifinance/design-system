@@ -1247,7 +1247,7 @@
 }
 
 .cn-tabs-list {
-	@apply rounded-lg p-[3px] data-[variant=line]:rounded-none;
+	@apply rounded-lg p-0.75 data-[variant=line]:rounded-none;
 }
 
 .cn-tabs-list-size-default {
