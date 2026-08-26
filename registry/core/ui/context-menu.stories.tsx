@@ -1,5 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, screen, waitFor } from "storybook/test";
+import {
+	delayAnimationFrames,
+	waitForFocusWithin,
+} from "@/.storybook/interactions";
 import { snapshot } from "@/.storybook/modes";
 import {
 	ContextMenu,
@@ -67,6 +71,7 @@ export const Default: Story = {
 		});
 		const menu = await screen.findByRole("menu", { name: /page actions/i });
 		await waitFor(() => expect(menu).toBeVisible());
+		await waitForFocusWithin(menu);
 
 		const back = screen.getByRole("menuitem", { name: /back/i });
 		const forward = screen.getByRole("menuitem", { name: /forward/i });
@@ -79,6 +84,19 @@ export const Default: Story = {
 		await waitFor(() =>
 			expect(screen.queryByRole("menu")).not.toBeInTheDocument(),
 		);
+	},
+};
+
+export const KeyboardWithDelayedFocus: Story = {
+	...Default,
+	tags: ["!autodocs"],
+	play: async (context) => {
+		const restoreAnimationFrames = delayAnimationFrames(300);
+		try {
+			await Default.play?.(context);
+		} finally {
+			restoreAnimationFrames();
+		}
 	},
 };
 
