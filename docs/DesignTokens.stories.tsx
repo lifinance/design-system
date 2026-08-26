@@ -10,6 +10,8 @@ import {
 	InfoTable,
 	type RadiusRow,
 	RoundedTokenTable,
+	type TextRow,
+	TextTokenTable,
 	TypographyTokens,
 } from "./DesignTokens";
 
@@ -61,6 +63,21 @@ const LINES: ColorRow[] = [
 	{ name: "border", use: "Borders and dividers" },
 	{ name: "input", use: "Form-control borders" },
 	{ name: "ring", use: "Focus rings" },
+];
+
+const TEXT_ON_SURFACE: TextRow[] = [
+	{
+		name: "link",
+		textClassName: "text-link",
+		surfaceClassName: "bg-background",
+		use: "Link text, on the page background",
+	},
+	{
+		name: "destructive-subtle-foreground",
+		textClassName: "text-destructive-subtle-foreground",
+		surfaceClassName: "bg-destructive/10 dark:bg-destructive/20",
+		use: "Text on a destructive tint, such as a subtle destructive badge or button",
+	},
 ];
 
 const ROLE_RADIUS: RadiusRow[] = [
@@ -148,6 +165,7 @@ export const Colors: Story = {
 			<ColorTokenTable caption="Actions" rows={ACTIONS} />
 			<ColorTokenTable caption="Feedback" rows={FEEDBACK} />
 			<ColorTokenTable caption="Lines and focus" rows={LINES} />
+			<TextTokenTable caption="Text on surface" rows={TEXT_ON_SURFACE} />
 		</div>
 	),
 };
