@@ -81,7 +81,7 @@
 
 /* MARK: Avatar */
 .cn-avatar {
-	@apply size-8 rounded-full after:rounded-full data-[size=lg]:size-10 data-[size=sm]:size-6;
+	@apply size-8 rounded-full after:rounded-full data-[size=2xs]:size-5 data-[size=lg]:size-10 data-[size=sm]:size-8 data-[size=xl]:size-12 data-[size=xs]:size-6;
 }
 
 .cn-avatar-fallback {
@@ -93,11 +93,11 @@
 }
 
 .cn-avatar-badge {
-	@apply bg-primary text-primary-foreground ring-background;
+	@apply bg-background text-primary-foreground ring-background group-data-[size=2xs]/avatar:border group-data-[size=2xs]/avatar:border-background group-data-[size=lg]/avatar:border-2 group-data-[size=lg]/avatar:border-background group-data-[size=sm]/avatar:border-2 group-data-[size=sm]/avatar:border-background group-data-[size=xl]/avatar:border-2 group-data-[size=xl]/avatar:border-background group-data-[size=xs]/avatar:border group-data-[size=xs]/avatar:border-background;
 }
 
 .cn-avatar-group-count {
-	@apply bg-muted text-muted-foreground size-8 rounded-full text-sm group-has-data-[size=lg]/avatar-group:size-10 group-has-data-[size=sm]/avatar-group:size-6 [&>svg]:size-4 group-has-data-[size=lg]/avatar-group:[&>svg]:size-5 group-has-data-[size=sm]/avatar-group:[&>svg]:size-3;
+	@apply bg-muted text-muted-foreground size-8 rounded-full text-sm group-has-data-[size=2xs]/avatar-group:size-5 group-has-data-[size=lg]/avatar-group:size-10 group-has-data-[size=sm]/avatar-group:size-8 group-has-data-[size=xl]/avatar-group:size-12 group-has-data-[size=xs]/avatar-group:size-6 [&>svg]:size-4 group-has-data-[size=2xs]/avatar-group:[&>svg]:size-2.5 group-has-data-[size=lg]/avatar-group:[&>svg]:size-5 group-has-data-[size=sm]/avatar-group:[&>svg]:size-4 group-has-data-[size=xl]/avatar-group:[&>svg]:size-6 group-has-data-[size=xs]/avatar-group:[&>svg]:size-3;
 }
 
 /* MARK: Badge */
