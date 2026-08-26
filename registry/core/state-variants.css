@@ -15,7 +15,10 @@
 	[data-state="unchecked"],
 	[data-unchecked]:where(:not([data-unchecked="false"]))
 ));
-@custom-variant data-selected (&[data-selected="true"]);
+@custom-variant data-selected (&:is(
+	[data-selected="true"],
+	[data-selected]:where(:not([data-selected="false"]))
+));
 @custom-variant data-disabled (&:is(
 	[data-disabled="true"],
 	[data-disabled]:where(:not([data-disabled="false"]))
