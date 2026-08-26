@@ -6,10 +6,30 @@ import {
 	RiArrowUpSLine,
 	RiCheckLine,
 } from "@remixicon/react";
+import { cva, type VariantProps } from "class-variance-authority";
 import type * as React from "react";
+
 import { cn } from "@/registry/core/lib/utils";
 
 const Select = SelectPrimitive.Root;
+
+const selectTriggerVariants = cva("cn-select-trigger", {
+	variants: {
+		variant: {
+			default: "cn-select-trigger-variant-default",
+			ghost: "cn-select-trigger-variant-ghost",
+		},
+		size: {
+			default: "cn-select-trigger-size-default",
+			sm: "cn-select-trigger-size-sm",
+			xs: "cn-select-trigger-size-xs",
+		},
+	},
+	defaultVariants: {
+		variant: "default",
+		size: "default",
+	},
+});
 
 function SelectGroup({ className, ...props }: SelectPrimitive.Group.Props) {
 	return (
@@ -34,19 +54,16 @@ function SelectValue({ className, ...props }: SelectPrimitive.Value.Props) {
 function SelectTrigger({
 	className,
 	size = "default",
+	variant = "default",
 	children,
 	...props
-}: SelectPrimitive.Trigger.Props & {
-	size?: "sm" | "default";
-}) {
+}: SelectPrimitive.Trigger.Props & VariantProps<typeof selectTriggerVariants>) {
 	return (
 		<SelectPrimitive.Trigger
 			data-slot="select-trigger"
 			data-size={size}
-			className={cn(
-				"cn-select-trigger flex w-fit items-center justify-between whitespace-nowrap outline-none disabled:cursor-not-allowed disabled:opacity-50 *:data-[slot=select-value]:line-clamp-1 *:data-[slot=select-value]:flex *:data-[slot=select-value]:items-center [&_svg]:pointer-events-none [&_svg]:shrink-0",
-				className,
-			)}
+			data-variant={variant}
+			className={cn(selectTriggerVariants({ variant, size, className }))}
 			{...props}
 		>
 			{children}
@@ -67,6 +84,7 @@ function SelectContent({
 	align = "center",
 	alignOffset = 0,
 	alignItemWithTrigger = true,
+	size = "default",
 	"aria-label": ariaLabel,
 	"aria-labelledby": ariaLabelledby,
 	...props
@@ -74,7 +92,9 @@ function SelectContent({
 	Pick<
 		SelectPrimitive.Positioner.Props,
 		"align" | "alignOffset" | "side" | "sideOffset" | "alignItemWithTrigger"
-	>) {
+	> & {
+		size?: "xs" | "sm" | "default";
+	}) {
 	return (
 		<SelectPrimitive.Portal>
 			<SelectPrimitive.Positioner
@@ -87,9 +107,12 @@ function SelectContent({
 			>
 				<SelectPrimitive.Popup
 					data-slot="select-content"
+					data-size={size}
 					data-align-trigger={alignItemWithTrigger}
 					className={cn(
-						"cn-select-content cn-select-content-logical cn-menu-target cn-menu-translucent relative isolate z-50 max-h-(--available-height) w-(--anchor-width) origin-(--transform-origin) overflow-x-hidden overflow-y-auto data-[align-trigger=true]:animate-none",
+						"cn-select-content cn-select-content-logical relative isolate z-50 max-h-(--available-height) w-(--anchor-width) origin-(--transform-origin) overflow-x-hidden overflow-y-auto data-[align-trigger=true]:animate-none",
+						size === "xs" &&
+							"min-w-(--anchor-width) **:data-[slot=select-group]:p-0.5 **:data-[slot=select-item]:gap-1 **:data-[slot=select-item]:py-0.5 **:data-[slot=select-item]:pr-6 **:data-[slot=select-item]:pl-2 **:data-[slot=select-item]:text-xs",
 						className,
 					)}
 					{...props}
@@ -130,7 +153,7 @@ function SelectItem({
 		<SelectPrimitive.Item
 			data-slot="select-item"
 			className={cn(
-				"cn-select-item relative flex w-full cursor-default items-center outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+				"cn-select-item relative flex w-full cursor-default items-center outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50",
 				className,
 			)}
 			{...props}
@@ -139,9 +162,14 @@ function SelectItem({
 				{children}
 			</SelectPrimitive.ItemText>
 			<SelectPrimitive.ItemIndicator
-				render={<span className="cn-select-item-indicator" />}
+				render={
+					<span
+						data-slot="select-item-indicator"
+						className="cn-select-item-indicator"
+					/>
+				}
 			>
-				<RiCheckLine className="cn-select-item-indicator-icon pointer-events-none" />
+				<RiCheckLine className="pointer-events-none" />
 			</SelectPrimitive.ItemIndicator>
 		</SelectPrimitive.Item>
 	);
