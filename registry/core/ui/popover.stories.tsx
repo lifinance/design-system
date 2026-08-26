@@ -99,6 +99,10 @@ export const WithForm: Story = {
 		const width = await screen.findByLabelText(/width/i);
 		await waitFor(() => expect(width).toBeVisible());
 		await expect(width).toHaveValue("100%");
+		const content = width.closest('[data-slot="popover-content"]');
+		await waitFor(() =>
+			expect(getComputedStyle(content as Element).width).toBe("256px"),
+		);
 		await userEvent.keyboard("{Escape}");
 		await waitFor(() =>
 			expect(screen.queryByLabelText(/width/i)).not.toBeInTheDocument(),
