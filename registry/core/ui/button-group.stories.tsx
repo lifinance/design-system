@@ -1,12 +1,12 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
 import {
-	ChevronDownIcon,
-	ChevronLeftIcon,
-	ChevronRightIcon,
-	MinusIcon,
-	PlusIcon,
-	SearchIcon,
-} from "lucide-react";
+	RiAddLine,
+	RiArrowDownSLine,
+	RiArrowLeftSLine,
+	RiArrowRightSLine,
+	RiSearchLine,
+	RiSubtractLine,
+} from "@remixicon/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect } from "storybook/test";
 import { snapshot } from "@/.storybook/modes";
 import { Button } from "./button";
@@ -79,7 +79,7 @@ export const WithInput: Story = {
 		<ButtonGroup className="w-80">
 			<Input aria-label="Search tokens" placeholder="Search tokens" />
 			<Button variant="outline" size="icon" aria-label="Search">
-				<SearchIcon />
+				<RiSearchLine />
 			</Button>
 		</ButtonGroup>
 	),
@@ -97,7 +97,7 @@ export const SplitButton: Story = {
 			<Button>Send</Button>
 			<ButtonGroupSeparator />
 			<Button size="icon" aria-label="More send options">
-				<ChevronDownIcon />
+				<RiArrowDownSLine />
 			</Button>
 		</ButtonGroup>
 	),
@@ -113,10 +113,10 @@ export const Vertical: Story = {
 	render: () => (
 		<ButtonGroup orientation="vertical" aria-label="Zoom">
 			<Button variant="outline" size="icon" aria-label="Zoom in">
-				<PlusIcon />
+				<RiAddLine />
 			</Button>
 			<Button variant="outline" size="icon" aria-label="Zoom out">
-				<MinusIcon />
+				<RiSubtractLine />
 			</Button>
 		</ButtonGroup>
 	),
@@ -138,10 +138,10 @@ export const Nested: Story = {
 			</ButtonGroup>
 			<ButtonGroup>
 				<Button variant="outline" size="icon-sm" aria-label="Previous page">
-					<ChevronLeftIcon />
+					<RiArrowLeftSLine />
 				</Button>
 				<Button variant="outline" size="icon-sm" aria-label="Next page">
-					<ChevronRightIcon />
+					<RiArrowRightSLine />
 				</Button>
 			</ButtonGroup>
 		</ButtonGroup>
@@ -161,7 +161,7 @@ export const Overview: Story = {
 				<Button>Send</Button>
 				<ButtonGroupSeparator />
 				<Button size="icon" aria-label="More send options">
-					<ChevronDownIcon />
+					<RiArrowDownSLine />
 				</Button>
 			</ButtonGroup>
 			<ButtonGroup className="w-80">
@@ -184,19 +184,19 @@ export const Overview: Story = {
 				</ButtonGroup>
 				<ButtonGroup>
 					<Button variant="outline" size="icon-sm" aria-label="Previous page">
-						<ChevronLeftIcon />
+						<RiArrowLeftSLine />
 					</Button>
 					<Button variant="outline" size="icon-sm" aria-label="Next page">
-						<ChevronRightIcon />
+						<RiArrowRightSLine />
 					</Button>
 				</ButtonGroup>
 			</ButtonGroup>
 			<ButtonGroup orientation="vertical" aria-label="Zoom">
 				<Button variant="outline" size="icon" aria-label="Zoom in">
-					<PlusIcon />
+					<RiAddLine />
 				</Button>
 				<Button variant="outline" size="icon" aria-label="Zoom out">
-					<MinusIcon />
+					<RiSubtractLine />
 				</Button>
 			</ButtonGroup>
 		</div>

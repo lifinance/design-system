@@ -1,4 +1,4 @@
-import { ChevronDownIcon } from "lucide-react";
+import { RiArrowDownSLine } from "@remixicon/react";
 import type * as React from "react";
 import { cn } from "@/registry/core/lib/utils";
 
@@ -26,7 +26,7 @@ function NativeSelect({
 				className="cn-native-select outline-none disabled:pointer-events-none disabled:cursor-not-allowed"
 				{...props}
 			/>
-			<ChevronDownIcon
+			<RiArrowDownSLine
 				className="cn-native-select-icon pointer-events-none absolute select-none"
 				aria-hidden="true"
 				data-slot="native-select-icon"

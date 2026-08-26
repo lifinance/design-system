@@ -38,7 +38,7 @@ These patterns read as AI-generated and erode trust in the docs. Cut them.
 - **Filler.** Drop "simply", "just", "note that", "in order to", "of course".
 - **Marketing words.** No "powerful", "seamless", "robust", "unlock", "effortless".
 - **Rhetorical scaffolding.** No "it is not just X, it is Y", no padded openers, no colon used as a tic to splice clauses.
-- **Decorative glyphs in text.** No check marks, crosses, middots, or arrows typed into prose. When a UI needs an icon, use a real icon component (lucide).
+- **Decorative glyphs in text.** No check marks, crosses, middots, or arrows typed into prose. When a UI needs an icon, use a real icon component (Remix Icon).
 - **Smart punctuation.** Use straight quotes and apostrophes.
 
 ### Do not leak implementation details

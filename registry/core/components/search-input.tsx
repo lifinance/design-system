@@ -1,4 +1,4 @@
-import { SearchIcon, XIcon } from "lucide-react";
+import { RiCloseLine, RiSearchLine } from "@remixicon/react";
 import type * as React from "react";
 
 import {
@@ -17,7 +17,7 @@ function SearchInput({ value, onClear, ...props }: SearchInputProps) {
 	return (
 		<InputGroup>
 			<InputGroupAddon className="pl-2.5">
-				<SearchIcon className="size-6" />
+				<RiSearchLine className="size-6" />
 			</InputGroupAddon>
 			<InputGroupInput
 				inputMode="search"
@@ -33,7 +33,7 @@ function SearchInput({ value, onClear, ...props }: SearchInputProps) {
 						onClick={onClear}
 						className="size-7 rounded-full"
 					>
-						<XIcon className="size-5" />
+						<RiCloseLine className="size-5" />
 					</InputGroupButton>
 				</InputGroupAddon>
 			) : null}

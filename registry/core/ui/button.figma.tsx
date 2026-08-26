@@ -1,5 +1,5 @@
 import figma from "@figma/code-connect";
-import { PlusIcon } from "lucide-react";
+import { RiAddLine } from "@remixicon/react";
 
 import { Button } from "@/registry/core/ui/button";
 
@@ -29,11 +29,11 @@ figma.connect(
 			}),
 			label: figma.string("Label"),
 			leftIcon: figma.boolean("Left icon", {
-				true: <PlusIcon data-icon="inline-start" />,
+				true: <RiAddLine data-icon="inline-start" />,
 				false: undefined,
 			}),
 			rightIcon: figma.boolean("Right icon", {
-				true: <PlusIcon data-icon="inline-end" />,
+				true: <RiAddLine data-icon="inline-end" />,
 				false: undefined,
 			}),
 		},

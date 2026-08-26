@@ -2,8 +2,8 @@
 
 import { mergeProps } from "@base-ui/react/merge-props";
 import { useRender } from "@base-ui/react/use-render";
+import { RiSideBarLine } from "@remixicon/react";
 import { cva, type VariantProps } from "class-variance-authority";
-import { PanelLeftIcon } from "lucide-react";
 import * as React from "react";
 import { useIsMobile } from "@/registry/core/hooks/use-mobile";
 import { cn } from "@/registry/core/lib/utils";
@@ -270,7 +270,7 @@ function SidebarTrigger({
 			}}
 			{...props}
 		>
-			<PanelLeftIcon className="cn-rtl-flip" />
+			<RiSideBarLine className="cn-rtl-flip" />
 			<span className="sr-only">Toggle Sidebar</span>
 		</Button>
 	);

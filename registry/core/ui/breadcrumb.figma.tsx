@@ -1,5 +1,5 @@
 import figma from "@figma/code-connect";
-import { ChevronDownIcon } from "lucide-react";
+import { RiArrowDownSLine } from "@remixicon/react";
 
 import {
 	Breadcrumb,
@@ -78,7 +78,7 @@ figma.connect(BreadcrumbItem, BREADCRUMB_ITEM_URL, {
 			<DropdownMenu>
 				<DropdownMenuTrigger className="flex items-center gap-1">
 					{label}
-					<ChevronDownIcon />
+					<RiArrowDownSLine />
 				</DropdownMenuTrigger>
 				<DropdownMenuContent align="start">
 					<DropdownMenuItem>Documentation</DropdownMenuItem>

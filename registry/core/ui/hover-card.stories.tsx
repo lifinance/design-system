@@ -1,5 +1,5 @@
+import { RiCalendarLine } from "@remixicon/react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { CalendarIcon } from "lucide-react";
 import { expect, screen, waitFor } from "storybook/test";
 import { snapshot } from "@/.storybook/modes";
 import { Avatar, AvatarFallback, AvatarImage } from "./avatar";
@@ -38,7 +38,7 @@ function UserProfile() {
 					Designer and engineer building open-source interface tools.
 				</p>
 				<div className="flex items-center gap-1.5 text-muted-foreground">
-					<CalendarIcon className="size-3.5" />
+					<RiCalendarLine className="size-3.5" />
 					<span className="text-xs">Joined March 2021</span>
 				</div>
 			</div>

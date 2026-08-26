@@ -1,5 +1,5 @@
 import figma from "@figma/code-connect";
-import { BoldIcon } from "lucide-react";
+import { RiBold } from "@remixicon/react";
 
 import { Toggle } from "@/registry/core/ui/toggle";
 
@@ -25,7 +25,7 @@ figma.connect(Toggle, TOGGLE_URL, {
 			Disabled: true,
 		}),
 		icon: figma.boolean("Icon", {
-			true: <BoldIcon />,
+			true: <RiBold />,
 			false: undefined,
 		}),
 		label: figma.boolean("Label", {

@@ -1,7 +1,11 @@
 "use client";
 
 import { Select as SelectPrimitive } from "@base-ui/react/select";
-import { CheckIcon, ChevronDownIcon, ChevronUpIcon } from "lucide-react";
+import {
+	RiArrowDownSLine,
+	RiArrowUpSLine,
+	RiCheckLine,
+} from "@remixicon/react";
 import type * as React from "react";
 import { cn } from "@/registry/core/lib/utils";
 
@@ -48,7 +52,7 @@ function SelectTrigger({
 			{children}
 			<SelectPrimitive.Icon
 				render={
-					<ChevronDownIcon className="cn-select-trigger-icon pointer-events-none" />
+					<RiArrowDownSLine className="cn-select-trigger-icon pointer-events-none" />
 				}
 			/>
 		</SelectPrimitive.Trigger>
@@ -137,7 +141,7 @@ function SelectItem({
 			<SelectPrimitive.ItemIndicator
 				render={<span className="cn-select-item-indicator" />}
 			>
-				<CheckIcon className="cn-select-item-indicator-icon pointer-events-none" />
+				<RiCheckLine className="cn-select-item-indicator-icon pointer-events-none" />
 			</SelectPrimitive.ItemIndicator>
 		</SelectPrimitive.Item>
 	);
@@ -166,7 +170,7 @@ function SelectScrollUpButton({
 			className={cn("cn-select-scroll-up-button top-0 w-full", className)}
 			{...props}
 		>
-			<ChevronUpIcon />
+			<RiArrowUpSLine />
 		</SelectPrimitive.ScrollUpArrow>
 	);
 }
@@ -181,7 +185,7 @@ function SelectScrollDownButton({
 			className={cn("cn-select-scroll-down-button bottom-0 w-full", className)}
 			{...props}
 		>
-			<ChevronDownIcon />
+			<RiArrowDownSLine />
 		</SelectPrimitive.ScrollDownArrow>
 	);
 }

@@ -1,5 +1,5 @@
+import { RiDashboardLine, RiQuestionLine, RiStackLine } from "@remixicon/react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { CircleHelpIcon, GaugeIcon, LayersIcon } from "lucide-react";
 import { expect, screen, waitFor } from "storybook/test";
 import { snapshot } from "@/.storybook/modes";
 import {
@@ -37,19 +37,19 @@ const products = [
 		title: "Analytics",
 		href: "#analytics",
 		description: "Track usage and conversion across every workspace.",
-		icon: GaugeIcon,
+		icon: RiDashboardLine,
 	},
 	{
 		title: "Integrations",
 		href: "#integrations",
 		description: "Connect the tools your team already relies on.",
-		icon: LayersIcon,
+		icon: RiStackLine,
 	},
 	{
 		title: "Support",
 		href: "#support",
 		description: "Reach the help center, status page, and live chat.",
-		icon: CircleHelpIcon,
+		icon: RiQuestionLine,
 	},
 ];
 

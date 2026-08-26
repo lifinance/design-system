@@ -1,5 +1,5 @@
+import { RiInformationLine, RiSaveLine } from "@remixicon/react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { InfoIcon, SaveIcon } from "lucide-react";
 import { expect, screen, waitFor } from "storybook/test";
 import { snapshot } from "@/.storybook/modes";
 import { Button } from "./button";
@@ -63,7 +63,7 @@ export const IconTrigger: Story = {
 	render: () => (
 		<Tooltip>
 			<TooltipTrigger render={<Button variant="ghost" size="icon" />}>
-				<InfoIcon />
+				<RiInformationLine />
 				<span className="sr-only">More information</span>
 			</TooltipTrigger>
 			<TooltipContent>This data refreshes every few minutes</TooltipContent>
@@ -143,7 +143,7 @@ export const Overview: Story = {
 			</Tooltip>
 			<Tooltip defaultOpen>
 				<TooltipTrigger render={<Button variant="ghost" size="icon" />}>
-					<SaveIcon />
+					<RiSaveLine />
 					<span className="sr-only">Save changes</span>
 				</TooltipTrigger>
 				<TooltipContent side="bottom">Save changes</TooltipContent>

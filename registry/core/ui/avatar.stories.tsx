@@ -1,5 +1,5 @@
+import { RiAddLine } from "@remixicon/react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { PlusIcon } from "lucide-react";
 import { snapshot } from "@/.storybook/modes";
 import {
 	Avatar,
@@ -86,7 +86,7 @@ export const Icon: Story = {
 	render: () => (
 		<Avatar>
 			<AvatarFallback>
-				<PlusIcon className="size-4" />
+				<RiAddLine className="size-4" />
 			</AvatarFallback>
 		</Avatar>
 	),
@@ -186,7 +186,7 @@ export const Overview: Story = {
 				</Avatar>
 				<Avatar>
 					<AvatarFallback>
-						<PlusIcon className="size-4" />
+						<RiAddLine className="size-4" />
 					</AvatarFallback>
 				</Avatar>
 				<Avatar size="lg">

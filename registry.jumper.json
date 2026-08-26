@@ -72,6 +72,7 @@
 			"type": "registry:component",
 			"title": "Perk card",
 			"description": "A perk card showing artwork, a title, a description, a discount, and an unlock status.",
+			"dependencies": ["@remixicon/react"],
 			"registryDependencies": ["@jumper/tokens", "@core/card", "@core/badge"],
 			"files": [
 				{

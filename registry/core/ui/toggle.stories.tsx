@@ -1,10 +1,10 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
 import {
-	BoldIcon,
-	BookmarkIcon,
-	ItalicIcon,
-	UnderlineIcon,
-} from "lucide-react";
+	RiBold,
+	RiBookmarkLine,
+	RiItalic,
+	RiUnderline,
+} from "@remixicon/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, fn, waitFor } from "storybook/test";
 import { snapshot } from "@/.storybook/modes";
 import { Toggle } from "./toggle";
@@ -27,7 +27,7 @@ const meta = {
 	args: {
 		"aria-label": "Toggle bold",
 		onPressedChange: fn(),
-		children: <BoldIcon />,
+		children: <RiBold />,
 	},
 } satisfies Meta<typeof Toggle>;
 
@@ -68,7 +68,7 @@ export const Outline: Story = {
 		"aria-label": "Toggle italic",
 		children: (
 			<>
-				<ItalicIcon />
+				<RiItalic />
 				Italic
 			</>
 		),
@@ -100,7 +100,7 @@ export const Pressed: Story = {
 	args: {
 		defaultPressed: true,
 		"aria-label": "Toggle bookmark",
-		children: <BookmarkIcon />,
+		children: <RiBookmarkLine />,
 	},
 	play: async ({ canvas }) => {
 		await expect(
@@ -125,26 +125,26 @@ export const Overview: Story = {
 		<div className="flex flex-col gap-4">
 			<div className="flex items-center gap-2">
 				<Toggle aria-label="Bold">
-					<BoldIcon />
+					<RiBold />
 				</Toggle>
 				<Toggle aria-label="Italic" defaultPressed>
-					<ItalicIcon />
+					<RiItalic />
 				</Toggle>
 				<Toggle aria-label="Underline" disabled>
-					<UnderlineIcon />
+					<RiUnderline />
 				</Toggle>
 			</div>
 			<div className="flex items-center gap-2">
 				<Toggle variant="outline" size="sm">
-					<BoldIcon />
+					<RiBold />
 					Small
 				</Toggle>
 				<Toggle variant="outline" size="default" defaultPressed>
-					<ItalicIcon />
+					<RiItalic />
 					Default
 				</Toggle>
 				<Toggle variant="outline" size="lg">
-					<UnderlineIcon />
+					<RiUnderline />
 					Large
 				</Toggle>
 			</div>

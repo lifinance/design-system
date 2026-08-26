@@ -1,11 +1,11 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
 import {
-	BellIcon,
-	CreditCardIcon,
-	LogOutIcon,
-	SettingsIcon,
-	UserIcon,
-} from "lucide-react";
+	RiBankCardLine,
+	RiLogoutBoxLine,
+	RiNotification3Line,
+	RiSettings3Line,
+	RiUserLine,
+} from "@remixicon/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import * as React from "react";
 import { expect, fn, screen, waitFor } from "storybook/test";
 import { snapshot } from "@/.storybook/modes";
@@ -99,20 +99,20 @@ export const WithIcons: Story = {
 			</DropdownMenuTrigger>
 			<DropdownMenuContent>
 				<DropdownMenuItem>
-					<UserIcon />
+					<RiUserLine />
 					Profile
 				</DropdownMenuItem>
 				<DropdownMenuItem>
-					<CreditCardIcon />
+					<RiBankCardLine />
 					Billing
 				</DropdownMenuItem>
 				<DropdownMenuItem>
-					<SettingsIcon />
+					<RiSettings3Line />
 					Settings
 				</DropdownMenuItem>
 				<DropdownMenuSeparator />
 				<DropdownMenuItem variant="destructive">
-					<LogOutIcon />
+					<RiLogoutBoxLine />
 					Log out
 				</DropdownMenuItem>
 			</DropdownMenuContent>
@@ -328,17 +328,17 @@ export const WithAvatar: Story = {
 				<DropdownMenuSeparator />
 				<DropdownMenuGroup>
 					<DropdownMenuItem>
-						<UserIcon />
+						<RiUserLine />
 						Account
 					</DropdownMenuItem>
 					<DropdownMenuItem>
-						<BellIcon />
+						<RiNotification3Line />
 						Notifications
 					</DropdownMenuItem>
 				</DropdownMenuGroup>
 				<DropdownMenuSeparator />
 				<DropdownMenuItem variant="destructive">
-					<LogOutIcon />
+					<RiLogoutBoxLine />
 					Sign out
 				</DropdownMenuItem>
 			</DropdownMenuContent>
@@ -357,12 +357,12 @@ export const Overview: Story = {
 				<DropdownMenuGroup>
 					<DropdownMenuLabel>My account</DropdownMenuLabel>
 					<DropdownMenuItem>
-						<UserIcon />
+						<RiUserLine />
 						Profile
 						<DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
 					</DropdownMenuItem>
 					<DropdownMenuItem>
-						<SettingsIcon />
+						<RiSettings3Line />
 						Settings
 					</DropdownMenuItem>
 				</DropdownMenuGroup>
@@ -375,7 +375,7 @@ export const Overview: Story = {
 				<DropdownMenuSeparator />
 				<DropdownMenuItem disabled>Archived</DropdownMenuItem>
 				<DropdownMenuItem variant="destructive">
-					<LogOutIcon />
+					<RiLogoutBoxLine />
 					Sign out
 				</DropdownMenuItem>
 			</DropdownMenuContent>

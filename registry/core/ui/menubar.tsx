@@ -2,7 +2,7 @@
 
 import { Menu as MenuPrimitive } from "@base-ui/react/menu";
 import { Menubar as MenubarPrimitive } from "@base-ui/react/menubar";
-import { CheckIcon } from "lucide-react";
+import { RiCheckLine } from "@remixicon/react";
 import type * as React from "react";
 import { cn } from "@/registry/core/lib/utils";
 import {
@@ -124,7 +124,7 @@ function MenubarCheckboxItem({
 		>
 			<span className="cn-menubar-checkbox-item-indicator pointer-events-none absolute flex items-center justify-center">
 				<MenuPrimitive.CheckboxItemIndicator>
-					<CheckIcon />
+					<RiCheckLine />
 				</MenuPrimitive.CheckboxItemIndicator>
 			</span>
 			{children}
@@ -158,7 +158,7 @@ function MenubarRadioItem({
 		>
 			<span className="cn-menubar-radio-item-indicator pointer-events-none absolute flex items-center justify-center">
 				<MenuPrimitive.RadioItemIndicator>
-					<CheckIcon />
+					<RiCheckLine />
 				</MenuPrimitive.RadioItemIndicator>
 			</span>
 			{children}

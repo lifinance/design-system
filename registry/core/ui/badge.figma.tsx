@@ -1,5 +1,5 @@
 import figma from "@figma/code-connect";
-import { BadgeCheckIcon } from "lucide-react";
+import { RiVerifiedBadgeLine } from "@remixicon/react";
 
 import { Badge } from "@/registry/core/ui/badge";
 
@@ -16,7 +16,7 @@ figma.connect(Badge, BADGE_URL, {
 		}),
 		label: figma.string("Label"),
 		leftIcon: figma.boolean("Left icon", {
-			true: <BadgeCheckIcon />,
+			true: <RiVerifiedBadgeLine />,
 			false: undefined,
 		}),
 	},
