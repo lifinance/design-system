@@ -73,6 +73,31 @@ export const WithIcon: Story = {
 	),
 };
 
+export const Info: Story = {
+	render: () => (
+		<Alert variant="info">
+			<RiErrorWarningLine />
+			<AlertTitle>A new statement is available.</AlertTitle>
+			<AlertDescription>
+				Open <a href="#billing">your billing page</a> to review it.
+			</AlertDescription>
+		</Alert>
+	),
+};
+
+export const Warning: Story = {
+	render: () => (
+		<Alert variant="warning">
+			<RiErrorWarningLine />
+			<AlertTitle>Your payment method expires soon.</AlertTitle>
+			<AlertDescription>
+				<a href="#billing">Update your card details</a> to avoid an interruption
+				in service.
+			</AlertDescription>
+		</Alert>
+	),
+};
+
 export const Destructive: Story = {
 	render: () => (
 		<Alert variant="destructive">
@@ -122,6 +147,14 @@ export const Overview: Story = {
 				<AlertDescription>
 					Update your card details to avoid an interruption in service.
 				</AlertDescription>
+			</Alert>
+			<Alert variant="info">
+				<RiErrorWarningLine />
+				<AlertTitle>A new statement is available.</AlertTitle>
+			</Alert>
+			<Alert variant="warning">
+				<RiErrorWarningLine />
+				<AlertTitle>Your payment method expires soon.</AlertTitle>
 			</Alert>
 			<Alert variant="destructive">
 				<AlertTitle>Unable to process your payment.</AlertTitle>

@@ -26,6 +26,14 @@
 	@apply bg-card text-card-foreground;
 }
 
+.cn-alert-variant-info {
+	@apply text-info bg-card *:data-[slot=alert-description]:text-info/90 *:[svg]:text-current;
+}
+
+.cn-alert-variant-warning {
+	@apply text-warning bg-card *:data-[slot=alert-description]:text-warning/90 *:[svg]:text-current;
+}
+
 .cn-alert-variant-destructive {
 	@apply text-destructive bg-card *:data-[slot=alert-description]:text-destructive/90 *:[svg]:text-current;
 }
@@ -127,6 +135,14 @@
 
 .cn-badge-variant-success {
 	@apply bg-success/15 text-success [a]:hover:bg-success/25;
+}
+
+.cn-badge-variant-info {
+	@apply bg-info/15 text-info [a]:hover:bg-info/25;
+}
+
+.cn-badge-variant-warning {
+	@apply bg-warning/15 text-warning [a]:hover:bg-warning/25;
 }
 
 /* MARK: Breadcrumb */
