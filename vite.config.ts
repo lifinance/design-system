@@ -46,6 +46,9 @@ const storybookProject = (
 	test: {
 		name,
 		env,
+		// A pointer action crosses from the browser to the test process, and every
+		// project runs at the same time, so one action can take tens of seconds.
+		testTimeout: 60_000,
 		browser: {
 			enabled: true,
 			headless: true,
