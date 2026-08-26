@@ -1247,11 +1247,27 @@
 }
 
 .cn-tabs-list {
-	@apply rounded-lg p-[3px] group-data-horizontal/tabs:h-8 data-[variant=line]:rounded-none;
+	@apply rounded-lg p-0.75 data-[variant=line]:rounded-none;
+}
+
+.cn-tabs-list-size-default {
+	@apply group-data-horizontal/tabs:h-8;
+}
+
+.cn-tabs-list-size-lg {
+	@apply group-data-horizontal/tabs:h-9;
+}
+
+.cn-tabs-list-size-xs {
+	@apply group-data-horizontal/tabs:h-6;
+}
+
+.cn-tabs-list-variant-pill {
+	@apply p-0;
 }
 
 .cn-tabs-trigger {
-	@apply gap-1.5 rounded-md border border-transparent px-1.5 py-0.5 text-sm font-medium group-data-[variant=default]/tabs-list:data-active:shadow-sm group-data-[variant=line]/tabs-list:data-active:shadow-none [&_svg:not([class*='size-'])]:size-4 has-data-[icon=inline-end]:pr-1 has-data-[icon=inline-start]:pl-1;
+	@apply gap-1.5 rounded-md border border-transparent px-1.5 py-0.5 text-sm font-medium group-data-[variant=default]/tabs-list:data-active:shadow-sm group-data-[variant=line]/tabs-list:data-active:shadow-none group-data-[variant=pill]/tabs-list:rounded-lg group-data-[size=lg]/tabs-list:px-2.5 group-data-[size=xs]/tabs-list:px-2.5 group-data-[size=xs]/tabs-list:text-xs group-data-[size=lg]/tabs-list:[&_img]:size-4 group-data-[size=lg]/tabs-list:[&_svg:not([class*='size-'])]:size-4 group-data-[size=xs]/tabs-list:[&_svg:not([class*='size-'])]:size-3.5 [&_svg:not([class*='size-'])]:size-4 has-data-[icon=inline-end]:pr-1 has-data-[icon=inline-start]:pl-1;
 }
 
 .cn-tabs-content {
