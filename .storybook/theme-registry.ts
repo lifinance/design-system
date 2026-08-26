@@ -90,13 +90,11 @@ function block(selector: string, vars?: Vars): string {
 	return body ? `${selector}{${body}}` : "";
 }
 
-// The core base goes on :root and .dark; every other theme is a light delta
-// scoped by [data-theme], plus a fully resolved dark block (core dark layered
-// under the theme's dark overrides). The resolved dark block matches what a
-// consumer install produces: the CLI merges light values into :root and dark
-// values into .dark, where .dark wins in dark mode, so a token overridden only
-// in light never reaches dark mode. A dark delta alone could not guarantee
-// that here, because the [data-theme] block comes after .dark in this sheet.
+// The core base goes on :root and .dark; every other theme is a fully resolved
+// block scoped by [data-theme], core layered under the theme's own overrides.
+// That matches a consumer install, where the CLI merges every value into :root
+// and .dark. Full resolution is required: a var()-valued token substitutes where
+// it is declared, and the [data-theme] block comes after .dark in this sheet.
 export function buildThemeCss(themes: Theme[]): string {
 	const base = themes.find((theme) => theme.isBase);
 	let css = "";
@@ -107,7 +105,10 @@ export function buildThemeCss(themes: Theme[]): string {
 				block(".dark", theme.cssVars.dark);
 			continue;
 		}
-		css += block(`[data-theme="${theme.id}"]`, theme.cssVars.light);
+		css += block(`[data-theme="${theme.id}"]`, {
+			...base?.cssVars.light,
+			...theme.cssVars.light,
+		});
 		if (theme.modes.includes("dark")) {
 			css += block(`.dark [data-theme="${theme.id}"]`, {
 				...base?.cssVars.dark,

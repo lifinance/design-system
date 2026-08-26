@@ -110,7 +110,7 @@
 }
 
 .cn-badge-variant-destructive {
-	@apply bg-destructive/10 [a]:hover:bg-destructive/20 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 text-destructive dark:bg-destructive/20;
+	@apply bg-destructive/10 [a]:hover:bg-destructive/20 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 text-destructive-subtle-foreground dark:bg-destructive/20;
 }
 
 .cn-badge-variant-ghost {
@@ -118,7 +118,7 @@
 }
 
 .cn-badge-variant-link {
-	@apply text-primary underline-offset-4 hover:underline;
+	@apply text-link underline-offset-4 hover:underline;
 }
 
 .cn-badge-variant-muted {
@@ -176,11 +176,11 @@
 }
 
 .cn-button-variant-destructive {
-	@apply bg-destructive/10 hover:bg-destructive/20 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/20 text-destructive focus-visible:border-destructive/40 dark:hover:bg-destructive/30;
+	@apply bg-destructive/10 hover:bg-destructive/20 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/20 text-destructive-subtle-foreground focus-visible:border-destructive/40 dark:hover:bg-destructive/30;
 }
 
 .cn-button-variant-link {
-	@apply text-primary underline-offset-4 hover:underline;
+	@apply text-link underline-offset-4 hover:underline;
 }
 
 .cn-button-size-xs {
