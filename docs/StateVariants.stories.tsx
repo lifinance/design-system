@@ -19,6 +19,16 @@ const PROBES = [
 		className: "data-active:text-foreground",
 	},
 	{
+		id: "data-checked",
+		state: { "data-checked": "" },
+		className: "data-checked:text-foreground",
+	},
+	{
+		id: "data-closed",
+		state: { "data-closed": "" },
+		className: "data-closed:text-foreground",
+	},
+	{
 		id: "data-disabled",
 		state: { "data-disabled": "true" },
 		className: "data-disabled:text-foreground",
@@ -32,6 +42,21 @@ const PROBES = [
 		id: "data-horizontal",
 		state: { "data-orientation": "horizontal" },
 		className: "data-horizontal:text-foreground",
+	},
+	{
+		id: "data-open",
+		state: { "data-open": "" },
+		className: "data-open:text-foreground",
+	},
+	{
+		id: "data-selected",
+		state: { "data-selected": "true" },
+		className: "data-selected:text-foreground",
+	},
+	{
+		id: "data-unchecked",
+		state: { "data-unchecked": "" },
+		className: "data-unchecked:text-foreground",
 	},
 	{
 		id: "data-vertical",
@@ -55,7 +80,7 @@ const meta = {
 		docs: {
 			description: {
 				component:
-					"The state variants a Base UI component styles with: `data-active`, `data-disabled`, `data-horizontal`, and `data-vertical`. The probes cover every supported attribute form. Each variant carries the same weight as a built-in Tailwind data variant.",
+					"The state variants a Base UI component styles with: `data-active`, `data-checked`, `data-closed`, `data-disabled`, `data-horizontal`, `data-open`, `data-selected`, `data-unchecked`, and `data-vertical`. The probes cover every supported attribute form. Each variant carries the same weight as a built-in Tailwind data variant.",
 			},
 		},
 	},
