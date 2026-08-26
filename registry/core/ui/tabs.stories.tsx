@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, waitFor } from "storybook/test";
+import { hover } from "@/.storybook/interactions";
 import { snapshot } from "@/.storybook/modes";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./tabs";
 
@@ -130,6 +131,29 @@ export const Line: Story = {
 
 		await expect(getComputedStyle(inactive).color).toBe(muted);
 		await expect(getComputedStyle(active).color).toBe(foreground);
+	},
+};
+
+// The tags keep this test-only story out of the sidebar and the docs page.
+export const HoverPaintsAnInactiveLineTrigger: Story = {
+	tags: ["!autodocs", "!dev"],
+	render: () => (
+		<Tabs defaultValue="overview" className="w-96">
+			<TabsList variant="line" aria-label="Project views">
+				<TabsTrigger value="overview">Overview</TabsTrigger>
+				<TabsTrigger value="analytics">Analytics</TabsTrigger>
+			</TabsList>
+		</Tabs>
+	),
+	play: async ({ canvas, canvasElement }) => {
+		const inactive = canvas.getByRole("tab", { name: "Analytics" });
+		const foreground = tokenColor("text-foreground", canvasElement);
+		await expect(getComputedStyle(inactive).color).not.toBe(foreground);
+
+		await hover(inactive);
+		await waitFor(() =>
+			expect(getComputedStyle(inactive).color).toBe(foreground),
+		);
 	},
 };
 
