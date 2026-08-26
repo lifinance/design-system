@@ -1,12 +1,12 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
 import {
-	BookOpenIcon,
-	CalendarIcon,
-	HomeIcon,
-	InboxIcon,
-	SearchIcon,
-	SettingsIcon,
-} from "lucide-react";
+	RiBookOpenLine,
+	RiCalendarLine,
+	RiHomeLine,
+	RiInboxLine,
+	RiSearchLine,
+	RiSettings3Line,
+} from "@remixicon/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import type * as React from "react";
 import { expect, waitFor } from "storybook/test";
 import { snapshot } from "@/.storybook/modes";
@@ -55,10 +55,10 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 const navItems = [
-	{ title: "Home", icon: HomeIcon, isActive: true },
-	{ title: "Inbox", icon: InboxIcon, badge: "12" },
-	{ title: "Calendar", icon: CalendarIcon },
-	{ title: "Search", icon: SearchIcon },
+	{ title: "Home", icon: RiHomeLine, isActive: true },
+	{ title: "Inbox", icon: RiInboxLine, badge: "12" },
+	{ title: "Calendar", icon: RiCalendarLine },
+	{ title: "Search", icon: RiSearchLine },
 ];
 
 const docsItems = ["Installation", "Project structure", "Routing", "Styling"];
@@ -72,7 +72,7 @@ function AppSidebar(
 				<SidebarMenu>
 					<SidebarMenuItem>
 						<SidebarMenuButton size="lg">
-							<BookOpenIcon />
+							<RiBookOpenLine />
 							<span>Documentation</span>
 						</SidebarMenuButton>
 					</SidebarMenuItem>
@@ -108,7 +108,7 @@ function AppSidebar(
 						<SidebarMenu>
 							<SidebarMenuItem>
 								<SidebarMenuButton tooltip="Guides">
-									<BookOpenIcon />
+									<RiBookOpenLine />
 									<span>Guides</span>
 								</SidebarMenuButton>
 								<SidebarMenuSub>
@@ -129,7 +129,7 @@ function AppSidebar(
 				<SidebarMenu>
 					<SidebarMenuItem>
 						<SidebarMenuButton tooltip="Settings">
-							<SettingsIcon />
+							<RiSettings3Line />
 							<span>Settings</span>
 						</SidebarMenuButton>
 					</SidebarMenuItem>

@@ -1,4 +1,4 @@
-import { CheckIcon, LockIcon, LockOpenIcon } from "lucide-react";
+import { RiCheckLine, RiLockLine, RiLockUnlockLine } from "@remixicon/react";
 import type * as React from "react";
 
 import { cn } from "@/registry/core/lib/utils";
@@ -50,19 +50,19 @@ function PerkCard({
 					{discount ? <Badge variant="muted">{discount}</Badge> : null}
 					{status === "claimed" && (
 						<Badge variant="success">
-							<CheckIcon />
+							<RiCheckLine />
 							Claimed
 						</Badge>
 					)}
 					{status === "unlocked" && (
 						<Badge variant="success">
-							<LockOpenIcon />
+							<RiLockUnlockLine />
 							Unlocked
 						</Badge>
 					)}
 					{status === "level" && (
 						<Badge variant="muted">
-							<LockIcon />
+							<RiLockLine />
 							{level != null ? `Level ${level}` : "Locked"}
 						</Badge>
 					)}

@@ -1,6 +1,6 @@
 import { NavigationMenu as NavigationMenuPrimitive } from "@base-ui/react/navigation-menu";
+import { RiArrowDownSLine } from "@remixicon/react";
 import { cva } from "class-variance-authority";
-import { ChevronDownIcon } from "lucide-react";
 import { cn } from "@/registry/core/lib/utils";
 
 function NavigationMenu({
@@ -70,7 +70,7 @@ function NavigationMenuTrigger({
 			{...props}
 		>
 			{children}{" "}
-			<ChevronDownIcon
+			<RiArrowDownSLine
 				className="cn-navigation-menu-trigger-icon"
 				aria-hidden="true"
 			/>

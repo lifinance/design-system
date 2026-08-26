@@ -1,5 +1,5 @@
 import figma from "@figma/code-connect";
-import { FolderIcon } from "lucide-react";
+import { RiFolderLine } from "@remixicon/react";
 
 import { Button } from "@/registry/core/ui/button";
 import {
@@ -25,7 +25,7 @@ figma.connect(Empty, EMPTY_URL, {
 		media: figma.boolean("Icon", {
 			true: (
 				<EmptyMedia variant="icon">
-					<FolderIcon />
+					<RiFolderLine />
 				</EmptyMedia>
 			),
 			false: undefined,

@@ -1,5 +1,5 @@
+import { RiErrorWarningLine } from "@remixicon/react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { CircleAlertIcon } from "lucide-react";
 import { snapshot } from "@/.storybook/modes";
 import { Alert, AlertAction, AlertDescription, AlertTitle } from "./alert";
 import { Button } from "./button";
@@ -63,7 +63,7 @@ export const DescriptionOnly: Story = {
 export const WithIcon: Story = {
 	render: () => (
 		<Alert>
-			<CircleAlertIcon />
+			<RiErrorWarningLine />
 			<AlertTitle>Your payment method expires soon.</AlertTitle>
 			<AlertDescription>
 				<a href="#billing">Update your card details</a> to avoid an interruption
@@ -76,7 +76,7 @@ export const WithIcon: Story = {
 export const Destructive: Story = {
 	render: () => (
 		<Alert variant="destructive">
-			<CircleAlertIcon />
+			<RiErrorWarningLine />
 			<AlertTitle>Unable to process your payment.</AlertTitle>
 			<AlertDescription>
 				<p>
@@ -95,7 +95,7 @@ export const Destructive: Story = {
 export const WithAction: Story = {
 	render: () => (
 		<Alert>
-			<CircleAlertIcon />
+			<RiErrorWarningLine />
 			<AlertTitle>The selected messages have been archived.</AlertTitle>
 			<AlertAction>
 				<Button size="xs">Undo</Button>
@@ -117,7 +117,7 @@ export const Overview: Story = {
 				</AlertDescription>
 			</Alert>
 			<Alert>
-				<CircleAlertIcon />
+				<RiErrorWarningLine />
 				<AlertTitle>Your payment method expires soon.</AlertTitle>
 				<AlertDescription>
 					Update your card details to avoid an interruption in service.
@@ -127,14 +127,14 @@ export const Overview: Story = {
 				<AlertTitle>Unable to process your payment.</AlertTitle>
 			</Alert>
 			<Alert variant="destructive">
-				<CircleAlertIcon />
+				<RiErrorWarningLine />
 				<AlertTitle>Unable to process your payment.</AlertTitle>
 				<AlertDescription>
 					Verify your billing information and try again.
 				</AlertDescription>
 			</Alert>
 			<Alert>
-				<CircleAlertIcon />
+				<RiErrorWarningLine />
 				<AlertTitle>The selected messages have been archived.</AlertTitle>
 				<AlertAction>
 					<Button size="xs">Undo</Button>

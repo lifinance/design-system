@@ -1,7 +1,7 @@
 "use client";
 
 import { ContextMenu as ContextMenuPrimitive } from "@base-ui/react/context-menu";
-import { CheckIcon, ChevronRightIcon } from "lucide-react";
+import { RiArrowRightSLine, RiCheckLine } from "@remixicon/react";
 import type * as React from "react";
 import { cn } from "@/registry/core/lib/utils";
 
@@ -133,7 +133,7 @@ function ContextMenuSubTrigger({
 			{...props}
 		>
 			{children}
-			<ChevronRightIcon className="cn-rtl-flip ml-auto" />
+			<RiArrowRightSLine className="cn-rtl-flip ml-auto" />
 		</ContextMenuPrimitive.SubmenuTrigger>
 	);
 }
@@ -173,7 +173,7 @@ function ContextMenuCheckboxItem({
 		>
 			<span className="cn-context-menu-item-indicator pointer-events-none">
 				<ContextMenuPrimitive.CheckboxItemIndicator>
-					<CheckIcon />
+					<RiCheckLine />
 				</ContextMenuPrimitive.CheckboxItemIndicator>
 			</span>
 			{children}
@@ -212,7 +212,7 @@ function ContextMenuRadioItem({
 		>
 			<span className="cn-context-menu-item-indicator pointer-events-none">
 				<ContextMenuPrimitive.RadioItemIndicator>
-					<CheckIcon />
+					<RiCheckLine />
 				</ContextMenuPrimitive.RadioItemIndicator>
 			</span>
 			{children}

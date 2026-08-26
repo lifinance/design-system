@@ -1,5 +1,9 @@
+import {
+	RiArrowLeftLine,
+	RiArrowRightLine,
+	RiCommandLine,
+} from "@remixicon/react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { ArrowLeftIcon, ArrowRightIcon, CommandIcon } from "lucide-react";
 import { snapshot } from "@/.storybook/modes";
 import { Button } from "./button";
 import { Kbd, KbdGroup } from "./kbd";
@@ -34,7 +38,7 @@ export const Default: Story = {
 export const ModifierKey: Story = {
 	render: () => (
 		<Kbd>
-			<CommandIcon />
+			<RiCommandLine />
 		</Kbd>
 	),
 };
@@ -64,12 +68,12 @@ export const WithIconAndText: Story = {
 	render: () => (
 		<KbdGroup>
 			<Kbd>
-				<ArrowLeftIcon />
+				<RiArrowLeftLine />
 				Back
 			</Kbd>
 			<Kbd>
 				Forward
-				<ArrowRightIcon />
+				<RiArrowRightLine />
 			</Kbd>
 		</KbdGroup>
 	),
@@ -92,7 +96,7 @@ export const Overview: Story = {
 				<Kbd>Esc</Kbd>
 				<Kbd>Tab</Kbd>
 				<Kbd>
-					<CommandIcon />
+					<RiCommandLine />
 				</Kbd>
 				<Kbd>↑</Kbd>
 			</div>

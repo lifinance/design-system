@@ -1,5 +1,5 @@
 import figma from "@figma/code-connect";
-import { PlusIcon, UserRoundIcon } from "lucide-react";
+import { RiAddLine, RiUserLine } from "@remixicon/react";
 
 import {
 	Avatar,
@@ -103,7 +103,7 @@ figma.connect(Avatar, AVATAR_URL, {
 	example: ({ size, className, badge }) => (
 		<Avatar size={size} className={className}>
 			<AvatarFallback>
-				<UserRoundIcon className="size-4" />
+				<RiUserLine className="size-4" />
 			</AvatarFallback>
 			{badge}
 		</Avatar>
@@ -119,7 +119,7 @@ figma.connect(AvatarBadge, AVATAR_BADGE_URL, {
 	variant: { Type: "Icon" },
 	example: () => (
 		<AvatarBadge>
-			<PlusIcon />
+			<RiAddLine />
 		</AvatarBadge>
 	),
 });

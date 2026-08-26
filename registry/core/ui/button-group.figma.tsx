@@ -1,5 +1,10 @@
 import figma from "@figma/code-connect";
-import { ChevronDownIcon, MinusIcon, PlusIcon, SearchIcon } from "lucide-react";
+import {
+	RiAddLine,
+	RiArrowDownSLine,
+	RiSearchLine,
+	RiSubtractLine,
+} from "@remixicon/react";
 
 import { Button } from "@/registry/core/ui/button";
 import {
@@ -35,7 +40,7 @@ figma.connect(ButtonGroup, BUTTON_GROUP_INPUT_URL, {
 		<ButtonGroup>
 			{input}
 			<Button variant="outline" size="icon" aria-label="Search">
-				<SearchIcon />
+				<RiSearchLine />
 			</Button>
 		</ButtonGroup>
 	),
@@ -50,7 +55,7 @@ figma.connect(ButtonGroup, BUTTON_GROUP_INPUT_URL, {
 		<ButtonGroup>
 			<Button variant="outline">
 				USD
-				<ChevronDownIcon data-icon="inline-end" />
+				<RiArrowDownSLine data-icon="inline-end" />
 			</Button>
 			{input}
 		</ButtonGroup>
@@ -65,11 +70,11 @@ figma.connect(ButtonGroup, BUTTON_GROUP_INPUT_URL, {
 	example: ({ input }) => (
 		<ButtonGroup>
 			<Button variant="outline" size="icon" aria-label="Decrease">
-				<MinusIcon />
+				<RiSubtractLine />
 			</Button>
 			{input}
 			<Button variant="outline" size="icon" aria-label="Increase">
-				<PlusIcon />
+				<RiAddLine />
 			</Button>
 		</ButtonGroup>
 	),

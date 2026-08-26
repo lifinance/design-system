@@ -1,5 +1,5 @@
 import figma from "@figma/code-connect";
-import { BellIcon } from "lucide-react";
+import { RiNotification3Line } from "@remixicon/react";
 
 import {
 	AlertDialog,
@@ -56,7 +56,7 @@ figma.connect(AlertDialogHeader, ALERT_DIALOG_HEADER_URL, {
 		media: figma.boolean("Media", {
 			true: (
 				<AlertDialogMedia>
-					<BellIcon />
+					<RiNotification3Line />
 				</AlertDialogMedia>
 			),
 			false: undefined,
@@ -85,7 +85,7 @@ figma.connect(AlertDialogFooter, ALERT_DIALOG_FOOTER_URL, {
 figma.connect(AlertDialogMedia, ALERT_DIALOG_MEDIA_URL, {
 	example: () => (
 		<AlertDialogMedia>
-			<BellIcon />
+			<RiNotification3Line />
 		</AlertDialogMedia>
 	),
 });

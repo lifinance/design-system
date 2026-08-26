@@ -1,5 +1,5 @@
 import figma from "@figma/code-connect";
-import { GlobeIcon } from "lucide-react";
+import { RiGlobalLine } from "@remixicon/react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/registry/core/ui/avatar";
 import { Button } from "@/registry/core/ui/button";
@@ -61,7 +61,7 @@ figma.connect(ComboboxItem, COMBOBOX_MENU_ITEM_URL, {
 	variant: { Type: "Icon" },
 	example: () => (
 		<ComboboxItem value="Option">
-			<GlobeIcon />
+			<RiGlobalLine />
 			Option
 		</ComboboxItem>
 	),

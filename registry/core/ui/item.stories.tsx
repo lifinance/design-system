@@ -1,5 +1,9 @@
+import {
+	RiAddLine,
+	RiArrowRightSLine,
+	RiVerifiedBadgeLine,
+} from "@remixicon/react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { BadgeCheckIcon, ChevronRightIcon, PlusIcon } from "lucide-react";
 import { Fragment } from "react";
 import { snapshot } from "@/.storybook/modes";
 import { Avatar, AvatarFallback, AvatarGroup, AvatarImage } from "./avatar";
@@ -115,7 +119,7 @@ export const IconMedia: Story = {
 	render: () => (
 		<Item variant="outline">
 			<ItemMedia variant="icon">
-				<BadgeCheckIcon />
+				<RiVerifiedBadgeLine />
 			</ItemMedia>
 			<ItemContent>
 				<ItemTitle>Wallet verified</ItemTitle>
@@ -123,7 +127,7 @@ export const IconMedia: Story = {
 			</ItemContent>
 			<ItemActions>
 				<Button variant="ghost" size="icon-sm" aria-label="Open">
-					<ChevronRightIcon />
+					<RiArrowRightSLine />
 				</Button>
 			</ItemActions>
 		</Item>
@@ -145,7 +149,7 @@ export const AvatarMedia: Story = {
 			</ItemContent>
 			<ItemActions>
 				<Button variant="ghost" size="icon-sm" aria-label="Add token">
-					<PlusIcon />
+					<RiAddLine />
 				</Button>
 			</ItemActions>
 		</Item>
@@ -191,7 +195,7 @@ export const ImageMedia: Story = {
 				<ItemDescription>Cross-chain bridging and swapping</ItemDescription>
 			</ItemContent>
 			<ItemActions>
-				<ChevronRightIcon className="size-4 text-muted-foreground" />
+				<RiArrowRightSLine className="size-4 text-muted-foreground" />
 			</ItemActions>
 		</Item>
 	),
@@ -209,7 +213,7 @@ export const Link: Story = {
 				<ItemDescription>Opens the block explorer.</ItemDescription>
 			</ItemContent>
 			<ItemActions>
-				<ChevronRightIcon className="size-4 text-muted-foreground" />
+				<RiArrowRightSLine className="size-4 text-muted-foreground" />
 			</ItemActions>
 		</Item>
 	),
@@ -264,7 +268,7 @@ export const Overview: Story = {
 			</Item>
 			<Item variant="outline">
 				<ItemMedia variant="icon">
-					<BadgeCheckIcon />
+					<RiVerifiedBadgeLine />
 				</ItemMedia>
 				<ItemContent>
 					<ItemTitle>Wallet verified</ItemTitle>
@@ -297,7 +301,7 @@ export const Overview: Story = {
 					<ItemDescription>Cross-chain bridging and swapping</ItemDescription>
 				</ItemContent>
 				<ItemActions>
-					<ChevronRightIcon className="size-4 text-muted-foreground" />
+					<RiArrowRightSLine className="size-4 text-muted-foreground" />
 				</ItemActions>
 			</Item>
 		</div>

@@ -1,5 +1,9 @@
+import {
+	RiArrowRightUpLine,
+	RiInboxLine,
+	RiWalletLine,
+} from "@remixicon/react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { ArrowUpRightIcon, InboxIcon, WalletIcon } from "lucide-react";
 import { snapshot } from "@/.storybook/modes";
 import { Button } from "./button";
 import {
@@ -43,7 +47,7 @@ export const WithIcon: Story = {
 		<Empty className="border">
 			<EmptyHeader>
 				<EmptyMedia variant="icon">
-					<InboxIcon />
+					<RiInboxLine />
 				</EmptyMedia>
 				<EmptyTitle>No transactions yet</EmptyTitle>
 				<EmptyDescription>
@@ -79,7 +83,7 @@ export const Basic: Story = {
 					nativeButton={false}
 				>
 					Learn more
-					<ArrowUpRightIcon data-icon="inline-end" />
+					<RiArrowRightUpLine data-icon="inline-end" />
 				</Button>
 			</EmptyContent>
 		</Empty>
@@ -91,7 +95,7 @@ export const WithBackground: Story = {
 		<Empty className="bg-muted">
 			<EmptyHeader>
 				<EmptyMedia variant="icon">
-					<WalletIcon />
+					<RiWalletLine />
 				</EmptyMedia>
 				<EmptyTitle>No wallet connected</EmptyTitle>
 				<EmptyDescription>
@@ -112,7 +116,7 @@ export const Overview: Story = {
 			<Empty className="border">
 				<EmptyHeader>
 					<EmptyMedia variant="icon">
-						<InboxIcon />
+						<RiInboxLine />
 					</EmptyMedia>
 					<EmptyTitle>No transactions yet</EmptyTitle>
 					<EmptyDescription>
@@ -137,7 +141,7 @@ export const Overview: Story = {
 			<Empty className="bg-muted">
 				<EmptyHeader>
 					<EmptyMedia variant="icon">
-						<WalletIcon />
+						<RiWalletLine />
 					</EmptyMedia>
 					<EmptyTitle>No wallet connected</EmptyTitle>
 					<EmptyDescription>

@@ -1,5 +1,5 @@
+import { RiAddLine } from "@remixicon/react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { PlusIcon } from "lucide-react";
 import * as React from "react";
 import { expect, fn } from "storybook/test";
 import { snapshot } from "@/.storybook/modes";
@@ -122,10 +122,10 @@ export const Overview: Story = {
 			</div>
 			<div className="flex flex-wrap items-center gap-2">
 				<Button aria-label="Add">
-					<PlusIcon />
+					<RiAddLine />
 				</Button>
 				<Button>
-					<PlusIcon />
+					<RiAddLine />
 					With icon
 				</Button>
 				<Button disabled>Disabled</Button>

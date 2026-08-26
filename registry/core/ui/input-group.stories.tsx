@@ -1,5 +1,5 @@
+import { RiClipboardLine, RiSearchLine } from "@remixicon/react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { ClipboardIcon, SearchIcon } from "lucide-react";
 import * as React from "react";
 import { expect } from "storybook/test";
 import { snapshot } from "@/.storybook/modes";
@@ -42,7 +42,7 @@ export const Default: Story = {
 	render: () => (
 		<InputGroup>
 			<InputGroupAddon>
-				<SearchIcon className="size-5" />
+				<RiSearchLine className="size-5" />
 			</InputGroupAddon>
 			<InputGroupInput aria-label="Search" placeholder="Search" />
 		</InputGroup>
@@ -62,7 +62,7 @@ export const RefForwarding: Story = {
 			/>
 			<InputGroupAddon align="inline-end">
 				<InputGroupButton ref={buttonRef} size="icon-xs" aria-label="Paste">
-					<ClipboardIcon />
+					<RiClipboardLine />
 				</InputGroupButton>
 			</InputGroupAddon>
 		</InputGroup>
@@ -91,7 +91,7 @@ export const Overview: Story = {
 		<div className="flex flex-col gap-3">
 			<InputGroup>
 				<InputGroupAddon>
-					<SearchIcon className="size-5" />
+					<RiSearchLine className="size-5" />
 				</InputGroupAddon>
 				<InputGroupInput aria-label="Search" placeholder="Search" />
 			</InputGroup>
@@ -105,7 +105,7 @@ export const Overview: Story = {
 				<InputGroupInput aria-label="Recipient" placeholder="Wallet address" />
 				<InputGroupAddon align="inline-end">
 					<InputGroupButton size="icon-xs" aria-label="Paste">
-						<ClipboardIcon />
+						<RiClipboardLine />
 					</InputGroupButton>
 				</InputGroupAddon>
 			</InputGroup>

@@ -1,5 +1,5 @@
 import figma from "@figma/code-connect";
-import { BellIcon } from "lucide-react";
+import { RiNotification3Line } from "@remixicon/react";
 
 import { Tabs, TabsList, TabsTrigger } from "@/registry/core/ui/tabs";
 
@@ -33,7 +33,7 @@ figma.connect(TabsTrigger, TAB_ITEM_URL, {
 	props: {
 		label: figma.string("Label"),
 		icon: figma.boolean("Icon", {
-			true: <BellIcon />,
+			true: <RiNotification3Line />,
 			false: undefined,
 		}),
 		disabled: figma.enum("State", {

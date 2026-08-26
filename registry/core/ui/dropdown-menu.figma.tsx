@@ -1,5 +1,5 @@
 import figma from "@figma/code-connect";
-import { ChevronDownIcon } from "lucide-react";
+import { RiArrowDownSLine } from "@remixicon/react";
 
 import { Button } from "@/registry/core/ui/button";
 import {
@@ -56,7 +56,7 @@ figma.connect(DropdownMenuTrigger, DROPDOWN_MENU_TRIGGER_URL, {
 		}),
 		rightIcon: figma.boolean("Right icon", {
 			true: figma.instance("↳ Right Icon"),
-			false: <ChevronDownIcon />,
+			false: <RiArrowDownSLine />,
 		}),
 	},
 	example: ({ label, leftIcon, rightIcon }) => (

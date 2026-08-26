@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { SlashIcon } from "lucide-react";
 import { expect } from "storybook/test";
 import { snapshot } from "@/.storybook/modes";
 import {
@@ -91,15 +90,11 @@ export const CustomSeparator: Story = {
 				<BreadcrumbItem>
 					<BreadcrumbLink href="#">Home</BreadcrumbLink>
 				</BreadcrumbItem>
-				<BreadcrumbSeparator>
-					<SlashIcon />
-				</BreadcrumbSeparator>
+				<BreadcrumbSeparator>/</BreadcrumbSeparator>
 				<BreadcrumbItem>
 					<BreadcrumbLink href="#">Settings</BreadcrumbLink>
 				</BreadcrumbItem>
-				<BreadcrumbSeparator>
-					<SlashIcon />
-				</BreadcrumbSeparator>
+				<BreadcrumbSeparator>/</BreadcrumbSeparator>
 				<BreadcrumbItem>
 					<BreadcrumbPage>Notifications</BreadcrumbPage>
 				</BreadcrumbItem>
@@ -147,9 +142,7 @@ export const Overview: Story = {
 					<BreadcrumbItem>
 						<BreadcrumbLink href="#">Home</BreadcrumbLink>
 					</BreadcrumbItem>
-					<BreadcrumbSeparator>
-						<SlashIcon />
-					</BreadcrumbSeparator>
+					<BreadcrumbSeparator>/</BreadcrumbSeparator>
 					<BreadcrumbItem>
 						<BreadcrumbPage>Notifications</BreadcrumbPage>
 					</BreadcrumbItem>

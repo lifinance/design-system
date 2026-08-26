@@ -147,7 +147,7 @@
 			"type": "registry:component",
 			"title": "Search Input",
 			"description": "A search field with a leading icon and a clear button.",
-			"dependencies": ["lucide-react"],
+			"dependencies": ["@remixicon/react"],
 			"registryDependencies": ["@core/tokens", "@core/input-group"],
 			"files": [
 				{
@@ -270,7 +270,7 @@
 			"type": "registry:ui",
 			"title": "Checkbox",
 			"description": "A control that toggles between checked and unchecked.",
-			"dependencies": ["@base-ui/react", "lucide-react"],
+			"dependencies": ["@base-ui/react", "@remixicon/react"],
 			"registryDependencies": ["@core/tokens"],
 			"files": [
 				{
@@ -284,7 +284,7 @@
 			"type": "registry:ui",
 			"title": "Dialog",
 			"description": "A modal window over the page content, with optional header, footer, and close button.",
-			"dependencies": ["@base-ui/react", "lucide-react"],
+			"dependencies": ["@base-ui/react", "@remixicon/react"],
 			"registryDependencies": ["@core/tokens", "@core/button"],
 			"files": [
 				{
@@ -316,7 +316,7 @@
 			"type": "registry:ui",
 			"title": "Accordion",
 			"description": "A vertically stacked set of headers that expand to reveal their content.",
-			"dependencies": ["@base-ui/react", "lucide-react"],
+			"dependencies": ["@base-ui/react", "@remixicon/react"],
 			"registryDependencies": ["@core/tokens"],
 			"files": [
 				{
@@ -371,7 +371,7 @@
 			"type": "registry:ui",
 			"title": "Breadcrumb",
 			"description": "Displays the path to the current page as a trail of links.",
-			"dependencies": ["@base-ui/react", "lucide-react"],
+			"dependencies": ["@base-ui/react", "@remixicon/react"],
 			"registryDependencies": ["@core/tokens"],
 			"files": [
 				{
@@ -413,7 +413,7 @@
 			"type": "registry:ui",
 			"title": "Combobox",
 			"description": "An input that filters a list of options as the user types and selects one or more of them.",
-			"dependencies": ["@base-ui/react", "lucide-react"],
+			"dependencies": ["@base-ui/react", "@remixicon/react"],
 			"registryDependencies": [
 				"@core/tokens",
 				"@core/button",
@@ -542,7 +542,7 @@
 			"type": "registry:ui",
 			"title": "Select",
 			"description": "A control that opens a list of options and lets the user choose one.",
-			"dependencies": ["@base-ui/react", "lucide-react"],
+			"dependencies": ["@base-ui/react", "@remixicon/react"],
 			"registryDependencies": ["@core/tokens"],
 			"files": [
 				{
@@ -570,7 +570,7 @@
 			"type": "registry:ui",
 			"title": "Sheet",
 			"description": "A panel that slides in from an edge of the screen.",
-			"dependencies": ["@base-ui/react", "lucide-react"],
+			"dependencies": ["@base-ui/react", "@remixicon/react"],
 			"registryDependencies": ["@core/tokens", "@core/button"],
 			"files": [
 				{
@@ -598,7 +598,7 @@
 			"type": "registry:ui",
 			"title": "Pagination",
 			"description": "Navigation for moving through pages of content, with page links, previous and next controls, and an ellipsis for skipped ranges.",
-			"dependencies": ["lucide-react"],
+			"dependencies": ["@remixicon/react"],
 			"registryDependencies": ["@core/tokens", "@core/button"],
 			"files": [
 				{
@@ -612,7 +612,7 @@
 			"type": "registry:ui",
 			"title": "Spinner",
 			"description": "An animated indicator that shows a loading or busy state.",
-			"dependencies": ["lucide-react"],
+			"dependencies": ["@remixicon/react"],
 			"registryDependencies": ["@core/tokens"],
 			"files": [
 				{
@@ -654,7 +654,7 @@
 			"type": "registry:ui",
 			"title": "Context Menu",
 			"description": "A menu of actions that opens at the pointer on right click, with items, checkboxes, radios, and submenus.",
-			"dependencies": ["@base-ui/react", "lucide-react"],
+			"dependencies": ["@base-ui/react", "@remixicon/react"],
 			"registryDependencies": ["@core/tokens"],
 			"files": [
 				{
@@ -682,7 +682,7 @@
 			"type": "registry:ui",
 			"title": "Dropdown Menu",
 			"description": "A menu of actions and options that opens from a button, with checkbox items, radio groups, and submenus.",
-			"dependencies": ["@base-ui/react", "lucide-react"],
+			"dependencies": ["@base-ui/react", "@remixicon/react"],
 			"registryDependencies": ["@core/tokens"],
 			"files": [
 				{
@@ -709,7 +709,7 @@
 			"type": "registry:ui",
 			"title": "Menubar",
 			"description": "A horizontal bar of menus for application-level commands, like the menu bar in a desktop app.",
-			"dependencies": ["@base-ui/react", "lucide-react"],
+			"dependencies": ["@base-ui/react", "@remixicon/react"],
 			"registryDependencies": ["@core/tokens", "@core/dropdown-menu"],
 			"files": [
 				{
@@ -723,7 +723,7 @@
 			"type": "registry:ui",
 			"title": "Native Select",
 			"description": "A styled native select for choosing one option from a list.",
-			"dependencies": ["lucide-react"],
+			"dependencies": ["@remixicon/react"],
 			"registryDependencies": ["@core/tokens"],
 			"files": [
 				{
@@ -740,7 +740,7 @@
 			"dependencies": [
 				"@base-ui/react",
 				"class-variance-authority",
-				"lucide-react"
+				"@remixicon/react"
 			],
 			"registryDependencies": ["@core/tokens"],
 			"files": [
@@ -796,7 +796,7 @@
 			"description": "A collapsible navigation panel for the side of an application, with menus, groups, and a content area.",
 			"dependencies": [
 				"@base-ui/react",
-				"lucide-react",
+				"@remixicon/react",
 				"class-variance-authority"
 			],
 			"registryDependencies": [

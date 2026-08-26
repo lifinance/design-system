@@ -1,13 +1,13 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
 import {
-	AlignCenterIcon,
-	AlignJustifyIcon,
-	AlignLeftIcon,
-	AlignRightIcon,
-	BoldIcon,
-	ItalicIcon,
-	UnderlineIcon,
-} from "lucide-react";
+	RiAlignCenter,
+	RiAlignJustify,
+	RiAlignLeft,
+	RiAlignRight,
+	RiBold,
+	RiItalic,
+	RiUnderline,
+} from "@remixicon/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, fn, waitFor } from "storybook/test";
 import { snapshot } from "@/.storybook/modes";
 import { ToggleGroup, ToggleGroupItem } from "./toggle-group";
@@ -41,16 +41,16 @@ export const SingleSelection: Story = {
 	render: (args) => (
 		<ToggleGroup {...args}>
 			<ToggleGroupItem value="left" aria-label="Align left">
-				<AlignLeftIcon />
+				<RiAlignLeft />
 			</ToggleGroupItem>
 			<ToggleGroupItem value="center" aria-label="Align center">
-				<AlignCenterIcon />
+				<RiAlignCenter />
 			</ToggleGroupItem>
 			<ToggleGroupItem value="right" aria-label="Align right">
-				<AlignRightIcon />
+				<RiAlignRight />
 			</ToggleGroupItem>
 			<ToggleGroupItem value="justify" aria-label="Justify">
-				<AlignJustifyIcon />
+				<RiAlignJustify />
 			</ToggleGroupItem>
 		</ToggleGroup>
 	),
@@ -92,13 +92,13 @@ export const MultipleSelection: Story = {
 	render: (args) => (
 		<ToggleGroup {...args}>
 			<ToggleGroupItem value="bold" aria-label="Bold">
-				<BoldIcon />
+				<RiBold />
 			</ToggleGroupItem>
 			<ToggleGroupItem value="italic" aria-label="Italic">
-				<ItalicIcon />
+				<RiItalic />
 			</ToggleGroupItem>
 			<ToggleGroupItem value="underline" aria-label="Underline">
-				<UnderlineIcon />
+				<RiUnderline />
 			</ToggleGroupItem>
 		</ToggleGroup>
 	),
@@ -152,13 +152,13 @@ export const Sizes: Story = {
 				defaultValue={["left"]}
 			>
 				<ToggleGroupItem value="left" aria-label="Align left">
-					<AlignLeftIcon />
+					<RiAlignLeft />
 				</ToggleGroupItem>
 				<ToggleGroupItem value="center" aria-label="Align center">
-					<AlignCenterIcon />
+					<RiAlignCenter />
 				</ToggleGroupItem>
 				<ToggleGroupItem value="right" aria-label="Align right">
-					<AlignRightIcon />
+					<RiAlignRight />
 				</ToggleGroupItem>
 			</ToggleGroup>
 			<ToggleGroup
@@ -167,13 +167,13 @@ export const Sizes: Story = {
 				defaultValue={["left"]}
 			>
 				<ToggleGroupItem value="left" aria-label="Align left">
-					<AlignLeftIcon />
+					<RiAlignLeft />
 				</ToggleGroupItem>
 				<ToggleGroupItem value="center" aria-label="Align center">
-					<AlignCenterIcon />
+					<RiAlignCenter />
 				</ToggleGroupItem>
 				<ToggleGroupItem value="right" aria-label="Align right">
-					<AlignRightIcon />
+					<RiAlignRight />
 				</ToggleGroupItem>
 			</ToggleGroup>
 			<ToggleGroup
@@ -183,13 +183,13 @@ export const Sizes: Story = {
 				defaultValue={["left"]}
 			>
 				<ToggleGroupItem value="left" aria-label="Align left">
-					<AlignLeftIcon />
+					<RiAlignLeft />
 				</ToggleGroupItem>
 				<ToggleGroupItem value="center" aria-label="Align center">
-					<AlignCenterIcon />
+					<RiAlignCenter />
 				</ToggleGroupItem>
 				<ToggleGroupItem value="right" aria-label="Align right">
-					<AlignRightIcon />
+					<RiAlignRight />
 				</ToggleGroupItem>
 			</ToggleGroup>
 		</div>
@@ -206,13 +206,13 @@ export const Disabled: Story = {
 	render: (args) => (
 		<ToggleGroup {...args}>
 			<ToggleGroupItem value="bold" aria-label="Bold">
-				<BoldIcon />
+				<RiBold />
 			</ToggleGroupItem>
 			<ToggleGroupItem value="italic" aria-label="Italic">
-				<ItalicIcon />
+				<RiItalic />
 			</ToggleGroupItem>
 			<ToggleGroupItem value="underline" aria-label="Underline">
-				<UnderlineIcon />
+				<RiUnderline />
 			</ToggleGroupItem>
 		</ToggleGroup>
 	),
@@ -235,13 +235,13 @@ export const Overview: Story = {
 				defaultValue={["bold"]}
 			>
 				<ToggleGroupItem value="bold" aria-label="Bold">
-					<BoldIcon />
+					<RiBold />
 				</ToggleGroupItem>
 				<ToggleGroupItem value="italic" aria-label="Italic">
-					<ItalicIcon />
+					<RiItalic />
 				</ToggleGroupItem>
 				<ToggleGroupItem value="underline" aria-label="Underline">
-					<UnderlineIcon />
+					<RiUnderline />
 				</ToggleGroupItem>
 			</ToggleGroup>
 			<ToggleGroup
@@ -250,13 +250,13 @@ export const Overview: Story = {
 				defaultValue={["left"]}
 			>
 				<ToggleGroupItem value="left" aria-label="Align left">
-					<AlignLeftIcon />
+					<RiAlignLeft />
 				</ToggleGroupItem>
 				<ToggleGroupItem value="center" aria-label="Align center">
-					<AlignCenterIcon />
+					<RiAlignCenter />
 				</ToggleGroupItem>
 				<ToggleGroupItem value="right" aria-label="Align right">
-					<AlignRightIcon />
+					<RiAlignRight />
 				</ToggleGroupItem>
 			</ToggleGroup>
 			<ToggleGroup
@@ -285,13 +285,13 @@ export const Overview: Story = {
 				defaultValue={["bold"]}
 			>
 				<ToggleGroupItem value="bold" aria-label="Bold">
-					<BoldIcon />
+					<RiBold />
 				</ToggleGroupItem>
 				<ToggleGroupItem value="italic" aria-label="Italic">
-					<ItalicIcon />
+					<RiItalic />
 				</ToggleGroupItem>
 				<ToggleGroupItem value="underline" aria-label="Underline">
-					<UnderlineIcon />
+					<RiUnderline />
 				</ToggleGroupItem>
 			</ToggleGroup>
 		</div>

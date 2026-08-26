@@ -1,10 +1,10 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
 import {
-	ChevronRightIcon,
-	ChevronsUpDownIcon,
-	FileIcon,
-	FolderIcon,
-} from "lucide-react";
+	RiArrowRightSLine,
+	RiExpandUpDownLine,
+	RiFileLine,
+	RiFolderLine,
+} from "@remixicon/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, fn, waitFor } from "storybook/test";
 import { snapshot } from "@/.storybook/modes";
 import { Button } from "./button";
@@ -43,7 +43,7 @@ export const Default: Story = {
 			<div className="flex items-center justify-between gap-4 px-4">
 				<h4 className="text-sm font-semibold">3 connected networks</h4>
 				<CollapsibleTrigger render={<Button variant="ghost" size="icon-sm" />}>
-					<ChevronsUpDownIcon />
+					<RiExpandUpDownLine />
 					<span className="sr-only">Toggle networks</span>
 				</CollapsibleTrigger>
 			</div>
@@ -77,8 +77,8 @@ export const FileTree: Story = {
 						/>
 					}
 				>
-					<ChevronRightIcon className="transition-transform group-data-[panel-open]:rotate-90" />
-					<FolderIcon />
+					<RiArrowRightSLine className="transition-transform group-data-[panel-open]:rotate-90" />
+					<RiFolderLine />
 					components
 				</CollapsibleTrigger>
 				<CollapsibleContent className="mt-1 ml-5">
@@ -93,8 +93,8 @@ export const FileTree: Story = {
 									/>
 								}
 							>
-								<ChevronRightIcon className="transition-transform group-data-[panel-open]:rotate-90" />
-								<FolderIcon />
+								<RiArrowRightSLine className="transition-transform group-data-[panel-open]:rotate-90" />
+								<RiFolderLine />
 								ui
 							</CollapsibleTrigger>
 							<CollapsibleContent className="mt-1 ml-5">
@@ -106,7 +106,7 @@ export const FileTree: Story = {
 											size="sm"
 											className="w-full justify-start"
 										>
-											<FileIcon />
+											<RiFileLine />
 											{file}
 										</Button>
 									))}
@@ -114,14 +114,14 @@ export const FileTree: Story = {
 							</CollapsibleContent>
 						</Collapsible>
 						<Button variant="ghost" size="sm" className="w-full justify-start">
-							<FileIcon />
+							<RiFileLine />
 							login-form.tsx
 						</Button>
 					</div>
 				</CollapsibleContent>
 			</Collapsible>
 			<Button variant="ghost" size="sm" className="w-full justify-start">
-				<FileIcon />
+				<RiFileLine />
 				package.json
 			</Button>
 		</div>
@@ -139,7 +139,7 @@ export const Disabled: Story = {
 			<div className="flex items-center justify-between gap-4 px-4">
 				<h4 className="text-sm font-semibold">Archived networks</h4>
 				<CollapsibleTrigger render={<Button variant="ghost" size="icon-sm" />}>
-					<ChevronsUpDownIcon />
+					<RiExpandUpDownLine />
 					<span className="sr-only">Toggle networks</span>
 				</CollapsibleTrigger>
 			</div>
@@ -163,7 +163,7 @@ export const Overview: Story = {
 					<CollapsibleTrigger
 						render={<Button variant="ghost" size="icon-sm" />}
 					>
-						<ChevronsUpDownIcon />
+						<RiExpandUpDownLine />
 						<span className="sr-only">Toggle networks</span>
 					</CollapsibleTrigger>
 				</div>
@@ -175,7 +175,7 @@ export const Overview: Story = {
 					<CollapsibleTrigger
 						render={<Button variant="ghost" size="icon-sm" />}
 					>
-						<ChevronsUpDownIcon />
+						<RiExpandUpDownLine />
 						<span className="sr-only">Toggle wallets</span>
 					</CollapsibleTrigger>
 				</div>

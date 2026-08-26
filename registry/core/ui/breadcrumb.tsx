@@ -1,6 +1,6 @@
 import { mergeProps } from "@base-ui/react/merge-props";
 import { useRender } from "@base-ui/react/use-render";
-import { ChevronRightIcon, MoreHorizontalIcon } from "lucide-react";
+import { RiArrowRightSLine, RiMoreLine } from "@remixicon/react";
 import type * as React from "react";
 import { cn } from "@/registry/core/lib/utils";
 
@@ -86,7 +86,7 @@ function BreadcrumbSeparator({
 			className={cn("cn-breadcrumb-separator", className)}
 			{...props}
 		>
-			{children ?? <ChevronRightIcon className="cn-rtl-flip" />}
+			{children ?? <RiArrowRightSLine className="cn-rtl-flip" />}
 		</li>
 	);
 }
@@ -106,7 +106,7 @@ function BreadcrumbEllipsis({
 			)}
 			{...props}
 		>
-			<MoreHorizontalIcon />
+			<RiMoreLine />
 			<span className="sr-only">More</span>
 		</span>
 	);

@@ -1,5 +1,5 @@
+import { RiDeleteBinLine, RiWalletLine } from "@remixicon/react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { Trash2Icon, WalletIcon } from "lucide-react";
 import { expect, screen, waitFor, within } from "storybook/test";
 import { snapshot } from "@/.storybook/modes";
 import {
@@ -117,7 +117,7 @@ export const WithMedia: Story = {
 			<AlertDialogContent>
 				<AlertDialogHeader>
 					<AlertDialogMedia>
-						<WalletIcon />
+						<RiWalletLine />
 					</AlertDialogMedia>
 					<AlertDialogTitle>Connect wallet?</AlertDialogTitle>
 					<AlertDialogDescription>
@@ -153,7 +153,7 @@ export const Destructive: Story = {
 			<AlertDialogContent size="sm">
 				<AlertDialogHeader>
 					<AlertDialogMedia className="bg-destructive/10 text-destructive dark:bg-destructive/20 dark:text-destructive">
-						<Trash2Icon />
+						<RiDeleteBinLine />
 					</AlertDialogMedia>
 					<AlertDialogTitle>Delete API key?</AlertDialogTitle>
 					<AlertDialogDescription>
