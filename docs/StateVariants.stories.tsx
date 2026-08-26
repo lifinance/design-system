@@ -1,11 +1,21 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { expect } from "storybook/test";
+import { expect, screen, waitFor } from "storybook/test";
 import { cn } from "@/registry/core/lib/utils";
+import {
+	Select,
+	SelectContent,
+	SelectGroup,
+	SelectItem,
+	SelectTrigger,
+	SelectValue,
+} from "@/registry/core/ui/select";
 
 // A group utility on the same element and the same property. It scores one
 // class plus one attribute, the score every built-in Tailwind data variant
 // carries, so a state variant that scores less loses to it.
 const COMPETING = "group-data-[probe=on]/probe:text-muted-foreground";
+
+const FRUITS = ["Apple", "Banana", "Blueberry"];
 
 const PROBES = [
 	{
@@ -50,7 +60,7 @@ const PROBES = [
 	},
 	{
 		id: "data-selected",
-		state: { "data-selected": "true" },
+		state: { "data-selected": "" },
 		className: "data-selected:text-foreground",
 	},
 	{
@@ -119,5 +129,73 @@ export const Precedence: Story = {
 		await expect(colors).toEqual(
 			Object.fromEntries(PROBES.map((probe) => [probe.id, foreground])),
 		);
+	},
+};
+
+export const NotSelected: Story = {
+	parameters: {
+		docs: {
+			description: {
+				story:
+					"The `data-selected` variant matches the presence of the attribute, and an explicit `false` value does not apply the utility.",
+			},
+		},
+	},
+	render: () => (
+		<div className="group/probe" data-probe="on">
+			<span
+				data-selected="false"
+				className={cn(COMPETING, "data-selected:text-foreground")}
+			>
+				data-selected="false"
+			</span>
+		</div>
+	),
+	play: async ({ canvas, canvasElement }) => {
+		const muted = tokenColor("text-muted-foreground", canvasElement);
+		await expect(muted).not.toBe(tokenColor("text-foreground", canvasElement));
+
+		const target = canvas.getByText('data-selected="false"');
+		await expect(getComputedStyle(target).color).toBe(muted);
+	},
+};
+
+export const SelectedItem: Story = {
+	parameters: {
+		docs: {
+			description: {
+				story:
+					"A selected item carries `data-selected` with an empty value. The `data-selected` variant matches that form.",
+			},
+		},
+	},
+	render: () => (
+		<Select defaultValue="Banana">
+			<SelectTrigger className="w-56" aria-label="Favorite fruit">
+				<SelectValue />
+			</SelectTrigger>
+			<SelectContent aria-label="Favorite fruit">
+				<SelectGroup>
+					{FRUITS.map((fruit) => (
+						<SelectItem key={fruit} value={fruit}>
+							{fruit}
+						</SelectItem>
+					))}
+				</SelectGroup>
+			</SelectContent>
+		</Select>
+	),
+	play: async ({ canvas, userEvent }) => {
+		await userEvent.click(
+			canvas.getByRole("combobox", { name: /favorite fruit/i }),
+		);
+		const listbox = await screen.findByRole("listbox", {
+			name: /favorite fruit/i,
+		});
+		await waitFor(() => expect(listbox).toBeVisible());
+
+		const selected = screen.getByRole("option", { name: "Banana" });
+		await expect(selected).toHaveAttribute("data-selected", "");
+		await expect(selected).toHaveAttribute("aria-selected", "true");
 	},
 };
