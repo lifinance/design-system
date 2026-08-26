@@ -8,6 +8,7 @@ import {
 	AvatarGroup,
 	AvatarGroupCount,
 	AvatarImage,
+	AvatarSubBadge,
 } from "./avatar";
 
 const FIGMA = {
@@ -95,18 +96,12 @@ export const Icon: Story = {
 export const Sizes: Story = {
 	render: () => (
 		<div className="flex items-center gap-4">
-			<Avatar size="sm">
-				<AvatarImage src={ASSETS[0].logo} alt={ASSETS[0].name} />
-				<AvatarFallback>{ASSETS[0].initials}</AvatarFallback>
-			</Avatar>
-			<Avatar>
-				<AvatarImage src={ASSETS[0].logo} alt={ASSETS[0].name} />
-				<AvatarFallback>{ASSETS[0].initials}</AvatarFallback>
-			</Avatar>
-			<Avatar size="lg">
-				<AvatarImage src={ASSETS[0].logo} alt={ASSETS[0].name} />
-				<AvatarFallback>{ASSETS[0].initials}</AvatarFallback>
-			</Avatar>
+			{(["2xs", "xs", "sm", "default", "lg", "xl"] as const).map((size) => (
+				<Avatar key={size} size={size}>
+					<AvatarImage src={ASSETS[0].logo} alt={ASSETS[0].name} />
+					<AvatarFallback>{ASSETS[0].initials}</AvatarFallback>
+				</Avatar>
+			))}
 		</div>
 	),
 };
@@ -136,6 +131,25 @@ export const Badge: Story = {
 						className="size-full rounded-full"
 					/>
 				</AvatarBadge>
+			</Avatar>
+		</div>
+	),
+};
+
+export const SubBadge: Story = {
+	render: () => (
+		<div className="flex items-center gap-4">
+			{(["sm", "default", "lg", "xl"] as const).map((size) => (
+				<Avatar key={size} size={size}>
+					<AvatarImage src={ASSETS[1].logo} alt={ASSETS[1].name} />
+					<AvatarFallback>{ASSETS[1].initials}</AvatarFallback>
+					<AvatarSubBadge src={NETWORKS[1].logo} alt={NETWORKS[1].name} />
+				</Avatar>
+			))}
+			<Avatar size="lg">
+				<AvatarImage src={ASSETS[0].logo} alt={ASSETS[0].name} />
+				<AvatarFallback>{ASSETS[0].initials}</AvatarFallback>
+				<AvatarSubBadge fallback="L1" />
 			</Avatar>
 		</div>
 	),
@@ -175,7 +189,7 @@ export const Overview: Story = {
 	render: () => (
 		<div className="flex flex-col gap-4">
 			<div className="flex items-center gap-4">
-				{(["sm", "default", "lg"] as const).map((size) => (
+				{(["2xs", "xs", "sm", "default", "lg", "xl"] as const).map((size) => (
 					<Avatar key={size} size={size}>
 						<AvatarImage src={ASSETS[0].logo} alt={ASSETS[0].name} />
 						<AvatarFallback>{ASSETS[0].initials}</AvatarFallback>

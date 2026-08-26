@@ -13,6 +13,8 @@ const badgeVariants = cva(
 				secondary: "cn-badge-variant-secondary",
 				muted: "cn-badge-variant-muted",
 				success: "cn-badge-variant-success",
+				info: "cn-badge-variant-info",
+				warning: "cn-badge-variant-warning",
 				destructive: "cn-badge-variant-destructive",
 				outline: "cn-badge-variant-outline",
 				ghost: "cn-badge-variant-ghost",
