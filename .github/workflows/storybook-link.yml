@@ -1,0 +1,29 @@
+name: Storybook link
+
+# A skipped job still reports a check row, so the link comment gets its own
+# workflow and the Chromatic workflow reports one row per commit.
+on:
+  pull_request:
+    types: [opened]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  storybook-link:
+    # The per-branch permalink is stable, so comment it once when the PR opens.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - env:
+          GH_TOKEN: ${{ github.token }}
+          PR: ${{ github.event.pull_request.number }}
+          REPO: ${{ github.repository }}
+          HEAD_REF: ${{ github.head_ref }}
+        run: |
+          # Chromatic slugifies the branch by replacing "/" with "-".
+          slug="${HEAD_REF//\//-}"
+          project=$(jq -r '.projectId | sub("^Project:"; "")' chromatic.config.json)
+          gh pr comment "$PR" -R "$REPO" \
+            --body "Storybook for this branch: https://${slug}--${project}.chromatic.com"
