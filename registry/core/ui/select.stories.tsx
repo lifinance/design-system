@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { expect, fn, screen, waitFor } from "storybook/test";
+import { expect, fn, screen, waitFor, within } from "storybook/test";
 import {
 	delayAnimationFrames,
 	waitForFocusWithin,
@@ -113,9 +113,9 @@ export const KeyboardNavigation: Story = {
 
 		await userEvent.keyboard("{End}");
 		await waitFor(() =>
-			expect(screen.getByRole("option", { name: "Pineapple" })).toHaveAttribute(
-				"data-highlighted",
-			),
+			expect(
+				within(listbox).getByRole("option", { name: "Pineapple" }),
+			).toHaveAttribute("data-highlighted"),
 		);
 
 		await userEvent.keyboard("{Enter}");

@@ -1062,6 +1062,71 @@
 	@apply h-full w-px;
 }
 
+/* MARK: Settings Menu */
+.cn-settings-menu-content {
+	@apply border-border w-80 max-w-[calc(100vw_-_--spacing(8))] gap-0 overflow-hidden rounded-xl border p-0 ring-0;
+}
+
+.cn-settings-menu-viewport {
+	@apply relative overflow-hidden;
+}
+
+.cn-settings-menu-panel {
+	@apply relative translate-x-0 opacity-100 [transition:transform_300ms_ease-in-out,opacity_180ms_ease-out] motion-reduce:transition-none;
+}
+
+.cn-settings-menu-panel[data-hidden] {
+	@apply pointer-events-none absolute inset-x-0 top-0 opacity-0;
+}
+
+.cn-settings-menu-panel[data-hidden][data-slide="start"] {
+	@apply -translate-x-2;
+}
+
+.cn-settings-menu-panel[data-hidden][data-slide="end"] {
+	@apply translate-x-2;
+}
+
+.cn-settings-menu-list {
+	@apply flex w-full flex-col p-2;
+}
+
+.cn-settings-menu-item {
+	@apply hover:bg-accent hover:text-accent-foreground focus-visible:ring-ring/50 flex w-full items-center gap-3 rounded-md p-2 text-left text-sm outline-none focus-visible:ring-2;
+}
+
+.cn-settings-menu-item-label {
+	@apply text-muted-foreground flex shrink-0 items-center gap-1 whitespace-nowrap;
+}
+
+.cn-settings-menu-item:hover .cn-settings-menu-item-label {
+	@apply text-accent-foreground;
+}
+
+.cn-settings-menu-item-value {
+	@apply text-foreground flex min-w-0 flex-1 items-center justify-end gap-1 font-medium;
+}
+
+.cn-settings-menu-header {
+	@apply grid h-16 shrink-0 grid-cols-[--spacing(8)_1fr_--spacing(8)] items-center p-4;
+}
+
+.cn-settings-menu-title {
+	@apply text-foreground truncate text-center text-sm font-medium;
+}
+
+.cn-button.cn-settings-menu-back {
+	@apply border-border bg-input/30 text-foreground rounded-[calc(var(--radius)+2px)] border;
+}
+
+.cn-settings-menu-option {
+	@apply border-border bg-input/30 text-foreground has-data-checked:border-primary w-full justify-between gap-3 rounded-[calc(var(--radius)+2px)] border p-4 text-sm font-medium;
+}
+
+.cn-settings-menu-option-label {
+	@apply min-w-0 truncate;
+}
+
 /* MARK: Sheet */
 .cn-sheet-overlay {
 	@apply bg-black/10 supports-backdrop-filter:backdrop-blur-xs;
