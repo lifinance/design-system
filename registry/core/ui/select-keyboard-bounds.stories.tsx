@@ -58,43 +58,50 @@ type Story = StoryObj<typeof meta>;
 
 export const EndAndHomeReachTheListEnds: Story = {
 	play: async ({ canvas, userEvent }) => {
+		const trigger = canvas.getByRole("combobox", { name: /planet/i });
+		trigger.focus();
+
+		await userEvent.keyboard("{ArrowDown}");
+		const listbox = await screen.findByRole("listbox", { name: /planet/i });
+		await waitFor(() => expect(listbox).toBeVisible());
+		await waitForFocusWithin(listbox);
+
+		const options = within(listbox);
+		await expect(options.getAllByRole("option")).toHaveLength(PLANETS.length);
+		await waitFor(() =>
+			expect(options.getByRole("option", { name: FIRST })).toHaveAttribute(
+				"data-highlighted",
+			),
+		);
+
+		await userEvent.keyboard("{End}");
+		await waitFor(() => {
+			expect(options.getByRole("option", { name: LAST })).toHaveAttribute(
+				"data-highlighted",
+			);
+			expect(options.getByRole("option", { name: FIRST })).not.toHaveAttribute(
+				"data-highlighted",
+			);
+		});
+
+		await userEvent.keyboard("{Home}");
+		await waitFor(() => {
+			expect(options.getByRole("option", { name: FIRST })).toHaveAttribute(
+				"data-highlighted",
+			);
+			expect(options.getByRole("option", { name: LAST })).not.toHaveAttribute(
+				"data-highlighted",
+			);
+		});
+	},
+};
+
+export const KeyboardWithDelayedFocus: Story = {
+	...EndAndHomeReachTheListEnds,
+	play: async (context) => {
 		const restoreAnimationFrames = delayAnimationFrames(300);
 		try {
-			const trigger = canvas.getByRole("combobox", { name: /planet/i });
-			trigger.focus();
-
-			await userEvent.keyboard("{ArrowDown}");
-			const listbox = await screen.findByRole("listbox", { name: /planet/i });
-			await waitFor(() => expect(listbox).toBeVisible());
-			await waitForFocusWithin(listbox);
-
-			const options = within(listbox);
-			await expect(options.getAllByRole("option")).toHaveLength(PLANETS.length);
-			await waitFor(() =>
-				expect(options.getByRole("option", { name: FIRST })).toHaveAttribute(
-					"data-highlighted",
-				),
-			);
-
-			await userEvent.keyboard("{End}");
-			await waitFor(() => {
-				expect(options.getByRole("option", { name: LAST })).toHaveAttribute(
-					"data-highlighted",
-				);
-				expect(
-					options.getByRole("option", { name: FIRST }),
-				).not.toHaveAttribute("data-highlighted");
-			});
-
-			await userEvent.keyboard("{Home}");
-			await waitFor(() => {
-				expect(options.getByRole("option", { name: FIRST })).toHaveAttribute(
-					"data-highlighted",
-				);
-				expect(options.getByRole("option", { name: LAST })).not.toHaveAttribute(
-					"data-highlighted",
-				);
-			});
+			await EndAndHomeReachTheListEnds.play?.(context);
 		} finally {
 			restoreAnimationFrames();
 		}
