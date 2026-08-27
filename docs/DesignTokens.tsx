@@ -1,4 +1,4 @@
-import { Check, X } from "lucide-react";
+import { RiCheckLine, RiCloseLine } from "@remixicon/react";
 import type * as React from "react";
 
 import { cn } from "@/registry/core/lib/utils";
@@ -306,7 +306,11 @@ function Badge({ kind }: { kind: "do" | "dont" }) {
 				isDo ? "bg-success/15" : "bg-destructive/10",
 			)}
 		>
-			{isDo ? <Check className="size-3.5" /> : <X className="size-3.5" />}
+			{isDo ? (
+				<RiCheckLine className="size-3.5" />
+			) : (
+				<RiCloseLine className="size-3.5" />
+			)}
 			{isDo ? "DO" : "DON'T"}
 		</span>
 	);
