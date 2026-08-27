@@ -1,5 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, fn, screen, waitFor } from "storybook/test";
+import {
+	delayAnimationFrames,
+	waitForFocusWithin,
+} from "@/.storybook/interactions";
 import { snapshot } from "@/.storybook/modes";
 import { Field, FieldError, FieldLabel } from "./field";
 import {
@@ -105,6 +109,7 @@ export const KeyboardNavigation: Story = {
 			name: /favorite fruit/i,
 		});
 		await waitFor(() => expect(listbox).toBeVisible());
+		await waitForFocusWithin(listbox);
 
 		await userEvent.keyboard("{End}");
 		await waitFor(() =>
@@ -116,6 +121,19 @@ export const KeyboardNavigation: Story = {
 		await userEvent.keyboard("{Enter}");
 		await waitFor(() => expect(trigger).toHaveTextContent("Pineapple"));
 		await expect(trigger).toHaveAttribute("aria-expanded", "false");
+	},
+};
+
+export const KeyboardWithDelayedFocus: Story = {
+	...KeyboardNavigation,
+	tags: ["!autodocs"],
+	play: async (context) => {
+		const restoreAnimationFrames = delayAnimationFrames(300);
+		try {
+			await KeyboardNavigation.play?.(context);
+		} finally {
+			restoreAnimationFrames();
+		}
 	},
 };
 
