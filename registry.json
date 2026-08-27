@@ -159,6 +159,27 @@
 			]
 		},
 		{
+			"name": "settings-menu",
+			"type": "registry:component",
+			"title": "Settings Menu",
+			"description": "A popover of settings rows that slide to a detail panel for changing one value.",
+			"dependencies": ["@remixicon/react"],
+			"registryDependencies": [
+				"@core/tokens",
+				"@core/button",
+				"@core/label",
+				"@core/popover",
+				"@core/radio-group",
+				"@core/tooltip"
+			],
+			"files": [
+				{
+					"path": "registry/core/components/settings-menu.tsx",
+					"type": "registry:component"
+				}
+			]
+		},
+		{
 			"name": "separator",
 			"type": "registry:ui",
 			"title": "Separator",
@@ -828,6 +849,7 @@
 				"@core/button",
 				"@core/input",
 				"@core/search-input",
+				"@core/settings-menu",
 				"@core/separator",
 				"@core/card",
 				"@core/item",
