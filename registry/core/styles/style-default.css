@@ -1059,7 +1059,7 @@
 }
 
 .cn-separator-vertical {
-	@apply h-full w-px;
+	@apply w-px self-stretch;
 }
 
 /* MARK: Settings Menu */
