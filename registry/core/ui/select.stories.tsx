@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, fn, screen, waitFor, within } from "storybook/test";
 import {
-	delayAnimationFrames,
 	waitForFocusWithin,
+	withDelayedFocus,
 } from "@/.storybook/interactions";
 import { snapshot } from "@/.storybook/modes";
 import { Field, FieldError, FieldLabel } from "./field";
@@ -127,14 +127,7 @@ export const KeyboardNavigation: Story = {
 export const KeyboardWithDelayedFocus: Story = {
 	...KeyboardNavigation,
 	tags: ["!autodocs"],
-	play: async (context) => {
-		const restoreAnimationFrames = delayAnimationFrames(300);
-		try {
-			await KeyboardNavigation.play?.(context);
-		} finally {
-			restoreAnimationFrames();
-		}
-	},
+	play: withDelayedFocus(KeyboardNavigation.play),
 };
 
 export const Grouped: Story = {
@@ -167,6 +160,7 @@ export const Grouped: Story = {
 		await userEvent.click(canvas.getByRole("combobox", { name: /produce/i }));
 		const listbox = await screen.findByRole("listbox", { name: /produce/i });
 		await waitFor(() => expect(listbox).toBeVisible());
+		await waitForFocusWithin(listbox);
 		await expect(screen.getByText("Vegetables")).toBeVisible();
 		await userEvent.keyboard("{Escape}");
 		await waitFor(() =>

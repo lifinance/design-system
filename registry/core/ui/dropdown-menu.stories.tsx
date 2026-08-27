@@ -8,6 +8,7 @@ import {
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import * as React from "react";
 import { expect, fn, screen, waitFor } from "storybook/test";
+import { waitForFocusWithin } from "@/.storybook/interactions";
 import { snapshot } from "@/.storybook/modes";
 import { Button } from "./button";
 import {
@@ -76,6 +77,7 @@ export const Default: Story = {
 		await userEvent.click(trigger);
 		const menu = await screen.findByRole("menu");
 		await waitFor(() => expect(menu).toBeVisible());
+		await waitForFocusWithin(menu);
 		await expect(trigger).toHaveAttribute("aria-expanded", "true");
 		await expect(args.onOpenChange).toHaveBeenCalled();
 
@@ -288,6 +290,7 @@ export const Submenu: Story = {
 		await userEvent.keyboard("{Enter}");
 		const menu = await screen.findByRole("menu");
 		await waitFor(() => expect(menu).toBeVisible());
+		await waitForFocusWithin(menu);
 
 		const checkbox = screen.getByRole("menuitemcheckbox", {
 			name: "Notifications",

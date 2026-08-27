@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import * as React from "react";
 import { expect, screen, waitFor, within } from "storybook/test";
+import { waitForFocusWithin } from "@/.storybook/interactions";
 import { snapshot } from "@/.storybook/modes";
 import { Button } from "./button";
 import {
@@ -203,9 +204,11 @@ export const WithGroups: Story = {
 		</Field>
 	),
 	play: async ({ canvas, userEvent }) => {
+		const input = canvas.getByRole("combobox", { name: /time zone/i });
 		await userEvent.click(canvas.getByRole("button", { name: /open popup/i }));
 		const listbox = await screen.findByRole("listbox");
 		await waitFor(() => expect(listbox).toBeVisible());
+		await waitForFocusWithin(input);
 		await expect(within(listbox).getByText("Europe")).toBeVisible();
 		await userEvent.keyboard("{Escape}");
 		await waitFor(() =>
@@ -250,11 +253,13 @@ function MultipleLanguages() {
 export const Multiple: Story = {
 	render: () => <MultipleLanguages />,
 	play: async ({ canvas, userEvent }) => {
-		await userEvent.click(canvas.getByRole("combobox", { name: /languages/i }));
+		const input = canvas.getByRole("combobox", { name: /languages/i });
+		await userEvent.click(input);
 		const listbox = await screen.findByRole("listbox");
 		await waitFor(() => expect(listbox).toBeVisible());
 		await userEvent.click(screen.getByRole("option", { name: /german/i }));
 		await waitFor(() => expect(canvas.getByText("German")).toBeVisible());
+		await waitForFocusWithin(input);
 		await userEvent.keyboard("{Escape}");
 		await waitFor(() =>
 			expect(screen.queryByRole("listbox")).not.toBeInTheDocument(),

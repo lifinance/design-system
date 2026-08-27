@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, screen, waitFor } from "storybook/test";
 import {
-	delayAnimationFrames,
 	waitForFocusWithin,
+	withDelayedFocus,
 } from "@/.storybook/interactions";
 import { snapshot } from "@/.storybook/modes";
 import {
@@ -90,14 +90,7 @@ export const Default: Story = {
 export const KeyboardWithDelayedFocus: Story = {
 	...Default,
 	tags: ["!autodocs"],
-	play: async (context) => {
-		const restoreAnimationFrames = delayAnimationFrames(300);
-		try {
-			await Default.play?.(context);
-		} finally {
-			restoreAnimationFrames();
-		}
-	},
+	play: withDelayedFocus(Default.play),
 };
 
 export const WithCheckboxItems: Story = {

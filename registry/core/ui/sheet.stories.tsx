@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, screen, waitFor } from "storybook/test";
+import { waitForFocusWithin } from "@/.storybook/interactions";
 import { snapshot } from "@/.storybook/modes";
 import { Button } from "./button";
 import { Field, FieldLabel } from "./field";
@@ -73,6 +74,7 @@ export const Default: Story = {
 		);
 		const sheet = await screen.findByRole("dialog");
 		await waitFor(() => expect(sheet).toBeVisible());
+		await waitForFocusWithin(sheet);
 		await expect(
 			screen.getByRole("heading", { name: /edit profile/i }),
 		).toBeVisible();
@@ -117,6 +119,7 @@ export const Sides: Story = {
 		await userEvent.click(canvas.getByRole("button", { name: /^left$/i }));
 		const sheet = await screen.findByRole("dialog");
 		await waitFor(() => expect(sheet).toBeVisible());
+		await waitForFocusWithin(sheet);
 		await expect(sheet).toHaveAttribute("data-side", "left");
 		await userEvent.keyboard("{Escape}");
 		await waitFor(() =>
