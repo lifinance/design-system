@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, screen, waitFor } from "storybook/test";
+import { waitForFocusWithin } from "@/.storybook/interactions";
 import { snapshot } from "@/.storybook/modes";
 import {
 	Menubar,
@@ -105,6 +106,7 @@ export const Default: Story = {
 
 		const menu = await screen.findByRole("menu");
 		await waitFor(() => expect(menu).toBeVisible());
+		await waitForFocusWithin(menu);
 		await waitFor(() =>
 			expect(
 				canvas
@@ -130,7 +132,8 @@ export const Default: Story = {
 		);
 
 		await userEvent.keyboard("{ArrowDown}");
-		await waitFor(() => expect(screen.getByRole("menu")).toBeVisible());
+		const editMenu = await screen.findByRole("menu");
+		await waitFor(() => expect(editMenu).toBeVisible());
 		await waitFor(() =>
 			expect(
 				canvas
@@ -139,6 +142,7 @@ export const Default: Story = {
 			).toBe("true"),
 		);
 
+		await waitForFocusWithin(editMenu);
 		await userEvent.keyboard("{Escape}");
 		await waitFor(() =>
 			expect(screen.queryByRole("menu")).not.toBeInTheDocument(),

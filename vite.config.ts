@@ -1,5 +1,6 @@
 /// <reference types="vitest/config" />
 import fs from "node:fs";
+import os from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { storybookTest } from "@storybook/addon-vitest/vitest-plugin";
@@ -37,6 +38,20 @@ const themeModes = deriveThemes(manifests)
 	.filter(overridden)
 	.flatMap((theme) => theme.modes.map((mode) => ({ id: theme.id, mode })));
 
+// Storybook's test widget spawns Vitest itself and supports one project per
+// Storybook config, so it gets a single project on the default theme. The
+// full theme and mode matrix runs through the CLI and in CI.
+const widgetRun = process.env.VITEST_STORYBOOK === "true";
+
+// Each project opens its own browser pool and the pools run at the same time,
+// so the open tab count is the project count times the per-project worker
+// count. Vitest sizes each pool from the whole machine, which oversubscribes
+// the CPU and stretches a single pointer or key action into tens of seconds.
+const workersPerProject = Math.max(
+	1,
+	Math.floor(os.availableParallelism() / (widgetRun ? 1 : themeModes.length)),
+);
+
 const storybookProject = (
 	name: string,
 	env?: Record<string, string>,
@@ -46,9 +61,10 @@ const storybookProject = (
 	test: {
 		name,
 		env,
-		// A pointer action crosses from the browser to the test process, and every
-		// project runs at the same time, so one action can take tens of seconds.
-		testTimeout: 60_000,
+		maxWorkers: workersPerProject,
+		// A story that opens an overlay waits for its transitions, and the a11y
+		// check runs on top of that, so the Vitest default is too tight.
+		testTimeout: 20_000,
 		browser: {
 			enabled: true,
 			headless: true,
@@ -58,28 +74,24 @@ const storybookProject = (
 	},
 });
 
-// Storybook's test widget spawns Vitest itself and supports one project per
-// Storybook config, so it gets a single project on the default theme. The
-// full theme and mode matrix runs through the CLI and in CI.
-const projects: TestProjectConfiguration[] =
-	process.env.VITEST_STORYBOOK === "true"
-		? [storybookProject("storybook")]
-		: [
-				{
-					extends: true,
-					test: {
-						name: "unit",
-						environment: "node",
-						include: [".storybook/**/*.test.ts"],
-					},
+const projects: TestProjectConfiguration[] = widgetRun
+	? [storybookProject("storybook")]
+	: [
+			{
+				extends: true,
+				test: {
+					name: "unit",
+					environment: "node",
+					include: [".storybook/**/*.test.ts"],
 				},
-				...themeModes.map(({ id, mode }) =>
-					storybookProject(`storybook-${id}-${mode}`, {
-						STORYBOOK_THEME: id,
-						STORYBOOK_MODE: mode,
-					}),
-				),
-			];
+			},
+			...themeModes.map(({ id, mode }) =>
+				storybookProject(`storybook-${id}-${mode}`, {
+					STORYBOOK_THEME: id,
+					STORYBOOK_MODE: mode,
+				}),
+			),
+		];
 
 export default defineConfig({
 	plugins: [react(), tailwindcss()],

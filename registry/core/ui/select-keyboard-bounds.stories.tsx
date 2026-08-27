@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, screen, waitFor, within } from "storybook/test";
 import {
-	delayAnimationFrames,
 	waitForFocusWithin,
+	withDelayedFocus,
 } from "@/.storybook/interactions";
 import { Field, FieldLabel } from "./field";
 import {
@@ -98,12 +98,5 @@ export const EndAndHomeReachTheListEnds: Story = {
 
 export const KeyboardWithDelayedFocus: Story = {
 	...EndAndHomeReachTheListEnds,
-	play: async (context) => {
-		const restoreAnimationFrames = delayAnimationFrames(300);
-		try {
-			await EndAndHomeReachTheListEnds.play?.(context);
-		} finally {
-			restoreAnimationFrames();
-		}
-	},
+	play: withDelayedFocus(EndAndHomeReachTheListEnds.play),
 };

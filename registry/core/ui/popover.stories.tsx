@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, screen, waitFor } from "storybook/test";
+import { waitForFocusWithin } from "@/.storybook/interactions";
 import { snapshot } from "@/.storybook/modes";
 import { Button } from "./button";
 import { Field, FieldGroup, FieldLabel } from "./field";
@@ -55,6 +56,7 @@ export const Default: Story = {
 		);
 		const popup = await screen.findByText("Dimensions");
 		await waitFor(() => expect(popup).toBeVisible());
+		await waitForFocusWithin(screen.getByRole("dialog"));
 		await userEvent.keyboard("{Escape}");
 		await waitFor(() =>
 			expect(screen.queryByText("Dimensions")).not.toBeInTheDocument(),
@@ -103,6 +105,7 @@ export const WithForm: Story = {
 		await waitFor(() =>
 			expect(getComputedStyle(content as Element).width).toBe("256px"),
 		);
+		await waitForFocusWithin(screen.getByRole("dialog"));
 		await userEvent.keyboard("{Escape}");
 		await waitFor(() =>
 			expect(screen.queryByLabelText(/width/i)).not.toBeInTheDocument(),
@@ -137,6 +140,7 @@ export const Positioning: Story = {
 		await userEvent.click(canvas.getByRole("button", { name: /^top$/i }));
 		const popup = await screen.findByText(/anchored above the trigger/i);
 		await waitFor(() => expect(popup).toBeVisible());
+		await waitForFocusWithin(screen.getByRole("dialog"));
 		await userEvent.keyboard("{Escape}");
 		await waitFor(() =>
 			expect(
