@@ -165,6 +165,11 @@ export const Default: Story = {
 		await expect(panels[0]).not.toHaveAttribute("data-hidden");
 		await expect(panels[1]).toHaveAttribute("data-hidden");
 		await expect(getComputedStyle(panels[1]).position).toBe("absolute");
+
+		const hiddenButton = panels[1].querySelector("button");
+		await expect(hiddenButton).not.toBeNull();
+		hiddenButton?.focus();
+		await expect(document.activeElement).not.toBe(hiddenButton);
 	},
 };
 

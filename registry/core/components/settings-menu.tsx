@@ -59,6 +59,8 @@ function SettingsMenuPanels({
 	);
 }
 
+/** One panel of the viewport. The inactive panel is inert, so it leaves the
+ * focus order as well as the accessibility tree. */
 function SettingsMenuPanel({
 	active,
 	slide,
@@ -75,6 +77,7 @@ function SettingsMenuPanel({
 			data-slot="settings-menu-panel"
 			data-hidden={active ? undefined : ""}
 			data-slide={slide}
+			inert={!active}
 			aria-hidden={active ? undefined : true}
 			className={cn("cn-settings-menu-panel", className)}
 			{...props}
