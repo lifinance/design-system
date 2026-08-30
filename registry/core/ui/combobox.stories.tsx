@@ -1,7 +1,11 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import * as React from "react";
 import { expect, screen, waitFor, within } from "storybook/test";
-import { waitForFocusWithin } from "@/.storybook/interactions";
+import {
+	pressUntil,
+	waitForFocusWithin,
+	withDelayedKeyboardHandover,
+} from "@/.storybook/interactions";
 import { snapshot } from "@/.storybook/modes";
 import { Button } from "./button";
 import {
@@ -210,11 +214,16 @@ export const WithGroups: Story = {
 		await waitFor(() => expect(listbox).toBeVisible());
 		await waitForFocusWithin(input);
 		await expect(within(listbox).getByText("Europe")).toBeVisible();
-		await userEvent.keyboard("{Escape}");
-		await waitFor(() =>
+		await pressUntil(userEvent, "{Escape}", () =>
 			expect(screen.queryByRole("listbox")).not.toBeInTheDocument(),
 		);
 	},
+};
+
+export const GroupsWithDelayedHandover: Story = {
+	...WithGroups,
+	tags: ["!autodocs"],
+	play: withDelayedKeyboardHandover(WithGroups.play),
 };
 
 function MultipleLanguages() {
@@ -260,11 +269,16 @@ export const Multiple: Story = {
 		await userEvent.click(screen.getByRole("option", { name: /german/i }));
 		await waitFor(() => expect(canvas.getByText("German")).toBeVisible());
 		await waitForFocusWithin(input);
-		await userEvent.keyboard("{Escape}");
-		await waitFor(() =>
+		await pressUntil(userEvent, "{Escape}", () =>
 			expect(screen.queryByRole("listbox")).not.toBeInTheDocument(),
 		);
 	},
+};
+
+export const MultipleWithDelayedHandover: Story = {
+	...Multiple,
+	tags: ["!autodocs"],
+	play: withDelayedKeyboardHandover(Multiple.play),
 };
 
 const triggerRef = React.createRef<HTMLButtonElement>();

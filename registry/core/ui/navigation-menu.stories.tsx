@@ -1,6 +1,10 @@
 import { RiDashboardLine, RiQuestionLine, RiStackLine } from "@remixicon/react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, screen, waitFor } from "storybook/test";
+import {
+	pressUntil,
+	withDelayedKeyboardHandover,
+} from "@/.storybook/interactions";
 import { snapshot } from "@/.storybook/modes";
 import {
 	NavigationMenu,
@@ -139,8 +143,7 @@ export const Default: Story = {
 		const analytics = await screen.findByRole("link", { name: /analytics/i });
 		await waitFor(() => expect(analytics).toBeVisible());
 
-		await userEvent.keyboard("{Escape}");
-		await waitFor(() =>
+		await pressUntil(userEvent, "{Escape}", () =>
 			expect(trigger).toHaveAttribute("aria-expanded", "false"),
 		);
 		await waitFor(() =>
@@ -149,6 +152,12 @@ export const Default: Story = {
 			).not.toBeInTheDocument(),
 		);
 	},
+};
+
+export const DefaultWithDelayedHandover: Story = {
+	...Default,
+	tags: ["!autodocs"],
+	play: withDelayedKeyboardHandover(Default.play),
 };
 
 export const PlainLink: Story = {

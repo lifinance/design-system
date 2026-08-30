@@ -1,6 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, screen, waitFor } from "storybook/test";
-import { waitForFocusWithin } from "@/.storybook/interactions";
+import {
+	pressUntil,
+	waitForFocusWithin,
+	withDelayedKeyboardHandover,
+} from "@/.storybook/interactions";
 import { snapshot } from "@/.storybook/modes";
 import { Button } from "./button";
 import { Field, FieldLabel } from "./field";
@@ -78,11 +82,16 @@ export const Default: Story = {
 		await expect(
 			screen.getByRole("heading", { name: /edit profile/i }),
 		).toBeVisible();
-		await userEvent.keyboard("{Escape}");
-		await waitFor(() =>
+		await pressUntil(userEvent, "{Escape}", () =>
 			expect(screen.queryByRole("dialog")).not.toBeInTheDocument(),
 		);
 	},
+};
+
+export const DefaultWithDelayedHandover: Story = {
+	...Default,
+	tags: ["!autodocs"],
+	play: withDelayedKeyboardHandover(Default.play),
 };
 
 export const Sides: Story = {
@@ -121,11 +130,16 @@ export const Sides: Story = {
 		await waitFor(() => expect(sheet).toBeVisible());
 		await waitForFocusWithin(sheet);
 		await expect(sheet).toHaveAttribute("data-side", "left");
-		await userEvent.keyboard("{Escape}");
-		await waitFor(() =>
+		await pressUntil(userEvent, "{Escape}", () =>
 			expect(screen.queryByRole("dialog")).not.toBeInTheDocument(),
 		);
 	},
+};
+
+export const SidesWithDelayedHandover: Story = {
+	...Sides,
+	tags: ["!autodocs"],
+	play: withDelayedKeyboardHandover(Sides.play),
 };
 
 export const WithoutCloseButton: Story = {
