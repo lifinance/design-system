@@ -2,6 +2,7 @@ import { RiCheckLine, RiCloseLine } from "@remixicon/react";
 import type * as React from "react";
 
 import { cn } from "@/registry/core/lib/utils";
+import { Badge } from "@/registry/core/ui/badge";
 import {
 	Table,
 	TableBody,
@@ -297,30 +298,18 @@ export function InfoTable({
 	);
 }
 
-function Badge({ kind }: { kind: "do" | "dont" }) {
-	const isDo = kind === "do";
-	return (
-		<span
-			className={cn(
-				"inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-bold tracking-wide text-foreground",
-				isDo ? "bg-success/15" : "bg-destructive/10",
-			)}
-		>
-			{isDo ? (
-				<RiCheckLine className="size-3.5" />
-			) : (
-				<RiCloseLine className="size-3.5" />
-			)}
-			{isDo ? "DO" : "DON'T"}
-		</span>
-	);
-}
-
 function GuideCard({ kind, code }: { kind: "do" | "dont"; code: string }) {
 	return (
 		<div className="overflow-hidden rounded-lg border bg-card">
 			<div className="border-b px-4 py-3">
-				<Badge kind={kind} />
+				<Badge variant={kind === "do" ? "success" : "destructive"}>
+					{kind === "do" ? (
+						<RiCheckLine className="size-3.5" />
+					) : (
+						<RiCloseLine className="size-3.5" />
+					)}
+					{kind === "do" ? "DO" : "DON'T"}
+				</Badge>
 			</div>
 			<pre className="overflow-x-auto p-4 text-[13px]">
 				<code className="font-mono text-foreground">{code}</code>
