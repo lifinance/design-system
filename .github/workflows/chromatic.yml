@@ -1,5 +1,7 @@
 name: Chromatic
 
+# The build needs the Chromatic project token, and GitHub withholds a repository
+# secret from a fork pull request. CONTRIBUTING.md records the fork policy.
 on:
   push:
   workflow_dispatch:

@@ -17,4 +17,4 @@ pnpm registry:build    # build every registry into public/r
 
 ## Contributing
 
-Propose new components through the [new component request](.github/ISSUE_TEMPLATE/new-component-request.md) GitHub issue template.
+[CONTRIBUTING.md](CONTRIBUTING.md) covers component and token requests, pull requests, and contributions from a fork.
