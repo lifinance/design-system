@@ -1,8 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, screen, waitFor, within } from "storybook/test";
 import {
+	pressUntil,
 	waitForFocusWithin,
 	withDelayedFocus,
+	withDelayedKeyboardHandover,
 } from "@/.storybook/interactions";
 import { Field, FieldLabel } from "./field";
 import {
@@ -74,8 +76,7 @@ export const EndAndHomeReachTheListEnds: Story = {
 			),
 		);
 
-		await userEvent.keyboard("{End}");
-		await waitFor(() => {
+		await pressUntil(userEvent, "{End}", () => {
 			expect(options.getByRole("option", { name: LAST })).toHaveAttribute(
 				"data-highlighted",
 			);
@@ -99,4 +100,9 @@ export const EndAndHomeReachTheListEnds: Story = {
 export const KeyboardWithDelayedFocus: Story = {
 	...EndAndHomeReachTheListEnds,
 	play: withDelayedFocus(EndAndHomeReachTheListEnds.play),
+};
+
+export const KeyboardWithDelayedHandover: Story = {
+	...EndAndHomeReachTheListEnds,
+	play: withDelayedKeyboardHandover(EndAndHomeReachTheListEnds.play),
 };

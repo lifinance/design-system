@@ -1,3 +1,4 @@
+import type { UserEventObject } from "storybook/test";
 import { expect, waitFor } from "storybook/test";
 
 const focusedElement = () =>
@@ -12,6 +13,42 @@ const focusedElement = () =>
  */
 export async function waitForFocusWithin(target: HTMLElement) {
 	await waitFor(() => expect(target).toContainElement(focusedElement()));
+}
+
+/**
+ * Sends `keys` until `expectation` passes. A key press reaches a popup once and
+ * is then gone, and Base UI gives an open popup the keyboard from a callback,
+ * so the first key after the popup opens can arrive before the popup reads it.
+ * A wait placed before the press cannot close that window, because it reports a
+ * state that was true in the past. Pass only keys that leave the same state
+ * when they repeat, such as `Home` and `End`.
+ */
+export async function pressUntil(
+	userEvent: UserEventObject,
+	keys: string,
+	expectation: () => void,
+) {
+	await waitFor(
+		async () => {
+			await userEvent.keyboard(keys);
+			expectation();
+		},
+		{ interval: 250 },
+	);
+}
+
+function withPatchedPlay<Context>(
+	play: ((context: Context) => unknown) | undefined,
+	patch: () => () => void,
+) {
+	return async (context: Context) => {
+		const restore = patch();
+		try {
+			await play?.(context);
+		} finally {
+			restore();
+		}
+	};
 }
 
 function delayAnimationFrames(ms: number) {
@@ -33,14 +70,35 @@ function delayAnimationFrames(ms: number) {
 export function withDelayedFocus<Context>(
 	play: ((context: Context) => unknown) | undefined,
 ) {
-	return async (context: Context) => {
-		const restoreAnimationFrames = delayAnimationFrames(300);
-		try {
-			await play?.(context);
-		} finally {
-			restoreAnimationFrames();
+	return withPatchedPlay<Context>(play, () => delayAnimationFrames(300));
+}
+
+function loseFirstKeyInsideList() {
+	const loseKey = (event: KeyboardEvent) => {
+		const target = event.target;
+		if (target instanceof Element && target.closest('[role="listbox"]')) {
+			event.stopPropagation();
+			document.removeEventListener("keydown", loseKey, true);
 		}
 	};
+	document.addEventListener("keydown", loseKey, true);
+	return () => {
+		document.removeEventListener("keydown", loseKey, true);
+	};
+}
+
+/**
+ * Wraps `play` so the first key that arrives inside an open list never reaches
+ * a keyboard handler. A play function meets that state when it sends a key
+ * before Base UI gives the open popup the keyboard, so a play function that
+ * presses a key once fails on every run instead of at random. Spread the
+ * original story and pass its `play` to get a regression copy of it, tagged
+ * `!autodocs` so it stays off the docs page.
+ */
+export function withDelayedKeyboardHandover<Context>(
+	play: ((context: Context) => unknown) | undefined,
+) {
+	return withPatchedPlay<Context>(play, loseFirstKeyInsideList);
 }
 
 /**

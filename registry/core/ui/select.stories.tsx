@@ -1,8 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, fn, screen, waitFor, within } from "storybook/test";
 import {
+	pressUntil,
 	waitForFocusWithin,
 	withDelayedFocus,
+	withDelayedKeyboardHandover,
 } from "@/.storybook/interactions";
 import { snapshot } from "@/.storybook/modes";
 import { Field, FieldError, FieldLabel } from "./field";
@@ -111,8 +113,7 @@ export const KeyboardNavigation: Story = {
 		await waitFor(() => expect(listbox).toBeVisible());
 		await waitForFocusWithin(listbox);
 
-		await userEvent.keyboard("{End}");
-		await waitFor(() =>
+		await pressUntil(userEvent, "{End}", () =>
 			expect(
 				within(listbox).getByRole("option", { name: "Pineapple" }),
 			).toHaveAttribute("data-highlighted"),
@@ -128,6 +129,12 @@ export const KeyboardWithDelayedFocus: Story = {
 	...KeyboardNavigation,
 	tags: ["!autodocs"],
 	play: withDelayedFocus(KeyboardNavigation.play),
+};
+
+export const KeyboardWithDelayedHandover: Story = {
+	...KeyboardNavigation,
+	tags: ["!autodocs"],
+	play: withDelayedKeyboardHandover(KeyboardNavigation.play),
 };
 
 export const Grouped: Story = {
