@@ -52,7 +52,7 @@
 
 /* MARK: Alert Dialog */
 .cn-alert-dialog-overlay {
-	@apply data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 bg-black/10 duration-100 supports-backdrop-filter:backdrop-blur-xs;
+	@apply data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 bg-black/10 duration-100;
 }
 
 .cn-alert-dialog-content {
@@ -470,7 +470,7 @@
 
 /* MARK: Dialog */
 .cn-dialog-overlay {
-	@apply data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 bg-black/10 duration-100 supports-backdrop-filter:backdrop-blur-xs;
+	@apply data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 bg-black/10 duration-100;
 }
 
 .cn-dialog-content {
@@ -499,7 +499,7 @@
 
 /* MARK: Drawer */
 .cn-drawer-overlay {
-	@apply data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 bg-black/10 supports-backdrop-filter:backdrop-blur-xs;
+	@apply data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 bg-black/10;
 }
 
 .cn-drawer-content {
@@ -1129,7 +1129,7 @@
 
 /* MARK: Sheet */
 .cn-sheet-overlay {
-	@apply bg-black/10 supports-backdrop-filter:backdrop-blur-xs;
+	@apply bg-black/10;
 }
 
 .cn-sheet-content {
