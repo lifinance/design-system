@@ -12,6 +12,9 @@ permissions:
 
 jobs:
   storybook-link:
+    # A fork pull_request run gets a read-only GITHUB_TOKEN, so gh pr comment
+    # returns 403, and Chromatic builds no Storybook for a fork branch.
+    if: ${{ !github.event.pull_request.head.repo.fork }}
     # The per-branch permalink is stable, so comment it once when the PR opens.
     runs-on: ubuntu-latest
     steps:
