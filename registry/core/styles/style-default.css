@@ -138,7 +138,7 @@
 }
 
 .cn-badge-variant-info {
-	@apply bg-info/15 text-info [a]:hover:bg-info/25;
+	@apply bg-info/15 text-info-subtle-foreground [a]:hover:bg-info/25;
 }
 
 .cn-badge-variant-warning {

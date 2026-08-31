@@ -84,3 +84,28 @@ export const DestructiveOnSurfaces: Story = {
 		</div>
 	),
 };
+
+export const InfoOnSurfaces: Story = {
+	parameters: {
+		chromatic: snapshot,
+		docs: {
+			description: {
+				story:
+					"The info tint is translucent, so the surface behind it changes the rendered contrast of the label. This story shows the variant on the page background, on a card, and on a muted surface.",
+			},
+		},
+	},
+	render: () => (
+		<div className="flex flex-wrap gap-2">
+			<div className="bg-background rounded-lg p-4">
+				<Badge variant="info">On background</Badge>
+			</div>
+			<div className="bg-card rounded-lg p-4">
+				<Badge variant="info">On card</Badge>
+			</div>
+			<div className="bg-muted rounded-lg p-4">
+				<Badge variant="info">On muted</Badge>
+			</div>
+		</div>
+	),
+};

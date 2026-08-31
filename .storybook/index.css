@@ -29,6 +29,7 @@
 	--color-link: var(--link);
 	--color-destructive-subtle-foreground: var(--destructive-subtle-foreground);
 	--color-success-subtle-foreground: var(--success-subtle-foreground);
+	--color-info-subtle-foreground: var(--info-subtle-foreground);
 	--color-border: var(--border);
 	--color-input: var(--input);
 	--color-ring: var(--ring);
