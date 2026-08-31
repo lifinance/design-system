@@ -1,8 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, screen, waitFor } from "storybook/test";
 import {
+	pressUntil,
 	waitForFocusWithin,
 	withDelayedFocus,
+	withDelayedKeyboardHandover,
 } from "@/.storybook/interactions";
 import { snapshot } from "@/.storybook/modes";
 import {
@@ -77,8 +79,9 @@ export const Default: Story = {
 		const forward = screen.getByRole("menuitem", { name: /forward/i });
 		await expect(forward).toHaveAttribute("aria-disabled", "true");
 
-		await userEvent.keyboard("{ArrowDown}");
-		await waitFor(() => expect(back).toHaveAttribute("data-highlighted"));
+		await pressUntil(userEvent, "{ArrowDown}", () =>
+			expect(back).toHaveAttribute("data-highlighted"),
+		);
 
 		await userEvent.click(back);
 		await waitFor(() =>
@@ -91,6 +94,12 @@ export const KeyboardWithDelayedFocus: Story = {
 	...Default,
 	tags: ["!autodocs"],
 	play: withDelayedFocus(Default.play),
+};
+
+export const DefaultWithDelayedHandover: Story = {
+	...Default,
+	tags: ["!autodocs"],
+	play: withDelayedKeyboardHandover(Default.play),
 };
 
 export const WithCheckboxItems: Story = {
@@ -213,7 +222,9 @@ export const WithSubmenu: Story = {
 			screen.getByRole("menuitem", { name: /save page/i }),
 		).toBeVisible();
 
-		await userEvent.keyboard("{Escape}");
+		await pressUntil(userEvent, "{Escape}", () =>
+			expect(subTrigger).toHaveAttribute("aria-expanded", "false"),
+		);
 		await waitFor(() =>
 			expect(
 				screen.queryByRole("menu", { name: /more tools/i }),
@@ -223,11 +234,16 @@ export const WithSubmenu: Story = {
 			screen.getByRole("menu", { name: /edit actions/i }),
 		).toBeVisible();
 
-		await userEvent.keyboard("{Escape}");
-		await waitFor(() =>
+		await pressUntil(userEvent, "{Escape}", () =>
 			expect(screen.queryByRole("menu")).not.toBeInTheDocument(),
 		);
 	},
+};
+
+export const SubmenuWithDelayedHandover: Story = {
+	...WithSubmenu,
+	tags: ["!autodocs"],
+	play: withDelayedKeyboardHandover(WithSubmenu.play),
 };
 
 export const WithDestructiveItem: Story = {

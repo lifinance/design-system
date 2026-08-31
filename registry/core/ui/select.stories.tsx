@@ -169,11 +169,16 @@ export const Grouped: Story = {
 		await waitFor(() => expect(listbox).toBeVisible());
 		await waitForFocusWithin(listbox);
 		await expect(screen.getByText("Vegetables")).toBeVisible();
-		await userEvent.keyboard("{Escape}");
-		await waitFor(() =>
+		await pressUntil(userEvent, "{Escape}", () =>
 			expect(screen.queryByRole("listbox")).not.toBeInTheDocument(),
 		);
 	},
+};
+
+export const GroupedWithDelayedHandover: Story = {
+	...Grouped,
+	tags: ["!autodocs"],
+	play: withDelayedKeyboardHandover(Grouped.play),
 };
 
 export const DisabledItem: Story = {

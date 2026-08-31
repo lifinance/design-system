@@ -1,6 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, screen, waitFor } from "storybook/test";
-import { waitForFocusWithin } from "@/.storybook/interactions";
+import {
+	pressUntil,
+	waitForFocusWithin,
+	withDelayedKeyboardHandover,
+} from "@/.storybook/interactions";
 import { snapshot } from "@/.storybook/modes";
 import {
 	Menubar,
@@ -118,8 +122,7 @@ export const Default: Story = {
 			screen.getByRole("menuitem", { name: /new incognito window/i }),
 		).toHaveAttribute("data-disabled");
 
-		await userEvent.keyboard("{Escape}");
-		await waitFor(() =>
+		await pressUntil(userEvent, "{Escape}", () =>
 			expect(screen.queryByRole("menu")).not.toBeInTheDocument(),
 		);
 		await waitFor(() =>
@@ -143,11 +146,16 @@ export const Default: Story = {
 		);
 
 		await waitForFocusWithin(editMenu);
-		await userEvent.keyboard("{Escape}");
-		await waitFor(() =>
+		await pressUntil(userEvent, "{Escape}", () =>
 			expect(screen.queryByRole("menu")).not.toBeInTheDocument(),
 		);
 	},
+};
+
+export const DefaultWithDelayedHandover: Story = {
+	...Default,
+	tags: ["!autodocs"],
+	play: withDelayedKeyboardHandover(Default.play),
 };
 
 export const Overview: Story = {

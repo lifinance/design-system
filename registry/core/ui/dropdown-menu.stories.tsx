@@ -8,7 +8,11 @@ import {
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import * as React from "react";
 import { expect, fn, screen, waitFor } from "storybook/test";
-import { waitForFocusWithin } from "@/.storybook/interactions";
+import {
+	pressUntil,
+	waitForFocusWithin,
+	withDelayedKeyboardHandover,
+} from "@/.storybook/interactions";
 import { snapshot } from "@/.storybook/modes";
 import { Button } from "./button";
 import {
@@ -86,11 +90,16 @@ export const Default: Story = {
 			"true",
 		);
 
-		await userEvent.keyboard("{Escape}");
-		await waitFor(() =>
+		await pressUntil(userEvent, "{Escape}", () =>
 			expect(screen.queryByRole("menu")).not.toBeInTheDocument(),
 		);
 	},
+};
+
+export const DefaultWithDelayedHandover: Story = {
+	...Default,
+	tags: ["!autodocs"],
+	play: withDelayedKeyboardHandover(Default.play),
 };
 
 export const WithIcons: Story = {
@@ -313,11 +322,16 @@ export const Submenu: Story = {
 			).toHaveAttribute("aria-checked", "false"),
 		);
 
-		await userEvent.keyboard("{Escape}");
-		await waitFor(() =>
+		await pressUntil(userEvent, "{Escape}", () =>
 			expect(screen.queryByRole("menu")).not.toBeInTheDocument(),
 		);
 	},
+};
+
+export const SubmenuWithDelayedHandover: Story = {
+	...Submenu,
+	tags: ["!autodocs"],
+	play: withDelayedKeyboardHandover(Submenu.play),
 };
 
 export const WithAvatar: Story = {

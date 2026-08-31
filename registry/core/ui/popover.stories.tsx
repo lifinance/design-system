@@ -1,6 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, screen, waitFor } from "storybook/test";
-import { waitForFocusWithin } from "@/.storybook/interactions";
+import {
+	pressUntil,
+	waitForFocusWithin,
+	withDelayedKeyboardHandover,
+} from "@/.storybook/interactions";
 import { snapshot } from "@/.storybook/modes";
 import { Button } from "./button";
 import { Field, FieldGroup, FieldLabel } from "./field";
@@ -57,11 +61,16 @@ export const Default: Story = {
 		const popup = await screen.findByText("Dimensions");
 		await waitFor(() => expect(popup).toBeVisible());
 		await waitForFocusWithin(screen.getByRole("dialog"));
-		await userEvent.keyboard("{Escape}");
-		await waitFor(() =>
+		await pressUntil(userEvent, "{Escape}", () =>
 			expect(screen.queryByText("Dimensions")).not.toBeInTheDocument(),
 		);
 	},
+};
+
+export const DefaultWithDelayedHandover: Story = {
+	...Default,
+	tags: ["!autodocs"],
+	play: withDelayedKeyboardHandover(Default.play),
 };
 
 export const WithForm: Story = {
@@ -106,11 +115,16 @@ export const WithForm: Story = {
 			expect(getComputedStyle(content as Element).width).toBe("256px"),
 		);
 		await waitForFocusWithin(screen.getByRole("dialog"));
-		await userEvent.keyboard("{Escape}");
-		await waitFor(() =>
+		await pressUntil(userEvent, "{Escape}", () =>
 			expect(screen.queryByLabelText(/width/i)).not.toBeInTheDocument(),
 		);
 	},
+};
+
+export const FormWithDelayedHandover: Story = {
+	...WithForm,
+	tags: ["!autodocs"],
+	play: withDelayedKeyboardHandover(WithForm.play),
 };
 
 export const Positioning: Story = {
@@ -141,13 +155,18 @@ export const Positioning: Story = {
 		const popup = await screen.findByText(/anchored above the trigger/i);
 		await waitFor(() => expect(popup).toBeVisible());
 		await waitForFocusWithin(screen.getByRole("dialog"));
-		await userEvent.keyboard("{Escape}");
-		await waitFor(() =>
+		await pressUntil(userEvent, "{Escape}", () =>
 			expect(
 				screen.queryByText(/anchored above the trigger/i),
 			).not.toBeInTheDocument(),
 		);
 	},
+};
+
+export const PositioningWithDelayedHandover: Story = {
+	...Positioning,
+	tags: ["!autodocs"],
+	play: withDelayedKeyboardHandover(Positioning.play),
 };
 
 export const Overview: Story = {
