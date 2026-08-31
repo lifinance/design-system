@@ -84,6 +84,12 @@ const TEXT_ON_SURFACE: TextRow[] = [
 		surfaceClassName: "bg-success/15",
 		use: "Text on a success tint, such as a subtle success badge",
 	},
+	{
+		name: "info-subtle-foreground",
+		textClassName: "text-info-subtle-foreground",
+		surfaceClassName: "bg-info/15",
+		use: "Text on an info tint, such as a subtle info badge",
+	},
 ];
 
 const ROLE_RADIUS: RadiusRow[] = [
