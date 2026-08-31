@@ -134,7 +134,7 @@
 }
 
 .cn-badge-variant-success {
-	@apply bg-success/15 text-success [a]:hover:bg-success/25;
+	@apply bg-success/15 text-success-subtle-foreground [a]:hover:bg-success/25;
 }
 
 .cn-badge-variant-info {

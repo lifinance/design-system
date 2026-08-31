@@ -78,6 +78,12 @@ const TEXT_ON_SURFACE: TextRow[] = [
 		surfaceClassName: "bg-destructive/10 dark:bg-destructive/20",
 		use: "Text on a destructive tint, such as a subtle destructive badge or button",
 	},
+	{
+		name: "success-subtle-foreground",
+		textClassName: "text-success-subtle-foreground",
+		surfaceClassName: "bg-success/15",
+		use: "Text on a success tint, such as a subtle success badge",
+	},
 ];
 
 const ROLE_RADIUS: RadiusRow[] = [

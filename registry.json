@@ -36,7 +36,8 @@
 					"color-warning": "var(--warning)",
 					"color-info": "var(--info)",
 					"color-link": "var(--link)",
-					"color-destructive-subtle-foreground": "var(--destructive-subtle-foreground)"
+					"color-destructive-subtle-foreground": "var(--destructive-subtle-foreground)",
+					"color-success-subtle-foreground": "var(--success-subtle-foreground)"
 				},
 				"light": {
 					"radius": "0.625rem",
@@ -60,6 +61,7 @@
 					"info": "oklch(0.488 0.243 264.376)",
 					"link": "var(--primary)",
 					"destructive-subtle-foreground": "var(--destructive)",
+					"success-subtle-foreground": "color-mix(in oklab, var(--success), var(--foreground) 35%)",
 					"border": "oklch(0.922 0 0)",
 					"input": "oklch(0.922 0 0)",
 					"ring": "oklch(0.708 0 0)",
@@ -97,6 +99,7 @@
 					"info": "oklch(0.707 0.165 254.624)",
 					"link": "var(--primary)",
 					"destructive-subtle-foreground": "var(--destructive)",
+					"success-subtle-foreground": "color-mix(in oklab, var(--success), var(--foreground) 35%)",
 					"border": "oklch(1 0 0 / 10%)",
 					"input": "oklch(1 0 0 / 15%)",
 					"ring": "oklch(0.556 0 0)",
