@@ -133,3 +133,28 @@ export const Overview: Story = {
 		</div>
 	),
 };
+
+export const DestructiveOnSurfaces: Story = {
+	parameters: {
+		chromatic: snapshot,
+		docs: {
+			description: {
+				story:
+					"The destructive tint is translucent, so the surface behind it changes the rendered contrast of the label. This story shows the variant on the page background, on a card, and on a muted surface.",
+			},
+		},
+	},
+	render: () => (
+		<div className="flex flex-wrap gap-2">
+			<div className="bg-background rounded-lg p-4">
+				<Button variant="destructive">On background</Button>
+			</div>
+			<div className="bg-card rounded-lg p-4">
+				<Button variant="destructive">On card</Button>
+			</div>
+			<div className="bg-muted rounded-lg p-4">
+				<Button variant="destructive">On muted</Button>
+			</div>
+		</div>
+	),
+};
