@@ -302,7 +302,13 @@ function GuideCard({ kind, code }: { kind: "do" | "dont"; code: string }) {
 	return (
 		<div className="overflow-hidden rounded-lg border bg-card">
 			<div className="border-b px-4 py-3">
-				<Badge variant={kind === "do" ? "success" : "destructive"}>
+				<Badge
+					variant={kind === "do" ? "success" : "destructive"}
+					// The tint carries the DO/DON'T signal; the label keeps the
+					// foreground colour so it clears the 4.5:1 contrast threshold on
+					// every theme, as the hand-rolled marker did before ORD-1463.
+					className="text-foreground"
+				>
 					{kind === "do" ? (
 						<RiCheckLine className="size-3.5" />
 					) : (
