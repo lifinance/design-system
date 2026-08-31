@@ -31,16 +31,20 @@ function Tooltip({ ...props }: TooltipPrimitive.Root.Props) {
 	);
 }
 
-function TooltipTrigger({ ...props }: TooltipPrimitive.Trigger.Props) {
+const TooltipTrigger = React.forwardRef<
+	HTMLButtonElement,
+	TooltipPrimitive.Trigger.Props
+>(function TooltipTrigger({ ...props }, ref) {
 	const descriptionId = React.useContext(TooltipDescriptionContext);
 	return (
 		<TooltipPrimitive.Trigger
+			ref={ref}
 			data-slot="tooltip-trigger"
 			aria-describedby={descriptionId}
 			{...props}
 		/>
 	);
-}
+});
 
 function TooltipContent({
 	className,

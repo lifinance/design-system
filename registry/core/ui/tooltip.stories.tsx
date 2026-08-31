@@ -1,8 +1,16 @@
 import { RiInformationLine, RiSaveLine } from "@remixicon/react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import * as React from "react";
 import { expect, screen, waitFor } from "storybook/test";
+import { pressUntil, waitForFocusWithin } from "@/.storybook/interactions";
 import { snapshot } from "@/.storybook/modes";
 import { Button } from "./button";
+import {
+	Popover,
+	PopoverContent,
+	PopoverTitle,
+	PopoverTrigger,
+} from "./popover";
 import {
 	Tooltip,
 	TooltipContent,
@@ -129,6 +137,68 @@ export const FormattedContent: Story = {
 			</TooltipContent>
 		</Tooltip>
 	),
+};
+
+/** The size the `h-10 w-60` trigger measures, so the anchor is unique. */
+const TRIGGER_WIDTH = 240;
+const TRIGGER_HEIGHT = 40;
+
+/** Holds the node the trigger ref receives, so the play function can read it. */
+const triggerRef = React.createRef<HTMLButtonElement>();
+
+export const ComposedTrigger: Story = {
+	render: () => (
+		<Popover>
+			<Tooltip>
+				<PopoverTrigger
+					render={
+						<TooltipTrigger
+							ref={triggerRef}
+							render={<Button variant="outline" className="h-10 w-60" />}
+						/>
+					}
+				>
+					Execution
+				</PopoverTrigger>
+				<TooltipContent>Sets how this order closes</TooltipContent>
+			</Tooltip>
+			<PopoverContent align="start">
+				<PopoverTitle className="sr-only">Execution</PopoverTitle>
+				Market or limit
+			</PopoverContent>
+		</Popover>
+	),
+	play: async ({ canvas, userEvent }) => {
+		const trigger = canvas.getByRole("button", { name: /execution/i });
+		const box = trigger.getBoundingClientRect();
+		await expect(box.width).toBe(TRIGGER_WIDTH);
+		await expect(box.height).toBe(TRIGGER_HEIGHT);
+		await expect(triggerRef.current).toBe(trigger);
+
+		await userEvent.hover(trigger);
+		const tip = await screen.findByRole("tooltip");
+		await waitFor(() => expect(tip).toBeVisible());
+		await expect(tip).toHaveTextContent(/sets how this order closes/i);
+		await expect(trigger).toHaveAttribute("aria-describedby", tip.id);
+		await userEvent.unhover(trigger);
+
+		await userEvent.click(trigger);
+		const positioner = (await screen.findByRole("dialog")).parentElement;
+		// The popover trigger clones this trigger and measures the anchor through
+		// the ref it attaches. A dropped ref leaves the popup unmeasured at the
+		// viewport origin, sized to the viewport and held at zero opacity.
+		await waitFor(() => {
+			const style = positioner?.getAttribute("style") ?? "";
+			expect(style).toContain(`--anchor-width: ${TRIGGER_WIDTH}px`);
+			expect(style).toContain(`--anchor-height: ${TRIGGER_HEIGHT}px`);
+			expect(style).not.toContain("opacity: 0");
+		});
+
+		await waitForFocusWithin(screen.getByRole("dialog"));
+		await pressUntil(userEvent, "{Escape}", () =>
+			expect(screen.queryByText(/market or limit/i)).not.toBeInTheDocument(),
+		);
+	},
 };
 
 export const Overview: Story = {
