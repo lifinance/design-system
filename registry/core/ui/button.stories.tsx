@@ -134,27 +134,33 @@ export const Overview: Story = {
 	),
 };
 
+const DESTRUCTIVE_SURFACES = [
+	{ name: "background", className: "bg-background text-foreground" },
+	{ name: "card", className: "bg-card text-card-foreground" },
+	{ name: "popover", className: "bg-popover text-popover-foreground" },
+	{ name: "muted", className: "bg-muted text-muted-foreground" },
+];
+
 export const DestructiveOnSurfaces: Story = {
 	parameters: {
 		chromatic: snapshot,
 		docs: {
 			description: {
 				story:
-					"The destructive tint is translucent, so the surface behind it changes the rendered contrast of the label. This story shows the variant on the page background, on a card, and on a muted surface.",
+					"The destructive tint is translucent, so the surface behind it changes the rendered contrast of the label. This story shows the variant on every supported surface token.",
 			},
 		},
 	},
 	render: () => (
 		<div className="flex flex-wrap gap-2">
-			<div className="bg-background rounded-lg p-4">
-				<Button variant="destructive">On background</Button>
-			</div>
-			<div className="bg-card rounded-lg p-4">
-				<Button variant="destructive">On card</Button>
-			</div>
-			<div className="bg-muted rounded-lg p-4">
-				<Button variant="destructive">On muted</Button>
-			</div>
+			{DESTRUCTIVE_SURFACES.map((surface) => (
+				<div
+					className={`${surface.className} rounded-lg p-4`}
+					key={surface.name}
+				>
+					<Button variant="destructive">On {surface.name}</Button>
+				</div>
+			))}
 		</div>
 	),
 };
