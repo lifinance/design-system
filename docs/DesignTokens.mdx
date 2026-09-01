@@ -37,6 +37,8 @@ Values use OKLCH, so adjusting one channel (usually lightness) can meet a contra
 
 `--link`, `--destructive-subtle-foreground`, `--success-subtle-foreground`, and `--info-subtle-foreground` are text-only role tokens. Use `text-link` on a page surface. Use `text-destructive-subtle-foreground` on a destructive tint. Use `text-success-subtle-foreground` on a success tint. Use `text-info-subtle-foreground` on an info tint. None of the four defines its own surface.
 
+A tint is a feedback color at low opacity, such as `bg-destructive/10`. It is translucent, so whatever sits behind it sets the rendered contrast of the text on it. Place a tint on a surface token: `bg-background`, `bg-card`, `bg-popover`, or `bg-muted`. The contrast of a tint and its text holds on those four in every theme and mode. An action token is a filled control rather than a surface, so a tint over `bg-primary`, `bg-secondary`, or `bg-accent` is unsupported. Text on an action token takes that token's own foreground, such as `bg-secondary` with `text-secondary-foreground`.
+
 <Story of={DesignTokens.Colors} />
 
 Core also defines the chart palette (`--chart-1` to `--chart-5`) and the sidebar set (`--sidebar`, `--sidebar-foreground`, and so on) from the shadcn base.

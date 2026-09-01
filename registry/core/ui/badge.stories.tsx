@@ -60,52 +60,37 @@ export const Overview: Story = {
 	),
 };
 
-export const DestructiveOnSurfaces: Story = {
-	parameters: {
-		chromatic: snapshot,
-		docs: {
-			description: {
-				story:
-					"The destructive tint is translucent, so the surface behind it changes the rendered contrast of the label. This story shows the variant on the page background, on a card, and on a muted surface.",
-			},
-		},
-	},
-	render: () => (
-		<div className="flex flex-wrap gap-2">
-			<div className="bg-background rounded-lg p-4">
-				<Badge variant="destructive">On background</Badge>
-			</div>
-			<div className="bg-card rounded-lg p-4">
-				<Badge variant="destructive">On card</Badge>
-			</div>
-			<div className="bg-muted rounded-lg p-4">
-				<Badge variant="destructive">On muted</Badge>
-			</div>
-		</div>
-	),
-};
+const TINT_SURFACES = [
+	{ label: "Page background", className: "bg-background text-foreground" },
+	{ label: "Card", className: "bg-card text-card-foreground" },
+	{ label: "Popover", className: "bg-popover text-popover-foreground" },
+	{ label: "Muted", className: "bg-muted text-muted-foreground" },
+];
 
-export const InfoOnSurfaces: Story = {
+export const TintsOnSurfaces: Story = {
 	parameters: {
 		chromatic: snapshot,
 		docs: {
 			description: {
 				story:
-					"The info tint is translucent, so the surface behind it changes the rendered contrast of the label. This story shows the variant on the page background, on a card, and on a muted surface.",
+					"The success, info, warning, and destructive variants are tints: a feedback color at low opacity. A tint is translucent, so the surface behind it sets the rendered contrast of the label. Use a tinted variant on a surface token, which is what this story shows. A tint over an action token (`bg-primary`, `bg-secondary`, `bg-accent`) is unsupported, because an action token is a filled control that pairs with its own foreground token.",
 			},
 		},
 	},
 	render: () => (
-		<div className="flex flex-wrap gap-2">
-			<div className="bg-background rounded-lg p-4">
-				<Badge variant="info">On background</Badge>
-			</div>
-			<div className="bg-card rounded-lg p-4">
-				<Badge variant="info">On card</Badge>
-			</div>
-			<div className="bg-muted rounded-lg p-4">
-				<Badge variant="info">On muted</Badge>
-			</div>
+		<div className="flex flex-col gap-2">
+			{TINT_SURFACES.map((surface) => (
+				<div
+					className={`${surface.className} flex flex-wrap items-center gap-2 rounded-lg p-4 text-sm`}
+					key={surface.label}
+				>
+					<span className="w-36">{surface.label}</span>
+					<Badge variant="success">Success</Badge>
+					<Badge variant="info">Info</Badge>
+					<Badge variant="warning">Warning</Badge>
+					<Badge variant="destructive">Destructive</Badge>
+				</div>
+			))}
 		</div>
 	),
 };
