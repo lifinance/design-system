@@ -18,11 +18,15 @@ const themes = deriveThemes(manifests);
 const base = themes.find((theme) => theme.isBase);
 const modes = ["light", "dark"] as const;
 
-test("the base derives the destructive subtle foreground from its role tokens", () => {
-	for (const mode of modes) {
-		const value = base?.cssVars[mode]?.["destructive-subtle-foreground"];
+const subtleForegroundRoles = ["destructive", "success", "info"] as const;
 
-		expect(value, mode).toContain("var(--destructive)");
+test.each(
+	subtleForegroundRoles,
+)("the base derives the %s subtle foreground from its role tokens", (role) => {
+	for (const mode of modes) {
+		const value = base?.cssVars[mode]?.[`${role}-subtle-foreground`];
+
+		expect(value, mode).toContain(`var(--${role})`);
 		expect(value, mode).toContain("var(--foreground)");
 	}
 });
