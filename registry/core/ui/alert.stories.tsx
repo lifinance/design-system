@@ -1,5 +1,6 @@
 import { RiErrorWarningLine } from "@remixicon/react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import { expect } from "storybook/test";
 import { snapshot } from "@/.storybook/modes";
 import { Alert, AlertAction, AlertDescription, AlertTitle } from "./alert";
 import { Button } from "./button";
@@ -115,6 +116,28 @@ export const Destructive: Story = {
 			</AlertDescription>
 		</Alert>
 	),
+};
+
+export const UnbreakableText: Story = {
+	render: () => (
+		<div className="w-56">
+			<Alert variant="destructive">
+				<RiErrorWarningLine />
+				<AlertDescription>
+					The request failed for 0x2f0b23f4c8e91a6d5b7c3a9e1d4f8b6a0c5e7d92.
+				</AlertDescription>
+			</Alert>
+		</div>
+	),
+	play: async ({ canvas }) => {
+		const alert = canvas.getByRole("alert");
+		const description = canvas.getByText(/The request failed for/);
+		await expect(getComputedStyle(description).overflowWrap).toBe("anywhere");
+		await expect(alert.scrollWidth).toBeLessThanOrEqual(alert.clientWidth);
+		await expect(description.scrollWidth).toBeLessThanOrEqual(
+			description.clientWidth,
+		);
+	},
 };
 
 export const WithAction: Story = {
