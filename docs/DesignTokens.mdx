@@ -29,19 +29,19 @@ Token names are lowercase and hyphen-separated. There are two kinds.
 
 ## Color
 
-Surface and action tokens come in pairs: a surface token for the background and a `*-foreground` token for the text and icons on it. Their contrast is tuned for every theme and mode, so always use both. Feedback and line tokens have no foreground token. Use them as accents (`text-destructive`, `border-input`, `ring-ring`), and set the text color yourself when a feedback color fills a solid background.
+Surface, action, and feedback tokens can come in pairs: a surface token for the background and a `*-foreground` token for the text and icons on it. Perps also provides feedback ring tokens such as `--success-ring`. Use the paired foreground whenever a semantic color fills a solid background.
 
 Each color token produces the full set of Tailwind color utilities (`bg-*`, `text-*`, `border-*`, `ring-*`, and the rest), so the table names each token's role rather than listing its utilities.
 
-Values use OKLCH, so adjusting one channel (usually lightness) can meet a contrast target without shifting hue.
+Core values use OKLCH. Signed product themes preserve their approved sRGB channels and alpha exactly. Do not convert those values to OKLCH or replace a translucent role with an opaque approximation.
 
-`--link`, `--destructive-subtle-foreground`, `--success-subtle-foreground`, and `--info-subtle-foreground` are text-only role tokens. Use `text-link` on a page surface. Use `text-destructive-subtle-foreground` on a destructive tint. Use `text-success-subtle-foreground` on a success tint. Use `text-info-subtle-foreground` on an info tint. None of the four defines its own surface.
+`--link`, `--destructive-subtle-foreground`, `--success-subtle-foreground`, and `--info-subtle-foreground` are text-only role tokens. Use `text-link` on a page surface. Use the other three on the matching feedback tint.
 
-A tint is a feedback color at low opacity, such as `bg-destructive/10`. It is translucent, so whatever sits behind it sets the rendered contrast of the text on it. Place a tint on a surface token: `bg-background`, `bg-card`, `bg-popover`, or `bg-muted`. The contrast of a tint and its text holds on those four in every theme and mode. An action token is a filled control rather than a surface, so a tint over `bg-primary`, `bg-secondary`, or `bg-accent` is unsupported. Text on an action token takes that token's own foreground, such as `bg-secondary` with `text-secondary-foreground`.
+Named state colors are independent tokens. For example, `--input-30` is an approved surface color and is not equivalent to applying 30% opacity to `--input`.
 
 <Story of={DesignTokens.Colors} />
 
-Core also defines the chart palette (`--chart-1` to `--chart-5`) and the sidebar set (`--sidebar`, `--sidebar-foreground`, and so on) from the shadcn base.
+Core defines `--chart-1` to `--chart-5` and the standard sidebar set. Perps extends the chart palette through `--chart-10` and publishes every sidebar, state, focus, shadow, gradient, and opacity role from the signed export.
 
 ## Radius
 
@@ -67,13 +67,16 @@ Add a token only when a brand needs to set that color. When a state already matc
 
 ## Themes
 
-A theme is a full token set, applied with a `data-theme` attribute such as `data-theme="widget"`. A mode, light or dark, is the `.dark` class within it. The widget themes build on `@core/tokens` and override only palette, radius, and font. Install the base, add a widget theme, then swap the widget theme to change brands.
+A theme is a full token set. A mode, light or dark, is the `.dark` class within it. Widget themes use their theme ID in `data-theme`. Conditional product themes can keep a host selector while Storybook gives the composition its own preview ID.
+
+The Perps toolbar entry is the signed Whitelabel theme from `@perps/tokens`. `@perps/jumper-tokens` supplies the separate signed Jumper palette under `body[data-theme="jumper"]` and `.dark body[data-theme="jumper"]`; Storybook exposes that composition as Perps / Jumper. The signed `Mode` export duplicates Jumper and is not published as a third runtime theme.
 
 <Story of={DesignTokens.Themes} />
 
 ```bash
 pnpm dlx shadcn@latest add @core/tokens
-pnpm dlx shadcn@latest add @widget/tokens   # or @widget/tokens-azure
+pnpm dlx shadcn@latest add @perps/tokens
+pnpm dlx shadcn@latest add @perps/jumper-tokens
 ```
 
 ## Guidelines
@@ -89,7 +92,7 @@ When you add, change, or remove a token:
 - **Prefer a role token.** Add a new role only when none fits. When one component's interactive color must vary per brand on its own, add a `--lifi-` variant-state token that derives from a role token.
 - **Register every new utility.** A new color or radius needs a `@theme` mapping, for example `@theme inline { --color-success: var(--success); }`, in the registry's `cssVars.theme`. Without it, no utility is generated.
 - **Set mode-specific values in both blocks.** A token that differs between light and dark must appear in the `light` and `dark` blocks, or it stays at its light value.
-- **Edit the manifests.** The source of truth is `cssVars` on the `registry:theme` item in each manifest. `.storybook/themes.ts` reads the manifests, so the preview updates with no second edit.
+- **Edit the manifests.** A `registry:theme` item owns its values in `cssVars`. A selector-scoped conditional theme owns them in its `css` blocks. Storybook derives both forms from the manifests, so the preview updates with no second value source.
 - **Keep roles separate.** Do not give an input the card's background token. Never point one role at another, and never hard-code a value.
 
 The full strategy lives in the `design-tokens` skill.

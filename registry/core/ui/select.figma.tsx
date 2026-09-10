@@ -22,13 +22,22 @@ const SELECT_MENU_URL =
 figma.connect(Select, SELECT_URL, {
 	props: {
 		placeholder: figma.string("Placeholder"),
+		variant: figma.enum("Type", {
+			Default: "default",
+			Ghost: "ghost",
+		}),
+		size: figma.enum("Size", {
+			Default: "default",
+			Small: "sm",
+			"Extra Small": "xs",
+		}),
 		disabled: figma.enum("State", {
 			Disabled: true,
 		}),
 	},
-	example: ({ placeholder, disabled }) => (
+	example: ({ placeholder, variant, size, disabled }) => (
 		<Select disabled={disabled}>
-			<SelectTrigger aria-label={placeholder}>
+			<SelectTrigger variant={variant} size={size} aria-label={placeholder}>
 				<SelectValue placeholder={placeholder} />
 			</SelectTrigger>
 			<SelectContent aria-label={placeholder}>

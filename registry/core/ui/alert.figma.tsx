@@ -8,6 +8,9 @@ const ALERT_URL =
 figma.connect(Alert, ALERT_URL, {
 	props: {
 		variant: figma.enum("Type", {
+			Default: "default",
+			Info: "info",
+			Warning: "warning",
 			Destructive: "destructive",
 		}),
 		icon: figma.instance("Icon"),

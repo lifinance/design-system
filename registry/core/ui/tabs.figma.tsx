@@ -17,12 +17,18 @@ figma.connect(Tabs, TABS_URL, {
 		variant: figma.enum("Variant", {
 			Default: "default",
 			Line: "line",
+			Pill: "pill",
+		}),
+		size: figma.enum("Size", {
+			Default: "default",
+			Small: "sm",
+			"Extra Small": "xs",
 		}),
 		tabs: figma.children("*"),
 	},
-	example: ({ orientation, variant, tabs }) => (
+	example: ({ orientation, variant, size, tabs }) => (
 		<Tabs defaultValue="overview" orientation={orientation}>
-			<TabsList variant={variant} aria-label="Views">
+			<TabsList variant={variant} size={size} aria-label="Views">
 				{tabs}
 			</TabsList>
 		</Tabs>

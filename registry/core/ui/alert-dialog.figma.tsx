@@ -27,6 +27,7 @@ const ALERT_DIALOG_MEDIA_URL =
 figma.connect(AlertDialog, ALERT_DIALOG_URL, {
 	props: {
 		size: figma.enum("Type", {
+			Default: "default",
 			Small: "sm",
 		}),
 	},
