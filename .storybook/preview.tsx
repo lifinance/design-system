@@ -6,6 +6,10 @@ import "./style-registry.css";
 import "./themes";
 import { themes } from "./modes";
 
+const themeUnderTest = import.meta.env.STORYBOOK_THEME;
+const testsSignedPerpsTheme =
+	themeUnderTest === "perps" || themeUnderTest === "perps-jumper";
+
 // Play functions wait for overlays to finish their open and close transitions
 // before asserting visibility or unmount. The default poll window is too tight
 // when the full theme and mode matrix runs in parallel.
@@ -30,6 +34,11 @@ const preview: Preview = {
 				// Base UI focus guards are intentionally focusable and aria-hidden.
 				exclude: "[data-base-ui-focus-guard]",
 			},
+			// Signed Perps colors are fidelity fixtures, including known contrast
+			// exceptions. Keep every structural axe rule enforced for those projects.
+			config: testsSignedPerpsTheme
+				? { rules: [{ id: "color-contrast", enabled: false }] }
+				: undefined,
 			test: "error",
 		},
 		chromatic: {

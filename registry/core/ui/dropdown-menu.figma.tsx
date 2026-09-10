@@ -93,6 +93,21 @@ figma.connect(DropdownMenuItem, DROPDOWN_MENU_ITEM_URL, {
 });
 
 figma.connect(DropdownMenuItem, DROPDOWN_MENU_ITEM_URL, {
+	variant: { Variant: "Destructive", SubTrigger: "False" },
+	props: {
+		label: figma.string("Label"),
+		disabled: figma.enum("State", {
+			Disabled: true,
+		}),
+	},
+	example: ({ label, disabled }) => (
+		<DropdownMenuItem variant="destructive" disabled={disabled}>
+			{label}
+		</DropdownMenuItem>
+	),
+});
+
+figma.connect(DropdownMenuItem, DROPDOWN_MENU_ITEM_URL, {
 	variant: { Variant: "Icon", SubTrigger: "False" },
 	props: {
 		label: figma.string("Label"),

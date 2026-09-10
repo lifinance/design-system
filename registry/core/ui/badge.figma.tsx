@@ -10,9 +10,16 @@ figma.connect(Badge, BADGE_URL, {
 	variant: { Number: "False" },
 	props: {
 		variant: figma.enum("Type", {
+			Default: "default",
 			Secondary: "secondary",
-			Outline: "outline",
+			Muted: "muted",
+			Success: "success",
+			Info: "info",
+			Warning: "warning",
 			Destructive: "destructive",
+			Outline: "outline",
+			Ghost: "ghost",
+			Link: "link",
 		}),
 		label: figma.string("Label"),
 		leftIcon: figma.boolean("Left icon", {
@@ -32,9 +39,16 @@ figma.connect(Badge, BADGE_URL, {
 	variant: { Number: "True" },
 	props: {
 		variant: figma.enum("Type", {
+			Default: "default",
 			Secondary: "secondary",
-			Outline: "outline",
+			Muted: "muted",
+			Success: "success",
+			Info: "info",
+			Warning: "warning",
 			Destructive: "destructive",
+			Outline: "outline",
+			Ghost: "ghost",
+			Link: "link",
 		}),
 		value: figma.string("Value"),
 	},

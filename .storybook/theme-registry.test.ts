@@ -96,6 +96,49 @@ describe("deriveThemes", () => {
 	});
 });
 
+it("discovers selector-based theme items for preview and snapshot modes", () => {
+	const perps: Manifest = {
+		name: "perps",
+		items: [
+			{
+				name: "jumper-tokens",
+				type: "registry:item",
+				css: {
+					'body[data-theme="jumper"]': { "--primary": "purple" },
+					'.dark body[data-theme="jumper"]': {
+						"--primary": "dark-purple",
+					},
+				},
+			},
+		],
+	};
+	const theme = deriveThemes([core, perps]).find(
+		(entry) => entry.id === "perps-jumper",
+	);
+	if (!theme) {
+		throw new Error("Perps Jumper theme was not derived");
+	}
+
+	expect(theme).toMatchObject({
+		title: "Perps / Jumper",
+		brand: "perps",
+		source: "@perps/jumper-tokens",
+		modes: ["light", "dark"],
+		cssVars: {
+			light: { primary: "purple" },
+			dark: { primary: "dark-purple" },
+		},
+	});
+	expect(buildThemeModes([theme])).toEqual({
+		"perps-jumper light": { theme: "perps-jumper", mode: "light" },
+		"perps-jumper dark": { theme: "perps-jumper", mode: "dark" },
+	});
+	const css = buildThemeCss(deriveThemes([core, perps]));
+	expect(css).toContain("--primary:purple;");
+	expect(css).toContain("--primary:dark-purple;");
+	expect(css).not.toContain("----primary");
+});
+
 describe("overridden", () => {
 	const themes = deriveThemes([brand, bare, core]);
 

@@ -4,6 +4,7 @@ export interface RegistryItem {
 	name: string;
 	type: string;
 	cssVars?: { theme?: Vars; light?: Vars; dark?: Vars };
+	css?: Record<string, Vars>;
 }
 
 export interface Manifest {
@@ -24,10 +25,9 @@ export interface Theme {
 const titleCase = (name: string) =>
 	name.charAt(0).toUpperCase() + name.slice(1);
 
-// Each registry:theme item is one theme. "tokens" is the brand's default theme;
-// "tokens-<name>" is a named theme of the same brand, so azure appears as
-// "Widget / Azure". Core's default theme is the base every other theme layers
-// over. A theme supports dark mode when its item carries a dark block.
+// A registry:theme item is one installable theme. A <variant>-tokens item can
+// carry selector-scoped variables for a conditional theme installed with the
+// brand. Core's default theme is the base every other preview layers over.
 export function deriveThemes(manifests: Manifest[]): Theme[] {
 	return manifests
 		.slice()
@@ -39,11 +39,36 @@ export function deriveThemes(manifests: Manifest[]): Theme[] {
 					: a.name.localeCompare(b.name),
 		)
 		.flatMap((manifest) =>
-			manifest.items
-				.filter((item) => item.type === "registry:theme")
-				.map((item) => {
-					const variant = item.name.replace(/^tokens-?/, "");
-					return {
+			manifest.items.flatMap((item): Theme[] => {
+				let variant = item.name.replace(/^tokens-?/, "");
+				let cssVars = {
+					light: item.cssVars?.light,
+					dark: item.cssVars?.dark,
+				};
+
+				if (item.type !== "registry:theme") {
+					variant = item.name.replace(/-tokens$/, "");
+					if (variant === item.name) {
+						return [];
+					}
+					const light = item.css?.[`body[data-theme="${variant}"]`];
+					const dark = item.css?.[`.dark body[data-theme="${variant}"]`];
+					if (!light) {
+						return [];
+					}
+					const normalize = (vars?: Vars) =>
+						vars &&
+						Object.fromEntries(
+							Object.entries(vars).map(([token, value]) => [
+								token.replace(/^--/, ""),
+								value,
+							]),
+						);
+					cssVars = { light: normalize(light), dark: normalize(dark) };
+				}
+
+				return [
+					{
 						id: variant ? `${manifest.name}-${variant}` : manifest.name,
 						title: variant
 							? `${titleCase(manifest.name)} / ${titleCase(variant)}`
@@ -51,10 +76,11 @@ export function deriveThemes(manifests: Manifest[]): Theme[] {
 						brand: manifest.name,
 						source: `@${manifest.name}/${item.name}`,
 						isBase: manifest.name === "core" && !variant,
-						modes: item.cssVars?.dark ? ["light", "dark"] : ["light"],
-						cssVars: { light: item.cssVars?.light, dark: item.cssVars?.dark },
-					};
-				}),
+						modes: cssVars.dark ? ["light", "dark"] : ["light"],
+						cssVars,
+					},
+				];
+			}),
 		);
 }
 
