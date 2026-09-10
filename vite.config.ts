@@ -85,6 +85,22 @@ const projects: TestProjectConfiguration[] = widgetRun
 					include: [".storybook/**/*.test.ts"],
 				},
 			},
+			// A registry hook reads the browser it runs in, so its spec needs a real
+			// window and a viewport a test can resize. The value it returns carries
+			// no theme, so the spec runs once instead of over the matrix below.
+			{
+				extends: true,
+				test: {
+					name: "hooks",
+					include: ["registry/**/*.test.ts"],
+					browser: {
+						enabled: true,
+						headless: true,
+						provider: playwright({}),
+						instances: [{ browser: "chromium" }],
+					},
+				},
+			},
 			...themeModes.map(({ id, mode }) =>
 				storybookProject(`storybook-${id}-${mode}`, {
 					STORYBOOK_THEME: id,
