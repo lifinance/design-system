@@ -12,6 +12,10 @@
 # Sibling checkouts of this repo, one directory per branch
 /.worktrees
 
+# Screenshots and attachments a failed browser test writes beside its file
+__screenshots__
+/.vitest-attachments
+
 logs
 *.log
 npm-debug.log*
