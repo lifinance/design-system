@@ -976,6 +976,27 @@
 	@apply rounded-full;
 }
 
+/* MARK: Scroll Fade */
+.cn-scroll-fade {
+	@apply relative flex min-h-0 [--scroll-fade-color:var(--card)] [--scroll-fade-size:--spacing(16)] [timeline-scope:--scroll-fade-y];
+}
+
+.cn-scroll-fade-viewport {
+	@apply no-scrollbar min-h-0 flex-1 overflow-y-auto overscroll-contain outline-none focus-visible:ring-3 focus-visible:ring-ring/50 [scroll-timeline:--scroll-fade-y_block];
+}
+
+.cn-scroll-fade-edge {
+	@apply pointer-events-none absolute inset-x-0 z-20 h-(--scroll-fade-size) opacity-0 [animation-timeline:--scroll-fade-y];
+}
+
+.cn-scroll-fade-top {
+	@apply top-0 bg-linear-to-b from-(--scroll-fade-color) to-transparent [animation:scroll-fade-in_linear_both] [animation-range:0px_var(--scroll-fade-size)] [animation-timeline:--scroll-fade-y];
+}
+
+.cn-scroll-fade-bottom {
+	@apply bottom-0 bg-linear-to-t from-(--scroll-fade-color) to-transparent [animation:scroll-fade-out_linear_both] [animation-range:calc(100%_-_var(--scroll-fade-size))_100%] [animation-timeline:--scroll-fade-y];
+}
+
 /* MARK: Select */
 .cn-select-trigger {
 	@apply data-placeholder:text-muted-foreground focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive flex w-fit items-center justify-between gap-1.5 rounded-lg border border-transparent bg-transparent py-2 pr-2 pl-2.5 text-sm whitespace-nowrap transition-colors outline-none select-none focus-visible:ring-3 aria-invalid:ring-3 disabled:cursor-not-allowed disabled:opacity-50 *:data-[slot=select-value]:flex *:data-[slot=select-value]:items-center *:data-[slot=select-value]:gap-1.5 *:data-[slot=select-value]:line-clamp-1 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4;

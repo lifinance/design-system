@@ -807,6 +807,23 @@
 			]
 		},
 		{
+			"name": "scroll-fade",
+			"type": "registry:ui",
+			"title": "Scroll Fade",
+			"description": "A scrollable container with fades that indicate content beyond its visible edges.",
+			"registryDependencies": ["@core/tokens"],
+			"files": [
+				{
+					"path": "registry/core/ui/scroll-fade.tsx",
+					"type": "registry:ui"
+				},
+				{
+					"path": "registry/core/ui/scroll-fade.css",
+					"type": "registry:ui"
+				}
+			]
+		},
+		{
 			"name": "table",
 			"type": "registry:ui",
 			"title": "Table",
@@ -912,6 +929,7 @@
 				"@core/native-select",
 				"@core/navigation-menu",
 				"@core/scroll-area",
+				"@core/scroll-fade",
 				"@core/table",
 				"@core/sidebar"
 			]
