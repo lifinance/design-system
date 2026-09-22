@@ -29,6 +29,9 @@ const themes = fixture.themes as Record<
 	"whitelabel" | "jumper" | "mode",
 	Theme
 >;
+// The Figma export signs colors only. A theme also ships structural tokens,
+// which have no signed value and cannot be parsed as a color.
+const nonColorTokens = new Set<string>(fixture.nonColorTokens);
 const items = perpsManifest.items as ThemeItem[];
 
 const rgba = (value: string) => {
@@ -145,7 +148,10 @@ const assertTheme = (
 ) => {
 	for (const mode of ["light", "dark"] as const) {
 		const signed = expected[mode];
-		expect(Object.keys(actual[mode])).toHaveLength(Object.keys(signed).length);
+		const colors = Object.keys(actual[mode]).filter(
+			(token) => !nonColorTokens.has(token),
+		);
+		expect(colors).toHaveLength(Object.keys(signed).length);
 		for (const entry of Object.values(signed)) {
 			expect(
 				actual[mode][entry.token],
@@ -250,6 +256,22 @@ describe("signed Perps themes", () => {
 				document.body.setAttribute("data-theme", previousTheme);
 			}
 		}
+	});
+
+	it("ships the radius token in both Perps themes", () => {
+		const tokens = items.find(({ name }) => name === "tokens");
+		expect(tokens?.cssVars?.light?.radius).toBe("0.75rem");
+		expect(tokens?.cssVars?.dark?.radius).toBe("0.75rem");
+
+		const jumper = items.find(({ name }) => name === "jumper-tokens");
+		expect(jumper?.css?.['body[data-theme="jumper"]']?.["--radius"]).toBe(
+			"0.75rem",
+		);
+		// The light selector wins in both modes, so a dark repeat would only
+		// duplicate the value.
+		expect(
+			jumper?.css?.['.dark body[data-theme="jumper"]']?.["--radius"],
+		).toBeUndefined();
 	});
 
 	it("registers a Tailwind color utility for every shipped role", () => {

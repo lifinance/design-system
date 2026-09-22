@@ -13,6 +13,7 @@
 			"sha256": "d4b0b9658f706680181474601c02b0f323085aa189ac239f34db98435db665eb"
 		}
 	},
+	"nonColorTokens": ["radius"],
 	"themes": {
 		"whitelabel": {
 			"light": {

@@ -101,6 +101,7 @@
 					"color-chart-10": "var(--chart-10)"
 				},
 				"light": {
+					"radius": "0.75rem",
 					"primary": "#414DEB",
 					"primary-foreground": "#FFFFFF",
 					"secondary": "#F5F5F5",
@@ -191,6 +192,7 @@
 					"chart-10": "#702C7A"
 				},
 				"dark": {
+					"radius": "0.75rem",
 					"primary": "#414DEB",
 					"primary-foreground": "#FFFFFF",
 					"secondary": "rgb(255 255 255 / 6%)",
@@ -290,6 +292,7 @@
 			"registryDependencies": ["@perps/tokens"],
 			"css": {
 				"body[data-theme=\"jumper\"]": {
+					"--radius": "0.75rem",
 					"--primary": "#48277A",
 					"--primary-foreground": "#FFFFFF",
 					"--secondary": "#F5F5F5",

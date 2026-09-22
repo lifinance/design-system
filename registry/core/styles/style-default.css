@@ -701,6 +701,12 @@
 	@apply bg-muted/50 border-transparent;
 }
 
+/* `itemVariants` emits the size class after the variant class, so the overview
+   padding and gap are scoped to the element's own attribute to outrank it. */
+.cn-item-variant-overview {
+	@apply data-[variant=overview]:bg-input-50 data-[variant=overview]:border-border data-[variant=overview]:gap-3 data-[variant=overview]:p-4;
+}
+
 .cn-item-size-default {
 	@apply gap-2.5 px-3 py-2.5;
 }
@@ -713,8 +719,10 @@
 	@apply gap-2 px-2.5 py-2 in-data-[slot=dropdown-menu-content]:p-0;
 }
 
+/* The overview resets repeat the `:has()` test of the offsets they replace,
+   because both land on this element with the same specificity otherwise. */
 .cn-item-media {
-	@apply gap-2 group-has-data-[slot=item-description]/item:translate-y-0.5 group-has-data-[slot=item-description]/item:self-start;
+	@apply gap-2 group-has-data-[slot=item-description]/item:translate-y-0.5 group-has-data-[slot=item-description]/item:self-start group-[[data-variant=overview]:has([data-slot=item-description])]/item:translate-y-0 group-[[data-variant=overview]:has([data-slot=item-description])]/item:self-center group-data-[variant=overview]/item:[&_[data-slot=avatar]]:size-10;
 }
 
 .cn-item-media-variant-default {
@@ -730,15 +738,45 @@
 }
 
 .cn-item-content {
-	@apply gap-1 group-data-[size=xs]/item:gap-0;
+	@apply gap-1 group-data-[size=xs]/item:gap-0 group-data-[variant=overview]/item:min-w-0;
+}
+
+.cn-item-row {
+	@apply gap-4 has-data-[slot=item-description]:justify-end has-data-[slot=item-description]:text-xs has-data-[slot=item-description]:leading-4 has-data-[slot=item-description]:font-medium has-data-[slot=item-description]:whitespace-nowrap;
+}
+
+.cn-item-label {
+	@apply gap-1;
+}
+
+.cn-item-badges {
+	@apply gap-1;
 }
 
 .cn-item-title {
-	@apply gap-2 text-sm leading-snug font-medium underline-offset-4;
+	@apply gap-2 text-sm leading-snug font-medium underline-offset-4 group-data-[variant=overview]/item:text-card-foreground group-data-[variant=overview]/item:block group-data-[variant=overview]/item:w-auto group-data-[variant=overview]/item:min-w-0 group-data-[variant=overview]/item:truncate group-data-[variant=overview]/item:leading-5;
 }
 
 .cn-item-description {
-	@apply text-muted-foreground text-left text-sm leading-normal group-data-[size=xs]/item:text-xs;
+	@apply text-muted-foreground text-left text-sm leading-normal group-data-[size=xs]/item:text-xs group-data-[variant=overview]/item:block group-data-[variant=overview]/item:min-w-0 group-data-[variant=overview]/item:flex-1 group-data-[variant=overview]/item:truncate group-data-[variant=overview]/item:text-xs group-data-[variant=overview]/item:leading-4;
+}
+
+.cn-item-value {
+	@apply text-right font-medium whitespace-nowrap;
+}
+
+.cn-item-value-tone-default {
+	@apply text-card-foreground;
+}
+
+/* The tones read as text on a filled row, so they take the subtle foregrounds,
+   which mix the role color with `--foreground` to hold the contrast floor. */
+.cn-item-value-tone-success {
+	@apply text-success-subtle-foreground;
+}
+
+.cn-item-value-tone-destructive {
+	@apply text-destructive-subtle-foreground;
 }
 
 .cn-item-actions {
@@ -754,7 +792,7 @@
 }
 
 .cn-item-group {
-	@apply gap-4 has-data-[size=sm]:gap-2.5 has-data-[size=xs]:gap-2;
+	@apply gap-4 has-data-[size=sm]:gap-2.5 has-data-[size=xs]:gap-2 has-data-[variant=overview]:gap-2;
 }
 
 .cn-item-separator {

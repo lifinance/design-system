@@ -4,11 +4,15 @@ import { Button } from "@/registry/core/ui/button";
 import {
 	Item,
 	ItemActions,
+	ItemBadges,
 	ItemContent,
 	ItemDescription,
 	ItemGroup,
+	ItemLabel,
 	ItemMedia,
+	ItemRow,
 	ItemTitle,
+	ItemValue,
 } from "@/registry/core/ui/item";
 
 const ITEM_URL =
@@ -51,6 +55,36 @@ figma.connect(Item, ITEM_URL, {
 				<ItemDescription>{description}</ItemDescription>
 			</ItemContent>
 			{actions}
+		</Item>
+	),
+});
+
+figma.connect(Item, ITEM_URL, {
+	variant: { Type: "Overview (Outlined)" },
+	props: {
+		media: figma.children(".Item Media"),
+		title: figma.string("↳ Title"),
+		badges: figma.children("Badge"),
+		value: figma.string("↳ Value"),
+		description: figma.string("↳ Description"),
+		trailingValue: figma.string("↳ Trailing value"),
+	},
+	example: ({ media, title, badges, value, description, trailingValue }) => (
+		<Item variant="overview">
+			{media}
+			<ItemContent>
+				<ItemRow>
+					<ItemLabel>
+						<ItemTitle>{title}</ItemTitle>
+						<ItemBadges>{badges}</ItemBadges>
+					</ItemLabel>
+					<ItemValue>{value}</ItemValue>
+				</ItemRow>
+				<ItemRow>
+					<ItemDescription>{description}</ItemDescription>
+					<ItemValue tone="success">{trailingValue}</ItemValue>
+				</ItemRow>
+			</ItemContent>
 		</Item>
 	),
 });
