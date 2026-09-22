@@ -43,6 +43,7 @@ const itemVariants = cva(
 				default: "cn-item-variant-default",
 				outline: "cn-item-variant-outline",
 				muted: "cn-item-variant-muted",
+				overview: "cn-item-variant-overview",
 			},
 			size: {
 				default: "cn-item-size-default",
@@ -125,6 +126,39 @@ function ItemContent({ className, ...props }: React.ComponentProps<"div">) {
 	);
 }
 
+function ItemRow({ className, ...props }: React.ComponentProps<"div">) {
+	return (
+		<div
+			data-slot="item-row"
+			className={cn("cn-item-row flex w-full items-center", className)}
+			{...props}
+		/>
+	);
+}
+
+function ItemLabel({ className, ...props }: React.ComponentProps<"div">) {
+	return (
+		<div
+			data-slot="item-label"
+			className={cn(
+				"cn-item-label flex min-w-0 flex-1 items-center",
+				className,
+			)}
+			{...props}
+		/>
+	);
+}
+
+function ItemBadges({ className, ...props }: React.ComponentProps<"div">) {
+	return (
+		<div
+			data-slot="item-badges"
+			className={cn("cn-item-badges flex shrink-0 items-center", className)}
+			{...props}
+		/>
+	);
+}
+
 function ItemTitle({ className, ...props }: React.ComponentProps<"div">) {
 	return (
 		<div
@@ -146,6 +180,34 @@ function ItemDescription({ className, ...props }: React.ComponentProps<"p">) {
 				"cn-item-description line-clamp-2 font-normal [&>a]:underline [&>a]:underline-offset-4 [&>a:hover]:text-primary",
 				className,
 			)}
+			{...props}
+		/>
+	);
+}
+
+const itemValueVariants = cva("cn-item-value shrink-0", {
+	variants: {
+		tone: {
+			default: "cn-item-value-tone-default",
+			success: "cn-item-value-tone-success",
+			destructive: "cn-item-value-tone-destructive",
+		},
+	},
+	defaultVariants: {
+		tone: "default",
+	},
+});
+
+function ItemValue({
+	className,
+	tone = "default",
+	...props
+}: React.ComponentProps<"span"> & VariantProps<typeof itemValueVariants>) {
+	return (
+		<span
+			data-slot="item-value"
+			data-tone={tone}
+			className={cn(itemValueVariants({ tone, className }))}
 			{...props}
 		/>
 	);
@@ -190,12 +252,16 @@ function ItemFooter({ className, ...props }: React.ComponentProps<"div">) {
 export {
 	Item,
 	ItemActions,
+	ItemBadges,
 	ItemContent,
 	ItemDescription,
 	ItemFooter,
 	ItemGroup,
 	ItemHeader,
+	ItemLabel,
 	ItemMedia,
+	ItemRow,
 	ItemSeparator,
 	ItemTitle,
+	ItemValue,
 };
