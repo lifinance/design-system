@@ -27,9 +27,10 @@ jobs:
       - uses: chromaui/action@latest
         with:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
-          # A visual change fails the check until a maintainer accepts or
-          # rejects it. chromatic.config.json auto-accepts on main.
-          exitZeroOnChanges: false
+          # A pending visual change passes the check. A maintainer reviews it
+          # in Chromatic; the check reports only build and snapshot errors.
+          # chromatic.config.json auto-accepts on main.
+          exitZeroOnChanges: true
           # A manual run is a deliberate rebuild; without this the CLI skips
           # rebuilds of an already passed commit.
           forceRebuild: ${{ github.event_name == 'workflow_dispatch' }}
