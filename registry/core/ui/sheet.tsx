@@ -1,6 +1,7 @@
 "use client";
 
-import { Dialog as SheetPrimitive } from "@base-ui/react/dialog";
+import { Dialog } from "@base-ui/react/dialog";
+import { Drawer as SheetPrimitive } from "@base-ui/react/drawer";
 import { RiCloseLine } from "@remixicon/react";
 import type * as React from "react";
 import { cn } from "@/registry/core/lib/utils";
@@ -41,39 +42,55 @@ function SheetContent({
 	side = "right",
 	showCloseButton = true,
 	...props
-}: SheetPrimitive.Popup.Props & {
-	side?: "top" | "right" | "bottom" | "left";
-	showCloseButton?: boolean;
-}) {
+}: Omit<Dialog.Popup.Props, "className" | "render" | "style"> &
+	Pick<React.ComponentProps<"div">, "className" | "style"> & {
+		side?: "top" | "right" | "bottom" | "left";
+		showCloseButton?: boolean;
+	}) {
+	const isBottom = side === "bottom";
+	const Popup = isBottom ? SheetPrimitive.Popup : Dialog.Popup;
+	const popup = (
+		<Popup
+			data-slot="sheet-content"
+			data-side={side}
+			className={cn(
+				"cn-sheet-content data-ending-style:opacity-0 data-starting-style:opacity-0 data-[side=bottom]:data-ending-style:translate-y-[calc(var(--drawer-swipe-movement-y,0px)+2.5rem)] data-[side=bottom]:data-starting-style:translate-y-[2.5rem] data-[side=left]:data-ending-style:translate-x-[-2.5rem] data-[side=left]:data-starting-style:translate-x-[-2.5rem] data-[side=right]:data-ending-style:translate-x-[2.5rem] data-[side=right]:data-starting-style:translate-x-[2.5rem] data-[side=top]:data-ending-style:translate-y-[-2.5rem] data-[side=top]:data-starting-style:translate-y-[-2.5rem]",
+				className,
+			)}
+			{...props}
+		>
+			{isBottom && (
+				<div
+					data-slot="sheet-handle"
+					aria-hidden="true"
+					className="cn-sheet-handle"
+				/>
+			)}
+			{children}
+			{showCloseButton && (
+				<SheetPrimitive.Close
+					data-slot="sheet-close"
+					render={
+						<Button variant="ghost" className="cn-sheet-close" size="icon-sm" />
+					}
+				>
+					<RiCloseLine />
+					<span className="sr-only">Close</span>
+				</SheetPrimitive.Close>
+			)}
+		</Popup>
+	);
+
 	return (
 		<SheetPortal>
 			<SheetOverlay />
-			<SheetPrimitive.Popup
-				data-slot="sheet-content"
-				data-side={side}
-				className={cn(
-					"cn-sheet-content data-ending-style:opacity-0 data-starting-style:opacity-0 data-[side=bottom]:data-ending-style:translate-y-[2.5rem] data-[side=bottom]:data-starting-style:translate-y-[2.5rem] data-[side=left]:data-ending-style:translate-x-[-2.5rem] data-[side=left]:data-starting-style:translate-x-[-2.5rem] data-[side=right]:data-ending-style:translate-x-[2.5rem] data-[side=right]:data-starting-style:translate-x-[2.5rem] data-[side=top]:data-ending-style:translate-y-[-2.5rem] data-[side=top]:data-starting-style:translate-y-[-2.5rem]",
-					className,
-				)}
-				{...props}
-			>
-				{children}
-				{showCloseButton && (
-					<SheetPrimitive.Close
-						data-slot="sheet-close"
-						render={
-							<Button
-								variant="ghost"
-								className="cn-sheet-close"
-								size="icon-sm"
-							/>
-						}
-					>
-						<RiCloseLine />
-						<span className="sr-only">Close</span>
-					</SheetPrimitive.Close>
-				)}
-			</SheetPrimitive.Popup>
+			{isBottom ? (
+				<SheetPrimitive.Viewport data-slot="sheet-viewport">
+					{popup}
+				</SheetPrimitive.Viewport>
+			) : (
+				popup
+			)}
 		</SheetPortal>
 	);
 }
