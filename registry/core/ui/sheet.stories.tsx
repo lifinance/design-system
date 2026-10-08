@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { expect, screen, waitFor } from "storybook/test";
+import { expect, fn, screen, waitFor } from "storybook/test";
 import {
 	pressUntil,
 	waitForFocusWithin,
@@ -41,6 +41,67 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 const SIDES = ["top", "right", "bottom", "left"] as const;
+
+// Base UI dismisses a down swipe past half the sheet height, or at 0.5 px/ms.
+const SHORT_DRAG_PX = 24;
+const LONG_DRAG_FRACTION = 0.75;
+const DRAG_STEPS = 6;
+const SLOW_STEP_MS = 40;
+const SCROLL_OFFSET_PX = 120;
+const ORDER_ROWS = Array.from(
+	{ length: 20 },
+	(_, row) => `Order row ${row + 1}`,
+);
+
+const pause = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
+function touchAt(target: Element, x: number, y: number) {
+	return new Touch({ identifier: 1, target, clientX: x, clientY: y });
+}
+
+function getSheetHandle(sheet: HTMLElement) {
+	const handle = sheet.querySelector('[data-slot="sheet-handle"]');
+	if (!handle) throw new Error("The bottom sheet renders no handle.");
+	return handle;
+}
+
+async function touchDrag(target: Element, distance: number) {
+	const box = target.getBoundingClientRect();
+	const x = box.left + box.width / 2;
+	const y = box.top + box.height / 2;
+	const start = touchAt(target, x, y);
+	target.dispatchEvent(
+		new TouchEvent("touchstart", {
+			bubbles: true,
+			cancelable: true,
+			touches: [start],
+			targetTouches: [start],
+			changedTouches: [start],
+		}),
+	);
+	let last = start;
+	for (let step = 1; step <= DRAG_STEPS; step++) {
+		await pause(SLOW_STEP_MS);
+		last = touchAt(target, x, y + (distance * step) / DRAG_STEPS);
+		target.dispatchEvent(
+			new TouchEvent("touchmove", {
+				bubbles: true,
+				cancelable: true,
+				touches: [last],
+				targetTouches: [last],
+				changedTouches: [last],
+			}),
+		);
+	}
+	await pause(SLOW_STEP_MS);
+	target.dispatchEvent(
+		new TouchEvent("touchend", {
+			bubbles: true,
+			cancelable: true,
+			changedTouches: [last],
+		}),
+	);
+}
 
 export const Default: Story = {
 	render: () => (
@@ -140,6 +201,72 @@ export const SidesWithDelayedHandover: Story = {
 	...Sides,
 	tags: ["!autodocs"],
 	play: withDelayedKeyboardHandover(Sides.play),
+};
+
+export const BottomSwipeToDismiss: Story = {
+	tags: ["!autodocs"],
+	args: { onOpenChange: fn() },
+	render: (args) => (
+		<Sheet onOpenChange={args.onOpenChange}>
+			<SheetTrigger render={<Button variant="outline" />}>
+				Open order
+			</SheetTrigger>
+			<SheetContent side="bottom" showCloseButton={false}>
+				<SheetHeader>
+					<SheetTitle>Order form</SheetTitle>
+					<SheetDescription>Swipe down to close this panel.</SheetDescription>
+				</SheetHeader>
+				<div
+					data-testid="sheet-scroll-body"
+					className="flex max-h-24 flex-col gap-2 overflow-y-auto px-4"
+				>
+					{ORDER_ROWS.map((row) => (
+						<p key={row}>{row}</p>
+					))}
+				</div>
+				<SheetFooter>
+					<SheetClose render={<Button variant="outline" />}>Close</SheetClose>
+				</SheetFooter>
+			</SheetContent>
+		</Sheet>
+	),
+	play: async ({ args, canvas, userEvent }) => {
+		await userEvent.click(canvas.getByRole("button", { name: /open order/i }));
+		const sheet = await screen.findByRole("dialog");
+		await waitFor(() => expect(sheet).toBeVisible());
+		await waitFor(() =>
+			expect(sheet).not.toHaveAttribute("data-starting-style"),
+		);
+
+		const handle = getSheetHandle(sheet);
+		await expect(handle).toBeVisible();
+
+		await touchDrag(handle, SHORT_DRAG_PX);
+		await pause(SLOW_STEP_MS);
+		await expect(args.onOpenChange).not.toHaveBeenCalledWith(
+			false,
+			expect.anything(),
+		);
+		await expect(sheet).toBeVisible();
+
+		const body = screen.getByTestId("sheet-scroll-body");
+		body.scrollTop = SCROLL_OFFSET_PX;
+		await touchDrag(body, sheet.offsetHeight * LONG_DRAG_FRACTION);
+		await pause(SLOW_STEP_MS);
+		await expect(args.onOpenChange).not.toHaveBeenCalledWith(
+			false,
+			expect.anything(),
+		);
+		await expect(sheet).toBeVisible();
+
+		await touchDrag(handle, sheet.offsetHeight * LONG_DRAG_FRACTION);
+		await waitFor(() =>
+			expect(args.onOpenChange).toHaveBeenCalledWith(false, expect.anything()),
+		);
+		await waitFor(() =>
+			expect(screen.queryByRole("dialog")).not.toBeInTheDocument(),
+		);
+	},
 };
 
 export const WithoutCloseButton: Story = {
