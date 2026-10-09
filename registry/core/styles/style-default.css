@@ -145,6 +145,10 @@
 	@apply bg-warning/15 text-warning [a]:hover:bg-warning/25;
 }
 
+.cn-badge-variant-gold {
+	@apply bg-gold/15 text-gold [a]:hover:bg-gold/25;
+}
+
 /* MARK: Breadcrumb */
 .cn-breadcrumb-list {
 	@apply text-muted-foreground gap-1.5 text-sm;
