@@ -23,7 +23,7 @@ Registration is required. Tailwind generates a utility only for a variable decla
 
 Token names are lowercase and hyphen-separated. There are two kinds.
 
-**Role tokens** carry no prefix. They are the shadcn base (`--background`, `--primary`, `--radius`, `--ring`) plus the few roles a brand needs that shadcn omits (`--success`, `--warning`, `--info`). Reach for a role token first.
+**Role tokens** carry no prefix. They are the shadcn base (`--background`, `--primary`, `--radius`, `--ring`) plus the few roles a brand needs that shadcn omits (`--success`, `--warning`, `--info`, `--gold`). Reach for a role token first.
 
 **Variant-state color tokens** start with `--lifi-`, then name the component, variant, and state, such as `--lifi-button-primary-hover`. Each derives from a role token by default. A brand overrides one only when it needs a different color. The names match the W3C Design Tokens format, where `--lifi-button-primary-hover` is the path `lifi.button.primary.hover`.
 
@@ -36,6 +36,8 @@ Each color token produces the full set of Tailwind color utilities (`bg-*`, `tex
 Core values use OKLCH. Signed product themes preserve their approved sRGB channels and alpha exactly. Do not convert those values to OKLCH or replace a translucent role with an opaque approximation.
 
 `--link`, `--destructive-subtle-foreground`, `--success-subtle-foreground`, and `--info-subtle-foreground` are text-only role tokens. Use `text-link` on a page surface. Use the other three on the matching feedback tint.
+
+`--gold` marks a gold tier or rank, such as a step of a reward ladder. Apply it as text on its own tint (`text-gold` on `bg-gold/15`), as the gold badge does.
 
 Named state colors are independent tokens. For example, `--input-30` is an approved surface color and is not equivalent to applying 30% opacity to `--input`.
 

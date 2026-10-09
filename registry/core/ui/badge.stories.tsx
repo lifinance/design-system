@@ -27,6 +27,7 @@ const meta = {
 				"success",
 				"info",
 				"warning",
+				"gold",
 				"destructive",
 				"outline",
 				"ghost",
@@ -52,6 +53,7 @@ export const Overview: Story = {
 			<Badge variant="success">Success</Badge>
 			<Badge variant="info">Info</Badge>
 			<Badge variant="warning">Warning</Badge>
+			<Badge variant="gold">Gold</Badge>
 			<Badge variant="destructive">Destructive</Badge>
 			<Badge variant="outline">Outline</Badge>
 			<Badge variant="ghost">Ghost</Badge>
@@ -73,7 +75,7 @@ export const TintsOnSurfaces: Story = {
 		docs: {
 			description: {
 				story:
-					"The success, info, warning, and destructive variants are tints: a feedback color at low opacity. A tint is translucent, so the surface behind it sets the rendered contrast of the label. Use a tinted variant on a surface token, which is what this story shows. A tint over an action token (`bg-primary`, `bg-secondary`, `bg-accent`) is unsupported, because an action token is a filled control that pairs with its own foreground token.",
+					"The success, info, warning, gold, and destructive variants are tints: a role color at low opacity. A tint is translucent, so the surface behind it sets the rendered contrast of the label. Use a tinted variant on a surface token, which is what this story shows. A tint over an action token (`bg-primary`, `bg-secondary`, `bg-accent`) is unsupported, because an action token is a filled control that pairs with its own foreground token.",
 			},
 		},
 	},
@@ -88,6 +90,7 @@ export const TintsOnSurfaces: Story = {
 					<Badge variant="success">Success</Badge>
 					<Badge variant="info">Info</Badge>
 					<Badge variant="warning">Warning</Badge>
+					<Badge variant="gold">Gold</Badge>
 					<Badge variant="destructive">Destructive</Badge>
 				</div>
 			))}

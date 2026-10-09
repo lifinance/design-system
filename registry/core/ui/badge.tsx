@@ -15,6 +15,7 @@ const badgeVariants = cva(
 				success: "cn-badge-variant-success",
 				info: "cn-badge-variant-info",
 				warning: "cn-badge-variant-warning",
+				gold: "cn-badge-variant-gold",
 				destructive: "cn-badge-variant-destructive",
 				outline: "cn-badge-variant-outline",
 				ghost: "cn-badge-variant-ghost",

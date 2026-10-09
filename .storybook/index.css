@@ -25,6 +25,7 @@
 	--color-destructive: var(--destructive);
 	--color-success: var(--success);
 	--color-warning: var(--warning);
+	--color-gold: var(--gold);
 	--color-info: var(--info);
 	--color-link: var(--link);
 	--color-destructive-subtle-foreground: var(--destructive-subtle-foreground);
