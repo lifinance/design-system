@@ -92,7 +92,12 @@ const TEXT_ON_SURFACE: TextRow[] = [
 	},
 ];
 
-const HIGHLIGHTS: ColorRow[] = [{ name: "gold", use: "Gold tiers and ranks" }];
+const TIERS: ColorRow[] = [
+	{ name: "bronze", use: "Bronze tiers and ranks" },
+	{ name: "silver", use: "Silver tiers and ranks" },
+	{ name: "gold", use: "Gold tiers and ranks" },
+	{ name: "diamond", use: "Diamond tiers and ranks" },
+];
 
 const ROLE_RADIUS: RadiusRow[] = [
 	{
@@ -178,7 +183,7 @@ export const Colors: Story = {
 			<ColorTokenTable caption="Surfaces" rows={SURFACES} />
 			<ColorTokenTable caption="Actions" rows={ACTIONS} />
 			<ColorTokenTable caption="Feedback" rows={FEEDBACK} />
-			<ColorTokenTable caption="Highlights" rows={HIGHLIGHTS} />
+			<ColorTokenTable caption="Tiers" rows={TIERS} />
 			<ColorTokenTable caption="Lines and focus" rows={LINES} />
 			<TextTokenTable caption="Text on surface" rows={TEXT_ON_SURFACE} />
 		</div>
