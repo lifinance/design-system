@@ -145,8 +145,20 @@
 	@apply bg-warning/15 text-warning [a]:hover:bg-warning/25;
 }
 
+.cn-badge-variant-bronze {
+	@apply bg-bronze-10 text-bronze [a]:hover:bg-bronze-20;
+}
+
+.cn-badge-variant-silver {
+	@apply bg-silver-10 text-silver [a]:hover:bg-silver-20;
+}
+
 .cn-badge-variant-gold {
-	@apply bg-gold/15 text-gold [a]:hover:bg-gold/25;
+	@apply bg-gold-10 text-gold [a]:hover:bg-gold-20;
+}
+
+.cn-badge-variant-diamond {
+	@apply bg-diamond-10 text-diamond [a]:hover:bg-diamond-20;
 }
 
 /* MARK: Breadcrumb */
