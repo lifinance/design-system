@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, fn, waitFor } from "storybook/test";
+import { hover } from "@/.storybook/interactions";
 import { snapshot } from "@/.storybook/modes";
 import { Field, FieldLabel } from "./field";
 import { Slider } from "./slider";
@@ -136,6 +137,42 @@ export const Disabled: Story = {
 	),
 	play: async ({ canvas }) => {
 		await expect(canvas.getByRole("slider", { name: "Volume" })).toBeDisabled();
+	},
+};
+
+// The tags keep this test-only story out of the sidebar and the docs page.
+export const FocusAndHoverShowTheThumbRing: Story = {
+	tags: ["!autodocs", "!dev"],
+	render: (args) => (
+		<Field>
+			<FieldLabel id="slider-ring-label" htmlFor="slider-ring">
+				Volume
+			</FieldLabel>
+			<Slider
+				id="slider-ring"
+				aria-labelledby="slider-ring-label"
+				defaultValue={50}
+				{...args}
+			/>
+		</Field>
+	),
+	play: async ({ canvas, userEvent }) => {
+		const slider = canvas.getByRole("slider", { name: "Volume" });
+		const thumb = slider.closest('[data-slot="slider-thumb"]');
+		if (!thumb) throw new Error("The slider input is outside a thumb.");
+		const ring = () => getComputedStyle(thumb).boxShadow;
+		await expect(ring()).toBe("none");
+
+		await userEvent.tab();
+		await expect(slider).toHaveFocus();
+		await waitFor(() => expect(ring()).toContain("0px 0px 0px 3px"));
+
+		await userEvent.tab();
+		await expect(slider).not.toHaveFocus();
+		await waitFor(() => expect(ring()).toBe("none"));
+
+		await hover(thumb);
+		await waitFor(() => expect(ring()).toContain("0px 0px 0px 3px"));
 	},
 };
 
