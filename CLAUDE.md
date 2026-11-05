@@ -55,3 +55,5 @@ Note: the shadcn MCP only exposes the default Radix `@shadcn` registry, so for B
 - Solve the root cause, not the symptom. A `biome-ignore` is allowed only when it suppresses a rule that is wrong for genuinely correct code, with a short factual reason; it must never hide a fixable problem (key a list by a stable field, do not silence the index-key rule).
 - Verify accessibility against the official WAI-ARIA specification and Authoring Practices (and the `aria` MCP), not against axe alone. A clean axe run is necessary but not sufficient; confirm required roles, names, states, and relationships against the spec.
 - When a fix turns on runtime behavior (does a primitive emit an attribute, does a utility compile), confirm it by running the code, not by reading source.
+- Use `pnpm test:affected` (only the tests affected since the last run) for the fast loop from the CLI; it narrows only the node `unit` project, because Vitest 5.1 records no dependencies for browser projects, so those always run in full.
+  Run the full `pnpm test:storybook` before pushing.
