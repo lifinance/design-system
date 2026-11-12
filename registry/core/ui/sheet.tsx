@@ -41,9 +41,11 @@ function SheetContent({
 	children,
 	side = "right",
 	showCloseButton = true,
+	container,
 	...props
 }: Omit<Dialog.Popup.Props, "className" | "render" | "style"> &
-	Pick<React.ComponentProps<"div">, "className" | "style"> & {
+	Pick<React.ComponentProps<"div">, "className" | "style"> &
+	Pick<SheetPrimitive.Portal.Props, "container"> & {
 		side?: "top" | "right" | "bottom" | "left";
 		showCloseButton?: boolean;
 	}) {
@@ -82,7 +84,7 @@ function SheetContent({
 	);
 
 	return (
-		<SheetPortal>
+		<SheetPortal container={container}>
 			<SheetOverlay />
 			{isBottom ? (
 				<SheetPrimitive.Viewport data-slot="sheet-viewport">
