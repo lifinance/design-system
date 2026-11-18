@@ -29,6 +29,7 @@ const meta = {
 				"outline",
 				"ghost",
 				"destructive",
+				"success",
 				"link",
 			],
 		},
@@ -79,6 +80,10 @@ export const Destructive: Story = {
 	args: { variant: "destructive" },
 };
 
+export const Success: Story = {
+	args: { variant: "success" },
+};
+
 export const Disabled: Story = {
 	args: { disabled: true },
 	play: async ({ canvas }) => {
@@ -112,6 +117,7 @@ export const Overview: Story = {
 				<Button variant="outline">Outline</Button>
 				<Button variant="ghost">Ghost</Button>
 				<Button variant="destructive">Destructive</Button>
+				<Button variant="success">Success</Button>
 				<Button variant="link">Link</Button>
 			</div>
 			<div className="flex flex-wrap items-center gap-2">
