@@ -62,7 +62,7 @@ Use a role token when one fits. Mint a variant-state color token (`--lifi-<compo
 - Drop the source's fixed measurements (`h-[420px]`, `w-[323px]`); use a scale step or a proportional rule such as `aspect-square` with a fluid `w-full`.
 - Normalize the API to our idiom: prefer children and slots over `startIcon` / `endIcon` / `label` prop bags.
 
-Authoring conventions, token use, sizing, naming, and prose follow `CLAUDE.md` and the `design-tokens` and `writing` skills; they are not repeated here.
+Authoring conventions, token use, sizing, naming, and prose follow `AGENTS.md` and the `design-tokens` and `writing` skills; they are not repeated here.
 
 ## Verify in both light and dark
 
