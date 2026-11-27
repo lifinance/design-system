@@ -1,6 +1,6 @@
 #!/bin/bash
 # UserPromptSubmit hook. When a prompt asks to migrate or port a component,
-# injects the requirement to use the migration skill (see CLAUDE.md).
+# injects the requirement to use the migration skill (see AGENTS.md).
 
 command -v jq >/dev/null || exit 0
 prompt=$(jq -r '.prompt // empty')

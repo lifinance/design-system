@@ -1,6 +1,6 @@
 #!/bin/bash
 # PreToolUse hook for Write|Edit. Maps the target file to the project skills that
-# govern it (see CLAUDE.md) and blocks the edit until each governing skill has
+# govern it (see AGENTS.md) and blocks the edit until each governing skill has
 # been invoked in this session. Vendored skill files (skills-lock.json) are
 # rejected outright. If the transcript cannot be read, it degrades to a
 # non-blocking reminder rather than deadlocking.
