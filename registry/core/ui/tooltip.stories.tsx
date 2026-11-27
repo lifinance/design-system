@@ -201,6 +201,83 @@ export const ComposedTrigger: Story = {
 	},
 };
 
+/** Asserts a tip that mounts only while open: the trigger keeps one resolved
+ * description throughout, and the open popup is the element it references. */
+async function expectMountedOnlyWhileOpen(
+	trigger: HTMLElement,
+	userEvent: Parameters<NonNullable<Story["play"]>>[0]["userEvent"],
+	description: RegExp,
+) {
+	await expect(
+		screen.queryByRole("tooltip", { hidden: true }),
+	).not.toBeInTheDocument();
+	await expect(trigger).toHaveAccessibleDescription(description);
+
+	await userEvent.hover(trigger);
+	const tip = await screen.findByRole("tooltip");
+	await waitFor(() => expect(tip).toBeVisible());
+	await expect(trigger).toHaveAttribute("aria-describedby", tip.id);
+	await expect(document.querySelectorAll(`[id="${tip.id}"]`)).toHaveLength(1);
+
+	await userEvent.unhover(trigger);
+	await waitFor(() =>
+		expect(
+			screen.queryByRole("tooltip", { hidden: true }),
+		).not.toBeInTheDocument(),
+	);
+	await expect(trigger).toHaveAccessibleDescription(description);
+}
+
+/** With `keepMounted={false}`, the popup leaves the DOM while closed. Use it
+ * for tips rendered many times, such as one per table row. */
+export const MountedWhileOpen: Story = {
+	render: () => (
+		<Tooltip>
+			<TooltipTrigger render={<Button variant="outline" />}>
+				Add to library
+			</TooltipTrigger>
+			<TooltipContent keepMounted={false}>
+				Saves this item to your library
+			</TooltipContent>
+		</Tooltip>
+	),
+	play: async ({ canvas, userEvent }) => {
+		await expectMountedOnlyWhileOpen(
+			canvas.getByRole("button", { name: /add to library/i }),
+			userEvent,
+			/^saves this item to your library$/i,
+		);
+	},
+};
+
+/** Formatted content that mounts only while open needs a plain-text
+ * `description` for the trigger. */
+export const FormattedMountedWhileOpen: Story = {
+	render: () => (
+		<Tooltip>
+			<TooltipTrigger render={<Button variant="outline" />}>
+				Status
+			</TooltipTrigger>
+			<TooltipContent
+				keepMounted={false}
+				description="Active, last updated a few minutes ago"
+			>
+				<div className="flex flex-col gap-1">
+					<p className="font-semibold">Active</p>
+					<p className="opacity-80">Last updated a few minutes ago</p>
+				</div>
+			</TooltipContent>
+		</Tooltip>
+	),
+	play: async ({ canvas, userEvent }) => {
+		await expectMountedOnlyWhileOpen(
+			canvas.getByRole("button", { name: /status/i }),
+			userEvent,
+			/^active, last updated a few minutes ago$/i,
+		);
+	},
+};
+
 export const Overview: Story = {
 	parameters: { chromatic: snapshot },
 	render: () => (

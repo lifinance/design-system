@@ -527,10 +527,24 @@
 			"title": "Tooltip",
 			"description": "A popup that shows a hint when its trigger is hovered or focused.",
 			"dependencies": ["@base-ui/react"],
-			"registryDependencies": ["@core/tokens"],
+			"registryDependencies": ["@core/tokens", "@core/use-dev-warning"],
 			"files": [
 				{
 					"path": "registry/core/ui/tooltip.tsx",
+					"type": "registry:ui"
+				}
+			]
+		},
+		{
+			"name": "info-tip",
+			"type": "registry:ui",
+			"title": "Info tip",
+			"description": "An info icon that explains a nearby label on hover, focus, or tap.",
+			"dependencies": ["@base-ui/react", "@remixicon/react"],
+			"registryDependencies": ["@core/tokens", "@core/tooltip"],
+			"files": [
+				{
+					"path": "registry/core/ui/info-tip.tsx",
 					"type": "registry:ui"
 				}
 			]
@@ -871,6 +885,18 @@
 			]
 		},
 		{
+			"name": "use-dev-warning",
+			"type": "registry:hook",
+			"title": "Use Dev Warning",
+			"description": "A hook that logs a console warning once in development while a condition holds.",
+			"files": [
+				{
+					"path": "registry/core/hooks/use-dev-warning.ts",
+					"type": "registry:hook"
+				}
+			]
+		},
+		{
 			"name": "sidebar",
 			"type": "registry:ui",
 			"title": "Sidebar",
@@ -929,6 +955,7 @@
 				"@core/combobox",
 				"@core/popover",
 				"@core/tooltip",
+				"@core/info-tip",
 				"@core/switch",
 				"@core/progress",
 				"@core/radio-group",
